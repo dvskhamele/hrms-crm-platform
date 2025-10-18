@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Onboarding Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function TestButton() {
+            const handleClick = () => {
+                console.log('Button clicked!');
+                localStorage.setItem('onboardingComplete', 'true');
+                console.log('onboardingComplete set to:', localStorage.getItem('onboardingComplete'));
+                // Simulate navigation
+                console.log('Would navigate to /dashboard');
+            };
+            
+            return (
+                <div>
+                    <h1>Onboarding Test</h1>
+                    <button onClick={handleClick}>Complete Setup</button>
+                    <p>Check console for output when button is clicked</p>
+                </div>
+            );
+        }
+        
+        ReactDOM.render(<TestButton />, document.getElementById('root'));
+    </script>
+</body>
+</html>

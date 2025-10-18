@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Onboarding Button Test</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+        // Mock localStorage for testing
+        const mockLocalStorage = {};
+        Storage.prototype.setItem = function(key, value) {
+            mockLocalStorage[key] = value;
+            console.log(`localStorage.setItem('${key}', '${value}')`);
+        };
+        Storage.prototype.getItem = function(key) {
+            const value = mockLocalStorage[key];
+            console.log(`localStorage.getItem('${key}') returned '${value}'`);
+            return value;
+        };
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function TestButton() {
+            const [currentStep, setCurrentStep] = React.useState(4);
+            
+            const handleNext = () => {
+                console.log('handleNext called, currentStep:', currentStep);
+                if (currentStep < 4) {
+                    console.log('Moving to next step');
+                    setCurrentStep(currentStep + 1);
+                } else {
+                    // Complete onboarding
+                    console.log('Completing onboarding');
+                    localStorage.setItem('onboardingComplete', 'true');
+                    console.log('onboardingComplete set to:', localStorage.getItem('onboardingComplete'));
+                    console.log('Would navigate to /dashboard');
+                }
+            };
+            
+            return (
+                <div>
+                    <h1>Onboarding Button Test</h1>
+                    <p>Current Step: {currentStep}</p>
+                    <button 
+                        onClick={(e) => {
+                            console.log('Button clicked!');
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleNext();
+                        }}
+                        className="px-7 py-3.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl font-semibold text-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 flex items-center justify-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5 enhanced-btn"
+                    >
+                        {currentStep === 4 ? 'Complete Setup' : 'Continue'}
+                    </button>
+                    <p>Check console for output when button is clicked</p>
+                </div>
+            );
+        }
+        
+        ReactDOM.render(<TestButton />, document.getElementById('root'));
+    </script>
+</body>
+</html>

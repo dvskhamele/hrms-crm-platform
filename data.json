@@ -1,0 +1,728 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@gem.com",
+      "password": "password123",
+      "name": "Admin User",
+      "role": "ADMIN"
+    },
+    {
+      "id": 2,
+      "email": "test@example.com",
+      "password": "password123",
+      "name": "Test User",
+      "companyName": "N/A",
+      "companySize": "N/A",
+      "role": "ADMIN",
+      "createdAt": "2025-10-14T19:46:43.781Z"
+    },
+    {
+      "id": 3,
+      "email": "testuser@example.com",
+      "password": "password123",
+      "name": "Test User",
+      "companyName": "N/A",
+      "companySize": "N/A",
+      "role": "ADMIN",
+      "createdAt": "2025-10-14T20:19:07.695Z"
+    }
+  ],
+  "positions": [
+    {
+      "id": 1,
+      "title": "Software Engineer",
+      "department": "Technology",
+      "status": "IN_REVIEW",
+      "updatedAt": "2025-10-17T11:57:10.960Z"
+    },
+    {
+      "id": 2,
+      "title": "Marketing Manager",
+      "department": "Marketing",
+      "status": "ON_HOLD",
+      "updatedAt": "2025-10-17T12:38:10.490Z"
+    },
+    {
+      "id": 3,
+      "title": "Sales Associate",
+      "department": "Sales",
+      "status": "FILLED",
+      "updatedAt": "2025-10-14T17:46:14.754Z"
+    },
+    {
+      "id": 4,
+      "title": "HR Director",
+      "department": "Human Resources",
+      "status": "ON_HOLD",
+      "updatedAt": "2025-10-14T16:46:14.754Z"
+    },
+    {
+      "id": 5,
+      "title": "Product Designer",
+      "department": "Technology",
+      "status": "FILLED",
+      "updatedAt": "2025-10-17T11:57:10.963Z"
+    },
+    {
+      "id": 6,
+      "title": "Content Writer",
+      "department": "Marketing",
+      "status": "OPEN",
+      "updatedAt": "2025-10-14T19:46:14.754Z"
+    },
+    {
+      "id": 7,
+      "title": "DevOps Engineer",
+      "department": "Technology",
+      "status": "OPEN",
+      "updatedAt": "2025-10-14T19:46:14.754Z"
+    },
+    {
+      "id": 8,
+      "title": "Account Executive",
+      "department": "Sales",
+      "status": "IN_REVIEW",
+      "updatedAt": "2025-10-14T18:46:14.754Z"
+    }
+  ],
+  "recruiters": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "department": "Technology",
+      "position": "Senior Recruiter",
+      "status": "Break",
+      "email": "alice.johnson@gem.com",
+      "phone": "+1234567890",
+      "hireDate": "2022-01-15",
+      "performance": 92,
+      "schedule": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "department": "Marketing",
+      "position": "Recruiter",
+      "status": "Active",
+      "email": "bob.smith@gem.com",
+      "phone": "+1234567891",
+      "hireDate": "2022-03-22",
+      "performance": 87,
+      "schedule": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 3,
+      "name": "Carol Davis",
+      "department": "Sales",
+      "position": "Recruiter",
+      "status": "Offline",
+      "email": "carol.davis@gem.com",
+      "phone": "+1234567892",
+      "hireDate": "2021-11-05",
+      "performance": 95,
+      "schedule": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 4,
+      "name": "David Wilson",
+      "department": "Human Resources",
+      "position": "Recruitment Manager",
+      "status": "Active",
+      "email": "david.wilson@gem.com",
+      "phone": "+1234567893",
+      "hireDate": "2020-07-18",
+      "performance": 88,
+      "schedule": "8:00 AM - 4:00 PM"
+    },
+    {
+      "id": 5,
+      "name": "Eva Brown",
+      "department": "Technology",
+      "position": "Recruiter",
+      "status": "Break",
+      "email": "eva.brown@gem.com",
+      "phone": "+1234567894",
+      "hireDate": "2023-02-10",
+      "performance": 91,
+      "schedule": "8:00 AM - 4:00 PM"
+    }
+  ],
+  "applications": [
+    {
+      "id": 1,
+      "candidateName": "John Doe",
+      "positionId": 1,
+      "title": "Software Engineer Application",
+      "department": "Technology",
+      "priority": "MEDIUM",
+      "status": "IN_PROGRESS",
+      "createdAt": "2025-10-14T18:46:14.754Z"
+    },
+    {
+      "id": 2,
+      "candidateName": "Jane Smith",
+      "positionId": 2,
+      "title": "Marketing Manager Application",
+      "department": "Marketing",
+      "priority": "HIGH",
+      "status": "IN_PROGRESS",
+      "createdAt": "2025-10-14T17:46:14.754Z"
+    },
+    {
+      "id": 3,
+      "candidateName": "Robert Johnson",
+      "positionId": 3,
+      "title": "Sales Associate Application",
+      "department": "Sales",
+      "priority": "URGENT",
+      "status": "PENDING",
+      "createdAt": "2025-10-14T16:46:14.754Z"
+    },
+    {
+      "id": 4,
+      "candidateName": "Emily Wilson",
+      "positionId": 4,
+      "title": "HR Director Application",
+      "department": "Human Resources",
+      "priority": "LOW",
+      "status": "COMPLETED",
+      "createdAt": "2025-10-14T15:46:14.754Z",
+      "completedAt": "2025-10-14T16:16:14.754Z"
+    },
+    {
+      "id": 5,
+      "candidateName": "Jane Candidate",
+      "positionId": 1,
+      "title": "Software Engineer Application",
+      "description": "No description",
+      "department": "Technology",
+      "priority": "MEDIUM",
+      "status": "PENDING",
+      "createdAt": "2025-10-14T19:46:57.499Z"
+    },
+    {
+      "id": 6,
+      "candidateName": "Test Candidate",
+      "positionId": 1,
+      "title": "Software Developer Application",
+      "description": "Experienced software developer with React and Node.js skills",
+      "department": "Technology",
+      "priority": "HIGH",
+      "status": "PENDING",
+      "createdAt": "2025-10-17T11:57:10.959Z"
+    },
+    {
+      "id": 7,
+      "candidateName": "Hire Candidate",
+      "positionId": 5,
+      "title": "Product Manager Application",
+      "description": "No description",
+      "department": "Technology",
+      "priority": "HIGH",
+      "status": "COMPLETED",
+      "createdAt": "2025-10-17T11:57:10.961Z",
+      "completedAt": "2025-10-17T11:57:10.963Z"
+    },
+    {
+      "id": 8,
+      "candidateName": "API Test Candidate",
+      "positionId": 2,
+      "title": "Senior Developer Application",
+      "description": "Testing API candidate application",
+      "department": "Technology",
+      "priority": "HIGH",
+      "status": "IN_PROGRESS",
+      "createdAt": "2025-10-17T12:38:10.486Z"
+    }
+  ],
+  "candidates": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "+1234567890",
+      "positionApplied": "Software Engineer",
+      "status": "Interview Scheduled",
+      "skills": [
+        "JavaScript",
+        "React",
+        "Node.js"
+      ],
+      "experience": "5 years",
+      "resume": "https://example.com/resume1.pdf",
+      "appliedDate": "2025-10-14T18:46:14.754Z"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "phone": "+1234567891",
+      "positionApplied": "Marketing Manager",
+      "status": "Under Review",
+      "skills": [
+        "SEO",
+        "Content Marketing",
+        "Analytics"
+      ],
+      "experience": "7 years",
+      "resume": "https://example.com/resume2.pdf",
+      "appliedDate": "2025-10-14T17:46:14.754Z"
+    },
+    {
+      "id": 3,
+      "name": "Robert Johnson",
+      "email": "robert.johnson@example.com",
+      "phone": "+1234567892",
+      "positionApplied": "Sales Associate",
+      "status": "Interview Scheduled",
+      "skills": [
+        "Sales",
+        "Communication",
+        "CRM"
+      ],
+      "experience": "4 years",
+      "resume": "https://example.com/resume3.pdf",
+      "appliedDate": "2025-10-14T16:46:14.754Z"
+    },
+    {
+      "id": 4,
+      "name": "Emily Wilson",
+      "email": "emily.wilson@example.com",
+      "phone": "+1234567893",
+      "positionApplied": "HR Director",
+      "status": "Hired",
+      "skills": [
+        "HR Strategy",
+        "Leadership",
+        "Compliance"
+      ],
+      "experience": "10 years",
+      "resume": "https://example.com/resume4.pdf",
+      "appliedDate": "2025-10-14T15:46:14.754Z"
+    },
+    {
+      "id": 5,
+      "name": "Test Candidate",
+      "email": "test.candidate@example.com",
+      "phone": "+1234567895",
+      "positionApplied": "Software Developer",
+      "status": "Applied",
+      "skills": [
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Python"
+      ],
+      "experience": "3 years",
+      "resume": "https://example.com/test-resume.pdf",
+      "appliedDate": "2025-10-17T11:57:10.958Z",
+      "linkedin": "https://linkedin.com/in/test-candidate"
+    },
+    {
+      "id": 6,
+      "name": "Hire Candidate",
+      "email": "hire.candidate@example.com",
+      "phone": "",
+      "positionApplied": "Product Manager",
+      "status": "Hired",
+      "skills": [],
+      "experience": "Not specified",
+      "resume": "Not provided",
+      "appliedDate": "2025-10-17T11:57:10.961Z"
+    },
+    {
+      "id": 7,
+      "name": "API Test Candidate",
+      "email": "api.test@example.com",
+      "phone": "+1234567899",
+      "positionApplied": "Senior Developer",
+      "status": "Interview Scheduled",
+      "skills": [
+        "JavaScript",
+        "React",
+        "Node.js"
+      ],
+      "experience": "5 years",
+      "resume": "Not provided",
+      "appliedDate": "2025-10-17T12:38:10.486Z"
+    }
+  ],
+  "departments": [
+    {
+      "id": 1,
+      "name": "Technology",
+      "head": "Alice Johnson",
+      "recruiterCount": 2,
+      "performance": 92
+    },
+    {
+      "id": 2,
+      "name": "Marketing",
+      "head": "David Wilson",
+      "recruiterCount": 3,
+      "performance": 88
+    },
+    {
+      "id": 3,
+      "name": "Sales",
+      "head": "Frank Miller",
+      "recruiterCount": 4,
+      "performance": 93
+    },
+    {
+      "id": 4,
+      "name": "Human Resources",
+      "head": "Kate Williams",
+      "recruiterCount": 3,
+      "performance": 94
+    }
+  ],
+  "activity": [
+    {
+      "id": 1,
+      "type": "application",
+      "title": "New application received",
+      "description": "John Doe - Software Engineer",
+      "timestamp": "2025-10-14T19:46:14.754Z",
+      "status": "PENDING"
+    },
+    {
+      "id": 2,
+      "type": "position",
+      "title": "Position status updated",
+      "description": "Software Engineer marked as Open",
+      "timestamp": "2025-10-14T18:46:14.754Z",
+      "status": "OPEN"
+    },
+    {
+      "id": 3,
+      "type": "application",
+      "title": "Application completed",
+      "description": "Jane Smith - Marketing Manager",
+      "timestamp": "2025-10-14T17:46:14.754Z",
+      "status": "COMPLETED"
+    },
+    {
+      "id": 4,
+      "type": "position",
+      "title": "Position status updated",
+      "description": "HR Director marked as Closed",
+      "timestamp": "2025-10-14T16:46:14.754Z",
+      "status": "CLOSED"
+    },
+    {
+      "id": 5,
+      "type": "application",
+      "title": "New recruitment request",
+      "description": "Robert Johnson - Sales Associate",
+      "timestamp": "2025-10-14T15:46:14.754Z",
+      "status": "PENDING"
+    },
+    {
+      "id": 6,
+      "type": "recruiter",
+      "title": "Recruiter checked in",
+      "description": "Alice Johnson started shift",
+      "timestamp": "2025-10-14T14:46:14.754Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 7,
+      "type": "application",
+      "title": "New application created",
+      "description": "Jane Candidate - Software Engineer Application",
+      "timestamp": "2025-10-14T19:46:57.499Z",
+      "status": "PENDING"
+    },
+    {
+      "id": 8,
+      "type": "application",
+      "title": "New application received",
+      "description": "Test Candidate - Software Developer",
+      "timestamp": "2025-10-17T11:57:10.959Z",
+      "status": "LOGGED"
+    },
+    {
+      "id": 9,
+      "type": "application",
+      "title": "Application in_progress",
+      "description": "John Doe - Software Engineer Application",
+      "timestamp": "2025-10-17T11:57:10.959Z",
+      "status": "LOGGED"
+    },
+    {
+      "id": 10,
+      "type": "position",
+      "title": "Position status updated",
+      "description": "Software Engineer marked as IN_REVIEW",
+      "timestamp": "2025-10-17T11:57:10.960Z",
+      "status": "LOGGED"
+    },
+    {
+      "id": 11,
+      "type": "application",
+      "title": "New application received",
+      "description": "Hire Candidate - Product Manager",
+      "timestamp": "2025-10-17T11:57:10.961Z",
+      "status": "LOGGED"
+    },
+    {
+      "id": 12,
+      "type": "position",
+      "title": "Position status updated",
+      "description": "Product Designer marked as FILLED",
+      "timestamp": "2025-10-17T11:57:10.963Z",
+      "status": "LOGGED"
+    },
+    {
+      "id": 13,
+      "type": "application",
+      "title": "Application completed",
+      "description": "Hire Candidate - Product Manager Application",
+      "timestamp": "2025-10-17T11:57:10.963Z",
+      "status": "LOGGED"
+    },
+    {
+      "id": 14,
+      "type": "onboarding",
+      "title": "New hire onboarding started",
+      "description": "Hire Candidate hired for Product Manager Application",
+      "timestamp": "2025-10-17T11:57:10.966Z",
+      "status": "LOGGED"
+    },
+    {
+      "id": 15,
+      "type": "application",
+      "title": "New application received",
+      "description": "API Test Candidate - Senior Developer",
+      "timestamp": "2025-10-17T12:38:10.486Z",
+      "status": "LOGGED"
+    },
+    {
+      "id": 16,
+      "type": "application",
+      "title": "Application in_progress",
+      "description": "API Test Candidate - Senior Developer Application",
+      "timestamp": "2025-10-17T12:38:10.488Z",
+      "status": "LOGGED"
+    },
+    {
+      "id": 17,
+      "type": "position",
+      "title": "Position status updated",
+      "description": "Marketing Manager marked as ON_HOLD",
+      "timestamp": "2025-10-17T12:38:10.490Z",
+      "status": "LOGGED"
+    }
+  ],
+  "rooms": [
+    {
+      "id": 1,
+      "number": "101",
+      "floor": 1,
+      "type": "Standard",
+      "status": "OCCUPIED",
+      "updatedAt": "2025-10-14T18:46:14.754Z"
+    },
+    {
+      "id": 2,
+      "number": "102",
+      "floor": 1,
+      "type": "Standard",
+      "status": "DIRTY",
+      "updatedAt": "2025-10-14T17:46:14.754Z"
+    },
+    {
+      "id": 3,
+      "number": "201",
+      "floor": 2,
+      "type": "Deluxe",
+      "status": "CLEAN",
+      "updatedAt": "2025-10-14T16:46:14.754Z"
+    },
+    {
+      "id": 4,
+      "number": "202",
+      "floor": 2,
+      "type": "Suite",
+      "status": "OCCUPIED",
+      "updatedAt": "2025-10-14T15:46:14.754Z"
+    }
+  ],
+  "staff": [
+    {
+      "id": 1,
+      "name": "John Smith",
+      "department": "Housekeeping",
+      "position": "Housekeeper",
+      "status": "ACTIVE",
+      "email": "john.smith@hotel.com",
+      "phone": "+1234567890",
+      "hireDate": "2022-01-15",
+      "performance": 85,
+      "schedule": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 2,
+      "name": "Sarah Johnson",
+      "department": "Front Desk",
+      "position": "Receptionist",
+      "status": "ACTIVE",
+      "email": "sarah.johnson@hotel.com",
+      "phone": "+1234567891",
+      "hireDate": "2022-03-22",
+      "performance": 90,
+      "schedule": "9:00 AM - 5:00 PM"
+    },
+    {
+      "id": 3,
+      "name": "Mike Davis",
+      "department": "Maintenance",
+      "position": "Technician",
+      "status": "OFFLINE",
+      "email": "mike.davis@hotel.com",
+      "phone": "+1234567892",
+      "hireDate": "2021-11-05",
+      "performance": 88,
+      "schedule": "9:00 AM - 5:00 PM"
+    }
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "guestName": "Guest 1",
+      "roomNumber": "101",
+      "title": "Extra Towels",
+      "department": "Housekeeping",
+      "priority": "MEDIUM",
+      "status": "PENDING",
+      "createdAt": "2025-10-14T18:46:14.754Z"
+    },
+    {
+      "id": 2,
+      "guestName": "Guest 2",
+      "roomNumber": "102",
+      "title": "Room Service",
+      "department": "Food & Beverage",
+      "priority": "HIGH",
+      "status": "IN_PROGRESS",
+      "createdAt": "2025-10-14T17:46:14.754Z"
+    },
+    {
+      "id": 3,
+      "guestName": "Guest 3",
+      "roomNumber": "201",
+      "title": "WiFi Issue",
+      "department": "IT",
+      "priority": "HIGH",
+      "status": "PENDING",
+      "createdAt": "2025-10-14T16:46:14.754Z"
+    },
+    {
+      "id": 4,
+      "guestName": "Guest 4",
+      "roomNumber": "202",
+      "title": "Late Checkout",
+      "department": "Front Desk",
+      "priority": "LOW",
+      "status": "COMPLETED",
+      "createdAt": "2025-10-14T15:46:14.754Z",
+      "completedAt": "2025-10-14T16:16:14.754Z"
+    }
+  ],
+  "inventory": [
+    {
+      "id": 1,
+      "name": "Towels",
+      "category": "Linens",
+      "quantity": 50,
+      "minStock": 20,
+      "supplier": "ABC Linens",
+      "price": 5,
+      "lastOrdered": "2025-10-13T19:46:14.754Z"
+    },
+    {
+      "id": 2,
+      "name": "Shampoo",
+      "category": "Toiletries",
+      "quantity": 100,
+      "minStock": 30,
+      "supplier": "Clean Products Co.",
+      "price": 3.5,
+      "lastOrdered": "2025-10-12T19:46:14.754Z"
+    },
+    {
+      "id": 3,
+      "name": "Coffee",
+      "category": "Food & Beverage",
+      "quantity": 25,
+      "minStock": 10,
+      "supplier": "Brew Co.",
+      "price": 8,
+      "lastOrdered": "2025-10-11T19:46:14.754Z"
+    }
+  ],
+  "onboarding": [
+    {
+      "id": 1760471213611,
+      "candidateId": 1,
+      "positionId": 1,
+      "hireDate": "2025-10-15T00:00:00.000Z",
+      "status": "IN_PROGRESS",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Complete paperwork",
+          "completed": true
+        },
+        {
+          "id": 2,
+          "title": "IT setup",
+          "completed": false
+        },
+        {
+          "id": 3,
+          "title": "Orientation",
+          "completed": false
+        },
+        {
+          "id": 4,
+          "title": "Meet team",
+          "completed": false
+        }
+      ],
+      "createdAt": "2025-10-14T19:46:53.611Z"
+    },
+    {
+      "id": 1760702230966,
+      "candidateId": 6,
+      "positionId": 5,
+      "hireDate": "2025-10-17",
+      "status": "IN_PROGRESS",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Complete paperwork",
+          "completed": false
+        },
+        {
+          "id": 2,
+          "title": "IT setup",
+          "completed": false
+        },
+        {
+          "id": 3,
+          "title": "Orientation",
+          "completed": false
+        },
+        {
+          "id": 4,
+          "title": "Meet team",
+          "completed": false
+        }
+      ],
+      "createdAt": "2025-10-17T11:57:10.966Z"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
+
+// Create express app
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Serve static files from the frontend build directory
+app.use(express.static(path.join(__dirname, 'frontend', 'out')));
+
+// Serve index.html for all routes (client-side routing)
+app.get('*', (req, res) => {
+  const indexPath = path.join(__dirname, 'frontend', 'out', 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send('Not found');
+  }
+});
+
+// Start server
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`HRMS Recruitment Platform running on http://localhost:${PORT}`);
+  console.log('This is a frontend-only prototype using localStorage for data storage');
+});

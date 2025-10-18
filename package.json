@@ -1,0 +1,37 @@
+{
+  "name": "hrmscrm-platform",
+  "version": "2.0.0",
+  "description": "AI-first HRMS/CRM Recruiting Platform with Action-Triggered Automation",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm start",
+    "deploy": "./deploy.sh",
+    "deploy-frontend": "cd frontend && npx vercel --prod",
+    "deploy-backend": "cd backend && # Add your backend deployment command here",
+    "test": "echo 'Testing not configured yet'",
+    "lint": "cd frontend && npm run lint"
+  },
+  "keywords": [
+    "hrms",
+    "crm",
+    "recruiting",
+    "automation",
+    "nextjs",
+    "mongodb",
+    "ai"
+  ],
+  "author": "Gem AI Recruiting Platform",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/hrmscrm-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/hrmscrm-platform/issues"
+  },
+  "homepage": "https://github.com/your-username/hrmscrm-platform#readme"
+}

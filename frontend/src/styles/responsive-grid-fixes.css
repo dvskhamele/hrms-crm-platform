@@ -1,0 +1,123 @@
+/* Responsive grid fixes to prevent overflow on laptop screens when sidebar is present */
+@media (min-width: 1024px) {
+  .dashboard-grid-container {
+    width: calc(100% - 16rem); /* Account for 64px (16rem) sidebar width */
+    max-width: calc(100% - 16rem);
+    flex: 1;
+    margin-left: 16rem;
+  }
+  
+  .dashboard-main-content {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Ensure proper overflow handling */
+.main-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* Sidebar open state handling */
+body.sidebar-open main:not(.mobile-main-content) {
+  margin-left: 16rem !important;
+}
+
+/* Responsive fixes for different grid layouts */
+.grid-container-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid-container-responsive {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container-responsive {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-container-responsive {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Table responsiveness */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-container table {
+  min-width: 640px;
+  width: 100%;
+}
+
+/* Card responsiveness */
+.card-responsive {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure content doesn't overflow the viewport */
+.content-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Responsive fixes for different grid layouts */
+.grid-container-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid-container-responsive {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container-responsive {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-container-responsive {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Table responsiveness */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-container table {
+  min-width: 640px;
+  width: 100%;
+}
+
+/* Card responsiveness */
+.card-responsive {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure content doesn't overflow the viewport */
+.content-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
