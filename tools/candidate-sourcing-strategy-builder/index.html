@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Sourcing Strategy Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Sourcing Strategy Builder</h1>
+        <p>Build a candidate sourcing strategy tailored to your needs.</p>
+        <div class="form-container">
+            <label for="role-type">Role Type:</label>
+            <input type="text" id="role-type" placeholder="e.g., Software Engineer, Marketing Manager">
+            <label for="seniority-level">Seniority Level:</label>
+            <select id="seniority-level">
+                <option value="entry">Entry-Level</option>
+                <option value="mid">Mid-Level</option>
+                <option value="senior">Senior-Level</option>
+                <option value="executive">Executive</option>
+            </select>
+            <label for="location">Location:</label>
+            <input type="text" id="location" placeholder="e.g., Remote, New York, London">
+            <button id="generate-btn">Generate Strategy</button>
+        </div>
+        <div id="strategy"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

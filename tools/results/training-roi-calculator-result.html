@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training ROI Calculation Result</title>
+    <meta name="description" content="Review the calculated Return on Investment for your training programs.">
+    <meta property="og:title" content="Training ROI Calculator Result">
+    <meta property="og:description" content="A tool to help justify training investments by calculating potential ROI.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function calculateROI() {
+            const params = new URLSearchParams(window.location.search);
+            const roiDetails = Object.fromEntries(params.entries());
+
+            if (!roiDetails.trainingCost || !roiDetails.numEmployees || !roiDetails.avgSalary || !roiDetails.productivityIncrease || !roiDetails.retentionIncrease) {
+                document.getElementById('roi-output').innerHTML = '<p class="text-danger">Error: Missing calculation details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'TrainingROICalculator', roiDetails });
+
+            const trainingCost = parseFloat(roiDetails.trainingCost);
+            const numEmployees = parseFloat(roiDetails.numEmployees);
+            const avgSalary = parseFloat(roiDetails.avgSalary);
+            const productivityIncrease = parseFloat(roiDetails.productivityIncrease) / 100;
+            const retentionIncrease = parseFloat(roiDetails.retentionIncrease) / 100;
+
+            // Simplified ROI calculation:
+            // Value from productivity increase
+            const productivityValue = numEmployees * avgSalary * productivityIncrease;
+
+            // Value from retention increase (assuming cost of turnover is 50% of salary for simplicity)
+            const turnoverCostPerEmployee = avgSalary * 0.5;
+            const retentionValue = numEmployees * turnoverCostPerEmployee * retentionIncrease;
+
+            const totalBenefits = productivityValue + retentionValue;
+            const roi = ((totalBenefits - trainingCost) / trainingCost) * 100;
+
+            const output = `
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Calculation Details</h4>
+                    <p>Total Training Cost: <strong>$${trainingCost.toLocaleString()}</strong></p>
+                    <p>Employees Trained: <strong>${numEmployees}</strong></p>
+                    <p>Average Annual Salary: <strong>$${avgSalary.toLocaleString()}</strong></p>
+                    <p>Estimated Productivity Increase: <strong>${(productivityIncrease * 100).toFixed(0)}%</strong></p>
+                    <p>Estimated Retention Increase: <strong>${(retentionIncrease * 100).toFixed(0)}%</strong></p>
+                </div>
+                <hr>
+                <h3>Estimated Total Benefits: $${totalBenefits.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h3>
+                <h3>Calculated Training ROI:</h3>
+                <h2 class="${roi >= 0 ? 'text-success' : 'text-danger'}">${roi.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}%</h2>
+                ${roi < 0 ? '<p class="text-danger">A negative ROI suggests the training cost outweighs the estimated benefits. Consider adjusting inputs or training strategy.</p>' : ''}
+            `;
+
+            document.getElementById('roi-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateROI();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'TrainingROICalculator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'TrainingROICalculator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more insights on training effectiveness.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Training ROI Calculation</h1>
+            </div>
+            <div class="card-body">
+                <div id="roi-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Recalculate ROI</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Maximize Your Training Investments</h4>
+                <p>Subscribe for expert strategies on developing high-impact employee training programs.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

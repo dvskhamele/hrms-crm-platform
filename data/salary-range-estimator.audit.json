@@ -1,0 +1,27 @@
+{
+  "toolSlug": "salary-range-estimator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "Salary Range Estimator - Gem Tools",
+    "metaDescription": "Estimate a competitive salary range for various roles, locations, and experience levels to inform your compensation strategies.",
+    "h1": "Salary Range Estimator",
+    "keywords": ["salary estimator", "salary calculator", "compensation benchmark", "HR compensation tools", "job salary", "fair pay", "recruitment salary"],
+    "url": "/tools/salary-range-estimator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator", "/tools/job-description-enhancer", "/tools/new-hire-onboarding-checklist-generator", "/tools/performance-review-phrase-generator"]
+  },
+  "marketingAudit": {
+    "targetAudience": "HR professionals, recruiters, candidates, hiring managers",
+    "valueProposition": "Get accurate salary range estimates to make informed compensation decisions and attract top talent.",
+    "callToActions": ["Estimate Salary Range", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Salary Estimate Generation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Job Title", "Location", "Experience Level", "Industry"],
+    "validationRules": ["Job Title is required", "Location is required"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, quick estimation"
+  }
+}

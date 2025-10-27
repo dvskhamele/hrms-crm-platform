@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Off Request Calculator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 600px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time Off Request Calculator</h1>
+        <p>Calculate the number of working days for a time off request, excluding weekends and specified holidays.</p>
+        <form id="calculatorForm">
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input type="date" id="endDate" required>
+            </div>
+            <div class="form-group">
+                <label for="holidays">Holidays (comma-separated dates, e.g., 2025-12-25, 2026-01-01)</label>
+                <input type="text" id="holidays" placeholder="e.g., 2025-12-25, 2026-01-01">
+            </div>
+            <button type="submit">Calculate Days</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('calculatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            const holidaysInput = document.getElementById('holidays').value;
+            const holidays = holidaysInput.split(',').map(date => new Date(date.trim()));
+
+            let workingDays = 0;
+            let currentDate = new Date(startDate);
+
+            while (currentDate <= endDate) {
+                const dayOfWeek = currentDate.getDay(); // 0 = Sunday, 6 = Saturday
+                const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+                const isHoliday = holidays.some(holiday => holiday.toDateString() === currentDate.toDateString());
+
+                if (!isWeekend && !isHoliday) {
+                    workingDays++;
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Time Off Request Calculator',
+                    startDate: startDate.toISOString().split('T')[0],
+                    endDate: endDate.toISOString().split('T')[0],
+                    holidays: holidaysInput,
+                    calculatedWorkingDays: workingDays
+                });
+            }
+
+            window.location.href = `/tools/results/time-off-request-calculator-result.html?startDate=${startDate.toISOString().split('T')[0]}&endDate=${endDate.toISOString().split('T')[0]}&holidays=${holidaysInput}&workingDays=${workingDays}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Time Off Request Calculator'
+            });
+        }
+    </script>
+</body>
+</html>

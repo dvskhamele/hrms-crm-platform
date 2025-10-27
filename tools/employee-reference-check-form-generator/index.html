@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Reference Check Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Reference Check Form Generator</h1>
+        <p>Generate a structured form to conduct thorough and consistent reference checks for job candidates.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="candidate-name">Candidate Name:</label>
+                <input type="text" id="candidate-name" placeholder="e.g., Alex Smith">
+            </div>
+            <div class="input-group">
+                <label for="position-applied">Position Applied For:</label>
+                <input type="text" id="position-applied" placeholder="e.g., Senior Marketing Manager">
+            </div>
+            <div class="input-group">
+                <label for="reference-name">Reference Name:</label>
+                <input type="text" id="reference-name" placeholder="e.g., Jane Doe">
+            </div>
+            <div class="input-group">
+                <label for="reference-title">Reference Title/Relationship:</label>
+                <input type="text" id="reference-title" placeholder="e.g., Former Manager / Colleague">
+            </div>
+            <div class="input-group">
+                <label for="reference-company">Reference Company:</label>
+                <input type="text" id="reference-company" placeholder="e.g., ABC Corp.">
+            </div>
+            <div class="input-group">
+                <label for="interviewer-name">Interviewer Name:</label>
+                <input type="text" id="interviewer-name" placeholder="e.g., John Public">
+            </div>
+            <button id="generate-form-btn">Generate Reference Check Form</button>
+        </div>
+
+        <div id="form-output" class="hidden">
+            <h2>Generated Employee Reference Check Form</h2>
+            <div id="form-content"></div>
+            <button id="copy-form-btn">Copy Form Text</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

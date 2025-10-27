@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Feedback Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Feedback Analyzer</h1>
+        <p>Analyze employee feedback for common themes and sentiment.</p>
+        <div class="form-container">
+            <label for="feedback-text">Paste Employee Feedback (one entry per line):</label>
+            <textarea id="feedback-text" placeholder="e.g., The team collaboration is excellent.
+More opportunities for growth are needed.
+Management is supportive."></textarea>
+            <button id="analyze-btn">Analyze Feedback</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

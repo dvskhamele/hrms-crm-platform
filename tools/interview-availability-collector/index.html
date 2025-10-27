@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Availability Collector</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Interview Availability Collector</h1>
+        <p>Generate a clear and professional message to request interview availability from candidates.</p>
+
+        <div class="tool-section">
+            <h2>1. Generate Your Request Message</h2>
+            <div class="input-group">
+                <label for="job-title">Job Title:</label>
+                <input type="text" id="job-title" placeholder="e.g., Senior Software Engineer">
+            </div>
+            <div class="input-group">
+                <label for="interviewer-name">Interviewer Name(s):</label>
+                <input type="text" id="interviewer-name" placeholder="e.g., Jane Doe and John Smith">
+            </div>
+            <div class="input-group">
+                <label for="interview-duration">Interview Duration (minutes):</label>
+                <input type="number" id="interview-duration" value="30">
+            </div>
+            <button id="generate-message-btn">Generate Message</button>
+            
+            <div id="message-output" class="hidden">
+                <h3>Your Message:</h3>
+                <textarea id="generated-message" rows="10"></textarea>
+                <button id="copy-message-btn">Copy Message</button>
+            </div>
+        </div>
+
+        <div class="tool-section">
+            <h2>2. Parse Candidate's Reply</h2>
+            <p>Paste the candidate's availability from their email reply below to format it clearly.</p>
+            <textarea id="candidate-reply" rows="8" placeholder="Paste candidate email reply here..."></textarea>
+            <button id="parse-reply-btn">Parse Availability</button>
+
+            <div id="parsed-output" class="hidden">
+                <h3>Formatted Availability:</h3>
+                <div id="parsed-list"></div>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Experience Survey Results | Gem HRMS</title>
+    <link rel="stylesheet" href="../candidate-experience-survey-generator/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Candidate Experience Survey Questions</h1>
+        <h2 id="survey-title"></h2>
+        <div id="questions-output">
+            <!-- Generated questions will be inserted here -->
+        </div>
+        <div class="lead-capture">
+            <h2>Improve Your Candidate Experience</h2>
+            <p>Enter your email to receive a detailed guide on optimizing candidate experience and more HR tools.</p>
+            <form id="lead-form">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Get Free Resources</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytic('ToolResultViewed');
+
+            const questionsOutput = document.getElementById('questions-output');
+            const surveyTitle = document.getElementById('survey-title');
+            const generatedQuestions = JSON.parse(localStorage.getItem('generatedCandidateSurveyQuestions'));
+            const companyName = localStorage.getItem('companyNameForCandidateSurvey');
+            const jobTitle = localStorage.getItem('jobTitleForCandidateSurvey');
+            const surveyFocus = localStorage.getItem('surveyFocusForCandidateSurvey');
+
+            if (companyName && jobTitle && surveyFocus) {
+                surveyTitle.textContent = `for ${jobTitle} at ${companyName} - ${surveyFocus.replace(/-/g, ' ').toUpperCase()} Focus`;
+            }
+
+            if (generatedQuestions && generatedQuestions.length > 0) {
+                let questionsHtml = '<ul>';
+                generatedQuestions.forEach(question => {
+                    questionsHtml += `<li>${question}</li>`;
+                });
+                questionsHtml += '</ul>';
+                questionsOutput.innerHTML = questionsHtml;
+            } else {
+                questionsOutput.innerHTML = `<p>No survey questions found. Please use the Candidate Experience Survey Generator tool to create some.</p>`;
+            }
+
+            const leadForm = document.getElementById('lead-form');
+            leadForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                logAnalytic('LeadCaptured');
+                const email = document.getElementById('email').value;
+                console.log(`Email captured: ${email}`);
+                alert('Thank you! You'll receive candidate experience optimization strategies shortly.');
+            });
+        });
+
+        function logAnalytic(eventName) {
+            console.log(`Analytics Event: ${eventName}`);
+        }
+    </script>
+</body>
+</html>

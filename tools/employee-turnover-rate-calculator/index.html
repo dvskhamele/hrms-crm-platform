@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Turnover Rate Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Turnover Rate Calculator</h1>
+        <p>Calculate your employee turnover rate to understand workforce stability and identify potential issues.</p>
+
+        <div class="input-section">
+            <label for="avg-employees">Average Number of Employees (during period):</label>
+            <input type="number" id="avg-employees" value="100" min="0">
+
+            <label for="num-separations">Number of Separations (during period):</label>
+            <input type="number" id="num-separations" value="10" min="0">
+
+            <button id="calculate-btn">Calculate Turnover Rate</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Calculated Employee Turnover Rate:</h2>
+            <div id="turnover-output">
+                <p>Enter values and click "Calculate Turnover Rate" to see the result.</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

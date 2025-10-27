@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Offer Negotiation Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Job Offer Negotiation Calculator</h1>
+        <p>Analyze and compare job offers to aid in negotiation.</p>
+        <div class="offers-comparison">
+            <div class="offer-column">
+                <h2>Offer 1</h2>
+                <div class="input-group">
+                    <label for="salary1">Base Salary ($):</label>
+                    <input type="number" id="salary1" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="bonus1">Annual Bonus ($):</label>
+                    <input type="number" id="bonus1" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="equity1">Equity/Stock Value ($):</label>
+                    <input type="number" id="equity1" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="benefits1">Estimated Benefits Value ($):</label>
+                    <input type="number" id="benefits1" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="pto1">PTO (days):</label>
+                    <input type="number" id="pto1" value="0" min="0">
+                </div>
+            </div>
+            <div class="offer-column">
+                <h2>Offer 2</h2>
+                <div class="input-group">
+                    <label for="salary2">Base Salary ($):</label>
+                    <input type="number" id="salary2" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="bonus2">Annual Bonus ($):</label>
+                    <input type="number" id="bonus2" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="equity2">Equity/Stock Value ($):</label>
+                    <input type="number" id="equity2" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="benefits2">Estimated Benefits Value ($):</label>
+                    <input type="number" id="benefits2" value="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="pto2">PTO (days):</label>
+                    <input type="number" id="pto2" value="0" min="0">
+                </div>
+            </div>
+        </div>
+        <button id="compare-btn">Compare Offers</button>
+        <div id="comparison-results">
+            <h2>Comparison Results:</h2>
+            <p>Total Value Offer 1: <span id="total-value1">$0</span></p>
+            <p>Total Value Offer 2: <span id="total-value2">$0</span></p>
+            <p id="recommendation"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Onboarding Checklist Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Onboarding Checklist Generator</h1>
+        <p>Generate a comprehensive checklist for employee onboarding.</p>
+        <div class="form-container">
+            <label for="employee-type">Employee Type:</label>
+            <select id="employee-type">
+                <option value="new-hire">New Hire</option>
+                <option value="transfer">Internal Transfer</option>
+            </select>
+            <label for="department">Department:</label>
+            <input type="text" id="department" placeholder="e.g., Marketing, Engineering">
+            <button id="generate-btn">Generate Checklist</button>
+        </div>
+        <div id="checklist"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

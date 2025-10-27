@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Description Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Job Description Generator</h1>
+        <p>Generate job descriptions for various roles.</p>
+        <div class="form-container">
+            <label for="job-title">Job Title:</label>
+            <input type="text" id="job-title" placeholder="e.g., Software Engineer">
+            <label for="department">Department:</label>
+            <input type="text" id="department" placeholder="e.g., Engineering">
+            <label for="responsibilities">Key Responsibilities (comma-separated):</label>
+            <input type="text" id="responsibilities" placeholder="e.g., Develop software, Collaborate with team">
+            <label for="qualifications">Required Qualifications (comma-separated):</label>
+            <input type="text" id="qualifications" placeholder="e.g., Bachelor's degree, 3+ years experience">
+            <button id="generate-btn">Generate Job Description</button>
+        </div>
+        <div id="job-description"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Leave Policy Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Annual Leave Policy Generator</h1>
+        <p>Create a clear and comprehensive Annual Leave (Vacation) Policy for your employees.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="policy-date">Effective Date:</label>
+                <input type="date" id="policy-date">
+            </div>
+            <div class="input-group">
+                <label for="accrual-rate">Accrual Rate (e.g., 10 days per year):</label>
+                <input type="text" id="accrual-rate" placeholder="e.g., 10 days per year">
+            </div>
+            <div class="input-group">
+                <label for="carry-over">Carry-Over Limit (e.g., 5 days, or None):</label>
+                <input type="text" id="carry-over" placeholder="e.g., 5 days / None">
+            </div>
+            <div class="input-group full-width">
+                <label for="request-procedure">Leave Request Procedure:</label>
+                <textarea id="request-procedure" rows="3" placeholder="e.g., Employees must submit leave requests through the HR portal at least two weeks in advance."></textarea>
+            </div>
+            <button id="generate-policy-btn">Generate Policy</button>
+        </div>
+
+        <div id="policy-output" class="hidden">
+            <h2>Generated Annual Leave Policy</h2>
+            <div id="policy-content"></div>
+            <button id="copy-policy-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "toolSlug": "employee-engagement-survey-question-generator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "Employee Engagement Survey Question Generator - Gem Tools",
+    "metaDescription": "Generate a list of effective employee engagement survey questions to measure satisfaction and identify areas for improvement.",
+    "h1": "Employee Engagement Survey Question Generator",
+    "keywords": ["employee engagement survey", "HR survey questions", "employee satisfaction", "feedback tools", "HR analytics", "workplace culture", "retention strategies"],
+    "url": "/tools/employee-engagement-survey-question-generator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator", "/tools/job-description-enhancer", "/tools/new-hire-onboarding-checklist-generator", "/tools/performance-review-phrase-generator", "/tools/salary-range-estimator", "/tools/recruitment-roi-calculator", "/tools/employee-turnover-cost-calculator", "/tools/hr-policy-generator"]
+  },
+  "marketingAudit": {
+    "targetAudience": "HR professionals, managers, team leads, organizational development specialists",
+    "valueProposition": "Create impactful employee engagement surveys to gather actionable insights and foster a positive workplace culture.",
+    "callToActions": ["Generate Questions", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Question Generation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Survey Focus Area", "Number of Questions", "Custom Topics/Keywords"],
+    "validationRules": ["Number of Questions must be a positive number"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, relevant question generation"
+  }
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Onboarding Feedback Form Questions</title>
+    <meta name="description" content="Review and use your generated employee onboarding feedback form questions.">
+    <meta property="og:title" content="Employee Onboarding Feedback Form Generator Result">
+    <meta property="og:description" content="A tool to help HR and managers gather feedback on the onboarding process.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function generateQuestions() {
+            const params = new URLSearchParams(window.location.search);
+            const feedbackDetails = Object.fromEntries(params.entries());
+
+            if (!feedbackDetails.onboardingPeriod || !feedbackDetails.feedbackFocus) {
+                document.getElementById('questions-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'EmployeeOnboardingFeedbackFormGenerator', feedbackDetails });
+
+            let questions = [];
+            const employeeName = feedbackDetails.employeeName || '[Employee Name]';
+            const department = feedbackDetails.department || '[Department]';
+            const onboardingPeriod = feedbackDetails.onboardingPeriod;
+            const feedbackFocus = feedbackDetails.feedbackFocus;
+
+            questions.push(`<h3>General Onboarding Experience:</h3>`);
+            questions.push(`<ul>`);
+            questions.push(`<li>Overall, how would you rate your onboarding experience at ${feedbackDetails.companyName || 'the company'}? (e.g., 1-5 scale)</li>`);
+            questions.push(`<li>What were your initial impressions of ${feedbackDetails.companyName || 'the company'}?</li>`);
+            questions.push(`<li>Did you feel welcomed and supported during your first ${onboardingPeriod.toLowerCase()}?</li>`);
+            questions.push(`</ul>`);
+
+            questions.push(`<h3>Questions Focused on ${feedbackFocus}:</h3>`);
+            questions.push(`<ul>`);
+
+            if (feedbackFocus === 'Overall Experience') {
+                questions.push(`<li>What aspects of the onboarding process were most helpful?</li>`);
+                questions.push(`<li>What aspects could be improved?</li>`);
+                questions.push(`<li>Do you feel you have a clear understanding of your role and responsibilities?</li>`);
+            } else if (feedbackFocus === 'Training & Resources') {
+                questions.push(`<li>Did you receive adequate training to perform your job effectively?</li>`);
+                questions.push(`<li>Were the resources (e.g., tools, documentation) you needed readily available?</li>`);
+                questions.push(`<li>What additional training or resources would have been beneficial?</li>`);
+            } else if (feedbackFocus === 'Manager Support') {
+                questions.push(`<li>How would you describe the support and guidance you received from your manager?</li>`);
+                questions.push(`<li>Did your manager clearly communicate expectations and provide regular check-ins?</li>`);
+                questions.push(`<li>What could your manager do to better support new hires?</li>`);
+            } else if (feedbackFocus === 'Peer Integration') {
+                questions.push(`<li>Did you feel integrated into your team quickly?</li>`);
+                questions.push(`<li>How would you describe your interactions with your colleagues?</li>`);
+                questions.push(`<li>Were there opportunities to connect with team members outside of direct work tasks?</li>`);
+            } else if (feedbackFocus === 'Role Clarity') {
+                questions.push(`<li>Do you have a clear understanding of your job responsibilities and how they contribute to the company's goals?</li>`);
+                questions.push(`<li>Were your initial expectations about the role met? If not, how did they differ?</li>`);
+                questions.push(`<li>What challenges, if any, did you face in understanding your role?</li>`);
+            } else if (feedbackFocus === 'Company Culture') {
+                questions.push(`<li>How would you describe the company culture based on your initial experience?</li>`);
+                questions.push(`<li>Did you feel the company's values were reflected in your onboarding experience?</li>`);
+                questions.push(`<li>What aspects of the culture were most appealing or surprising to you?</li>`);
+            }
+            questions.push(`</ul>`);
+
+            document.getElementById('questions-output').innerHTML = `
+                <p><strong>Employee:</strong> ${employeeName}</p>
+                <p><strong>Department:</strong> ${department}</p>
+                <p><strong>Onboarding Period:</strong> ${onboardingPeriod}</p>
+                <hr>
+                ${questions.join('')}
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateQuestions();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'EmployeeOnboardingFeedbackFormGenerator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'EmployeeOnboardingFeedbackFormGenerator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more insights on optimizing onboarding.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Your Onboarding Feedback Form Questions</h1>
+            </div>
+            <div class="card-body">
+                <div id="questions-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Generate More Questions</button>
+                    <button class="btn btn-success" onclick="navigator.clipboard.writeText(document.getElementById('questions-output').innerText)">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Optimize Your Onboarding Process</h4>
+                <p>Subscribe for expert strategies on creating exceptional new hire experiences.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

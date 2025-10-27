@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Agenda Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], input[type="date"], input[type="time"], textarea { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        #topicsList { list-style: none; padding: 0; margin-top: 1em; }
+        #topicsList li { background-color: #f0f0f0; padding: .5em; margin-bottom: .5em; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; }
+        #topicsList li button { background-color: #dc3545; padding: .3em .6em; font-size: .8em; margin-left: 10px; }
+        #topicsList li span { flex-grow: 1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Meeting Agenda Generator</h1>
+        <p>Create clear and structured meeting agendas to ensure productive discussions and efficient use of time.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="meetingTitle">Meeting Title</label>
+                <input type="text" id="meetingTitle" placeholder="e.g., Q3 Performance Review, Project X Kick-off" required>
+            </div>
+            <div class="form-group">
+                <label for="meetingDate">Date</label>
+                <input type="date" id="meetingDate" required>
+            </div>
+            <div class="form-group">
+                <label for="meetingTime">Time</label>
+                <input type="time" id="meetingTime" required>
+            </div>
+            <div class="form-group">
+                <label for="attendees">Attendees (comma-separated names/roles)</label>
+                <input type="text" id="attendees" placeholder="e.g., John Doe, Sarah Lee, Marketing Team">
+            </div>
+            <div class="form-group">
+                <label for="topic">Add Topic</label>
+                <input type="text" id="topic" placeholder="e.g., Review Q2 Results, Brainstorm New Features">
+                <label for="timeAllotment">Time Allotment (minutes)</label>
+                <input type="number" id="timeAllotment" placeholder="e.g., 15">
+                <button type="button" id="addTopic">Add Topic</button>
+            </div>
+            <ul id="topicsList"></ul>
+            <button type="submit">Generate Agenda</button>
+        </form>
+    </div>
+    <script>
+        const topics = [];
+
+        document.getElementById('addTopic').addEventListener('click', function() {
+            const topicInput = document.getElementById('topic');
+            const timeAllotmentInput = document.getElementById('timeAllotment');
+            const topicText = topicInput.value.trim();
+            const timeText = timeAllotmentInput.value.trim();
+
+            if (topicText) {
+                topics.push({ topic: topicText, time: timeText ? parseInt(timeText) : null });
+                renderTopics();
+                topicInput.value = '';
+                timeAllotmentInput.value = '';
+            }
+        });
+
+        function renderTopics() {
+            const list = document.getElementById('topicsList');
+            list.innerHTML = '';
+            topics.forEach((t, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${t.topic} ${t.time ? `(${t.time} min)` : ''}</span><button type="button">Remove</button>`;
+                li.querySelector('button').addEventListener('click', function() {
+                    topics.splice(index, 1);
+                    renderTopics();
+                });
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const meetingTitle = document.getElementById('meetingTitle').value;
+            const meetingDate = document.getElementById('meetingDate').value;
+            const meetingTime = document.getElementById('meetingTime').value;
+            const attendees = document.getElementById('attendees').value;
+
+            if (topics.length === 0) {
+                alert('Please add at least one meeting topic.');
+                return;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Meeting Agenda Generator',
+                    meetingTitle: meetingTitle,
+                    meetingDate: meetingDate,
+                    meetingTime: meetingTime,
+                    attendees: attendees,
+                    topicsCount: topics.length
+                });
+            }
+
+            window.location.href = `/tools/results/meeting-agenda-generator-result.html?meetingTitle=${encodeURIComponent(meetingTitle)}&meetingDate=${encodeURIComponent(meetingDate)}&meetingTime=${encodeURIComponent(meetingTime)}&attendees=${encodeURIComponent(attendees)}&topics=${encodeURIComponent(JSON.stringify(topics))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Meeting Agenda Generator'
+            });
+        }
+    </script>
+</body>
+</html>

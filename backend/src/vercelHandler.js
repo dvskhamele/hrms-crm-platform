@@ -1,19 +1,20 @@
-// Vercel Edge Function compatible API handler
-import { createHandler, initService } from '../src/handlers/apiHandlers';
+// Vercel API Handler for both hotel operations and recruitment services
+import recruitmentService from './services/recruitmentService.js';
 
-// Initialize service
+// Initialize services
 let hotelService;
 
-// Initialize service if not already initialized
+// Initialize hotel service if not already initialized
 async function getHotelService() {
   if (!hotelService) {
-    hotelService = new (require('../src/services/hotelService').default)();
+    const { default: HotelService } = await import('./services/hotelService.js');
+    hotelService = new HotelService();
     await hotelService.init();
   }
   return hotelService;
 }
 
-// Vercel Edge Function handler
+// Vercel API Handler
 export default async function handler(request, response) {
   try {
     // Set CORS headers
@@ -27,17 +28,41 @@ export default async function handler(request, response) {
       return;
     }
     
-    // Initialize service
-    const service = await getHotelService();
+    // Initialize services
+    const hotelService = await getHotelService();
     
     // Route handling
     const url = new URL(request.url, `http://${request.headers.host}`);
     const path = url.pathname;
     
-    // Authentication endpoint
-    if (path === '/api/auth/login' && request.method === 'POST') {
+    // Recruitment Authentication routes
+    if (path === '/api/auth/register' && request.method === 'POST') {
+      const result = recruitmentService.register(await request.json());
+      
+      if (result.success) {
+        response.status(200).json(result);
+      } else {
+        response.status(400).json({ error: result.error || 'Registration failed' });
+      }
+      return;
+    }
+    
+    // Separate recruitment and hotel login endpoints
+    if (path === '/api/recruitment/auth/login' && request.method === 'POST') {
       const body = await request.json();
-      const result = await service.authenticate(body.email, body.password);
+      const result = recruitmentService.login(body.email, body.password);
+      
+      if (result.success) {
+        response.status(200).json(result);
+      } else {
+        response.status(401).json({ error: result.error || 'Invalid credentials' });
+      }
+      return;
+    }
+    
+    if (path === '/api/hotel/auth/login' && request.method === 'POST') {
+      const body = await request.json();
+      const result = await hotelService.authenticate(body.email, body.password);
       
       if (result.success) {
         response.status(200).json({
@@ -50,86 +75,214 @@ export default async function handler(request, response) {
       return;
     }
     
-    // Dashboard endpoints
-    if (path === '/api/dashboard/stats' && request.method === 'GET') {
-      const stats = await service.getDashboardStats();
+    // Recruitment Positions routes
+    if (path === '/api/positions' && request.method === 'GET') {
+      const positions = recruitmentService.getAllPositions();
+      response.status(200).json({ positions });
+      return;
+    }
+    
+    if (path.match(/^\/api\/positions\/\d+$/) && request.method === 'GET') {
+      const id = path.split('/')[3];
+      const position = recruitmentService.getPositionById(id);
+      if (position) {
+        response.status(200).json({ position });
+      } else {
+        response.status(404).json({ error: 'Position not found' });
+      }
+      return;
+    }
+    
+    if (path === '/api/positions' && request.method === 'POST') {
+      const result = recruitmentService.createPosition(await request.json());
+      
+      if (result.success) {
+        response.status(200).json(result);
+      } else {
+        response.status(400).json({ error: result.error || 'Failed to create position' });
+      }
+      return;
+    }
+    
+    const positionStatusMatch = path.match(/^\/api\/positions\/(\d+)\/status$/);
+    if (positionStatusMatch && request.method === 'PUT') {
+      const id = positionStatusMatch[1];
+      const body = await request.json();
+      const result = recruitmentService.updatePositionStatus(id, body.status);
+      
+      if (result.success) {
+        response.status(200).json(result);
+      } else {
+        response.status(400).json({ error: result.error || 'Failed to update position status' });
+      }
+      return;
+    }
+    
+    // Recruitment Applications routes
+    if (path === '/api/applications' && request.method === 'GET') {
+      const applications = recruitmentService.getAllApplications();
+      response.status(200).json({ applications });
+      return;
+    }
+    
+    if (path.match(/^\/api\/applications\/\d+$/) && request.method === 'GET') {
+      const id = path.split('/')[3];
+      const application = recruitmentService.getApplicationById(id);
+      if (application) {
+        response.status(200).json({ application });
+      } else {
+        response.status(404).json({ error: 'Application not found' });
+      }
+      return;
+    }
+    
+    if (path === '/api/applications' && request.method === 'POST') {
+      const result = recruitmentService.createApplication(await request.json());
+      
+      if (result.success) {
+        response.status(200).json(result);
+      } else {
+        response.status(400).json({ error: result.error || 'Failed to create application' });
+      }
+      return;
+    }
+    
+    const applicationStatusMatch = path.match(/^\/api\/applications\/(\d+)\/status$/);
+    if (applicationStatusMatch && request.method === 'PUT') {
+      const id = applicationStatusMatch[1];
+      const body = await request.json();
+      const result = recruitmentService.updateApplicationStatus(id, body.status);
+      
+      if (result.success) {
+        response.status(200).json(result);
+      } else {
+        response.status(400).json({ error: result.error || 'Failed to update application status' });
+      }
+      return;
+    }
+    
+    // Recruitment Recruiters routes
+    if (path === '/api/recruiters' && request.method === 'GET') {
+      const recruiters = recruitmentService.getAllRecruiters();
+      response.status(200).json({ recruiters });
+      return;
+    }
+    
+    const recruiterStatusMatch = path.match(/^\/api\/recruiters\/(\d+)\/status$/);
+    if (recruiterStatusMatch && request.method === 'PUT') {
+      const id = recruiterStatusMatch[1];
+      const body = await request.json();
+      const result = recruitmentService.updateRecruiterStatus(id, body.status);
+      
+      if (result.success) {
+        response.status(200).json(result);
+      } else {
+        response.status(400).json({ error: result.error || 'Failed to update recruiter status' });
+      }
+      return;
+    }
+    
+    // Recruitment Departments routes
+    if (path === '/api/departments' && request.method === 'GET') {
+      const departments = recruitmentService.getAllDepartments();
+      response.status(200).json({ departments });
+      return;
+    }
+    
+    // Recruitment Dashboard routes
+    if (path === '/api/recruitment/dashboard/stats' && request.method === 'GET') {
+      const stats = recruitmentService.getDashboardStats();
+      response.status(200).json({ stats });
+      return;
+    }
+    
+    if (path === '/api/recruitment/dashboard/activity' && request.method === 'GET') {
+      const activity = recruitmentService.getDashboardActivity();
+      response.status(200).json({ activity });
+      return;
+    }
+    
+    // Hotel Operations routes
+    // Hotel dashboard stats
+    if (path === '/api/hotel/dashboard/stats' && request.method === 'GET') {
+      const stats = await hotelService.getDashboardStats();
       response.status(200).json(stats);
       return;
     }
     
-    if (path === '/api/dashboard/activity' && request.method === 'GET') {
-      const activity = await service.getRecentActivity();
+    if (path === '/api/hotel/dashboard/activity' && request.method === 'GET') {
+      const activity = await hotelService.getRecentActivity();
       response.status(200).json(activity);
       return;
     }
     
     // Rooms endpoints
-    if (path === '/api/rooms' && request.method === 'GET') {
-      const rooms = await service.getAllRooms();
+    if (path === '/api/hotel/rooms' && request.method === 'GET') {
+      const rooms = await hotelService.getAllRooms();
       response.status(200).json({ rooms });
       return;
     }
     
-    const roomStatusMatch = path.match(/^\/api\/rooms\/(\d+)\/status$/);
+    const roomStatusMatch = path.match(/^\/api\/hotel\/rooms\/(\d+)\/status$/);
     if (roomStatusMatch && request.method === 'PUT') {
       const roomId = parseInt(roomStatusMatch[1]);
       const body = await request.json();
-      const room = await service.updateRoomStatus(roomId, body.status);
+      const room = await hotelService.updateRoomStatus(roomId, body.status);
       response.status(200).json(room);
       return;
     }
     
     // Staff endpoints
-    if (path === '/api/staff' && request.method === 'GET') {
-      const staff = await service.getAllStaff();
+    if (path === '/api/hotel/staff' && request.method === 'GET') {
+      const staff = await hotelService.getAllStaff();
       response.status(200).json({ staff });
       return;
     }
     
-    const staffStatusMatch = path.match(/^\/api\/staff\/(\d+)\/status$/);
+    const staffStatusMatch = path.match(/^\/api\/hotel\/staff\/(\d+)\/status$/);
     if (staffStatusMatch && request.method === 'PUT') {
       const staffId = parseInt(staffStatusMatch[1]);
       const body = await request.json();
-      const staff = await service.updateStaffStatus(staffId, body.status);
+      const staff = await hotelService.updateStaffStatus(staffId, body.status);
       response.status(200).json(staff);
       return;
     }
     
     // Requests endpoints
-    if (path === '/api/requests' && request.method === 'GET') {
-      const requests = await service.getAllRequests();
+    if (path === '/api/hotel/requests' && request.method === 'GET') {
+      const requests = await hotelService.getAllRequests();
       response.status(200).json({ requests });
       return;
     }
     
-    const requestStatusMatch = path.match(/^\/api\/requests\/(\d+)\/status$/);
+    const requestStatusMatch = path.match(/^\/api\/hotel\/requests\/(\d+)\/status$/);
     if (requestStatusMatch && request.method === 'PUT') {
       const requestId = parseInt(requestStatusMatch[1]);
       const body = await request.json();
-      const request = await service.updateRequestStatus(requestId, body.status);
+      const request = await hotelService.updateRequestStatus(requestId, body.status);
       response.status(200).json(request);
       return;
     }
     
     // Inventory endpoints
-    if (path === '/api/inventory' && request.method === 'GET') {
-      const inventory = await service.getAllInventory();
+    if (path === '/api/hotel/inventory' && request.method === 'GET') {
+      const inventory = await hotelService.getAllInventory();
       response.status(200).json({ inventory });
       return;
     }
     
-    const inventoryQuantityMatch = path.match(/^\/api\/inventory\/(\d+)\/quantity$/);
+    const inventoryQuantityMatch = path.match(/^\/api\/hotel\/inventory\/(\d+)\/quantity$/);
     if (inventoryQuantityMatch && request.method === 'PUT') {
       const inventoryId = parseInt(inventoryQuantityMatch[1]);
       const body = await request.json();
-      const item = await service.updateInventoryQuantity(inventoryId, body.quantity);
+      const item = await hotelService.updateInventoryQuantity(inventoryId, body.quantity);
       response.status(200).json(item);
       return;
     }
     
-    // Departments endpoints
-    if (path === '/api/departments' && request.method === 'GET') {
-      const departments = await service.getAllDepartments();
+    // Hotel departments
+    if (path === '/api/hotel/departments' && request.method === 'GET') {
+      const departments = await hotelService.getAllDepartments();
       response.status(200).json({ departments });
       return;
     }
@@ -144,5 +297,5 @@ export default async function handler(request, response) {
 
 // Export config for Vercel
 export const config = {
-  runtime: 'edge',
+  runtime: 'nodejs18.x',
 };

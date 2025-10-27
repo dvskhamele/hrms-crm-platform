@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Communication Email Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Communication Email Generator</h1>
+        <p class="intro">Generate professional email templates for various stages of the candidate journey.</p>
+        
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="email-type">Select Email Type:</label>
+                <select id="email-type">
+                    <option value="application-received">Application Received</option>
+                    <option value="interview-invite">Interview Invitation</option>
+                    <option value="rejection-post-interview">Rejection (Post-Interview)</option>
+                    <option value="job-offer">Job Offer</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="candidate-name">Candidate Name:</label>
+                <input type="text" id="candidate-name" placeholder="e.g., Alex Smith">
+            </div>
+
+            <div class="input-group">
+                <label for="job-title">Job Title:</label>
+                <input type="text" id="job-title" placeholder="e.g., Software Engineer">
+            </div>
+
+            <div class="input-group" id="interview-details-group" style="display: none;">
+                <label for="interview-date">Interview Date & Time:</label>
+                <input type="text" id="interview-date" placeholder="e.g., Monday, November 10th at 2:00 PM GMT">
+                <label for="interview-location">Interview Location/Link:</label>
+                <input type="text" id="interview-location" placeholder="e.g., Zoom link: example.com/meeting">
+            </div>
+
+            <div class="input-group" id="offer-details-group" style="display: none;">
+                <label for="salary">Salary:</label>
+                <input type="text" id="salary" placeholder="e.g., £50,000 per annum">
+                <label for="start-date">Start Date:</label>
+                <input type="text" id="start-date" placeholder="e.g., December 1st, 2025">
+            </div>
+
+            <button id="generate-btn">Generate Email</button>
+        </div>
+
+        <div class="results-container">
+            <h2>Generated Email</h2>
+            <textarea id="generated-email" rows="15" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

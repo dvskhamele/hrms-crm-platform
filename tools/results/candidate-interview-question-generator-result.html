@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Questions Results | Gem HRMS</title>
+    <link rel="stylesheet" href="../candidate-interview-question-generator/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Interview Questions for <span id="job-title-display"></span></h1>
+        <div id="questions-output">
+            <!-- Generated questions will be inserted here -->
+        </div>
+        <div class="lead-capture">
+            <h2>Get More Interview Resources</h2>
+            <p>Enter your email to receive more free interview guides, question banks, and tips directly to your inbox.</p>
+            <form id="lead-form">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Get Free Resources</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytic('ToolResultViewed');
+
+            const questionsOutput = document.getElementById('questions-output');
+            const jobTitleDisplay = document.getElementById('job-title-display');
+            const generatedQuestions = JSON.parse(localStorage.getItem('generatedInterviewQuestions'));
+            const jobTitle = localStorage.getItem('jobTitleForQuestions');
+
+            if (jobTitle) {
+                jobTitleDisplay.textContent = jobTitle;
+            }
+
+            if (generatedQuestions && generatedQuestions.length > 0) {
+                let questionsHtml = '<ul>';
+                generatedQuestions.forEach(question => {
+                    questionsHtml += `<li>${question}</li>`;
+                });
+                questionsHtml += '</ul>';
+                questionsOutput.innerHTML = questionsHtml;
+            } else {
+                questionsOutput.innerHTML = `<p>No questions found. Please use the Interview Question Generator tool to create some.</p>`;
+            }
+
+            const leadForm = document.getElementById('lead-form');
+            leadForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                logAnalytic('LeadCaptured');
+                const email = document.getElementById('email').value;
+                console.log(`Email captured: ${email}`);
+                alert('Thank you! You'll receive free interview resources shortly.');
+            });
+        });
+
+        function logAnalytic(eventName) {
+            console.log(`Analytics Event: ${eventName}`);
+        }
+    </script>
+</body>
+</html>

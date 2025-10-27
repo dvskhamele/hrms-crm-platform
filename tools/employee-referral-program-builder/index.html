@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Referral Program Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Referral Program Builder</h1>
+        <p>Build an effective employee referral program.</p>
+        <div class="form-container">
+            <label for="program-name">Program Name:</label>
+            <input type="text" id="program-name" placeholder="e.g., Talent Scout Program">
+            <label for="referral-bonus">Referral Bonus Amount:</label>
+            <input type="number" id="referral-bonus" min="0">
+            <label for="eligibility">Eligibility Criteria:</label>
+            <textarea id="eligibility" placeholder="e.g., Full-time employees after 3 months"></textarea>
+            <label for="process-steps">Process Steps (comma-separated):</label>
+            <textarea id="process-steps" placeholder="e.g., Employee submits referral, Candidate interviewed, Candidate hired, Bonus paid"></textarea>
+            <button id="generate-btn">Generate Program Outline</button>
+        </div>
+        <div id="program-outline"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

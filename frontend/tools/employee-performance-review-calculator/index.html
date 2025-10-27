@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Performance Review Score Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Calculate employee performance review scores based on customizable criteria. Streamline your performance management process.">
+    <meta property="og:title" content="Employee Performance Review Score Calculator">
+    <meta property="og:description" content="Calculate employee performance review scores based on customizable criteria. Streamline your performance management process.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="YOUR_SHAREABLE_URL_HERE">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Performance Review Score Calculator</h1>
+        <p>Objectively assess employee performance with customizable criteria and weighted scoring.</p>
+
+        <div class="input-section">
+            <h2>Performance Criteria</h2>
+            <div id="criteriaInputs">
+                <div class="form-group criteria-item">
+                    <label>Criterion:</label>
+                    <input type="text" class="criterion-description" value="Quality of Work">
+                    <label>Score (1-5):</label>
+                    <input type="number" class="criterion-score" min="1" max="5" value="4">
+                    <label>Weight (%):</label>
+                    <input type="number" class="criterion-weight" min="0" max="100" value="30">
+                    <button class="remove-criterion-item">Remove</button>
+                </div>
+                <div class="form-group criteria-item">
+                    <label>Criterion:</label>
+                    <input type="text" class="criterion-description" value="Teamwork & Collaboration">
+                    <label>Score (1-5):</label>
+                    <input type="number" class="criterion-score" min="1" max="5" value="5">
+                    <label>Weight (%):</label>
+                    <input type="number" class="criterion-weight" min="0" max="100" value="25">
+                    <button class="remove-criterion-item">Remove</button>
+                </div>
+                <div class="form-group criteria-item">
+                    <label>Criterion:</label>
+                    <input type="text" class="criterion-description" value="Productivity">
+                    <label>Score (1-5):</label>
+                    <input type="number" class="criterion-score" min="1" max="5" value="4">
+                    <label>Weight (%):</label>
+                    <input type="number" class="criterion-weight" min="0" max="100" value="25">
+                    <button class="remove-criterion-item">Remove</button>
+                </div>
+                <div class="form-group criteria-item">
+                    <label>Criterion:</label>
+                    <input type="text" class="criterion-description" value="Initiative">
+                    <label>Score (1-5):</label>
+                    <input type="number" class="criterion-score" min="1" max="5" value="3">
+                    <label>Weight (%):</label>
+                    <input type="number" class="criterion-weight" min="0" max="100" value="20">
+                    <button class="remove-criterion-item">Remove</button>
+                </div>
+            </div>
+            <button id="addCriterionItem">Add Another Criterion</button>
+        </div>
+
+        <button id="calculateBtn">Calculate Performance Score</button>
+
+        <div class="result-section">
+            <h2>Result:</h2>
+            <p>Overall Performance Score: <span id="performanceScore">0.00</span></p>
+            <p id="scoreInterpretation"></p>
+        </div>
+
+        <div class="lead-capture-section">
+            <h2>Get more HR insights!</h2>
+            <p>Enter your email to receive exclusive HR tools and tips directly in your inbox.</p>
+            <input type="email" id="leadEmail" placeholder="your.email@example.com">
+            <button id="subscribeBtn">Subscribe</button>
+            <p id="leadMessage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

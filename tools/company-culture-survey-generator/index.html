@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Culture Survey Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Company Culture Survey Generator</h1>
+        <p>Create a customized survey to measure and understand your company's culture.</p>
+        
+        <div class="generator-controls">
+            <div class="control-group">
+                <label for="num-questions">Number of Questions:</label>
+                <input type="number" id="num-questions" value="10" min="5" max="25">
+            </div>
+            <div class="control-group">
+                <label for="survey-area">Focus Area:</label>
+                <select id="survey-area">
+                    <option value="all">All Areas</option>
+                    <option value="communication">Communication</option>
+                    <option value="leadership">Leadership</option>
+                    <option value="collaboration">Collaboration</option>
+                    <option value="work-life-balance">Work-Life Balance</option>
+                    <option value="recognition">Recognition & Growth</option>
+                </select>
+            </div>
+            <button id="generate-btn">Generate Survey</button>
+        </div>
+
+        <div id="survey-output">
+            <!-- Generated survey questions will appear here -->
+        </div>
+
+        <button id="copy-btn" class="hidden">Copy to Clipboard</button>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

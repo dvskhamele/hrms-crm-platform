@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Recognition Program Idea Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Recognition Program Idea Generator</h1>
+        <p>Generate creative and effective ideas for employee recognition programs tailored to your company's needs.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="companySize">Company Size</label>
+                <select id="companySize" required>
+                    <option value="small">Small (1-50 employees)</option>
+                    <option value="medium">Medium (51-500 employees)</option>
+                    <option value="large">Large (500+ employees)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget Level</label>
+                <select id="budget" required>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="recognitionType">Recognition Type</label>
+                <select id="recognitionType" required>
+                    <option value="formal">Formal (e.g., annual awards)</option>
+                    <option value="informal">Informal (e.g., spot bonuses, shout-outs)</option>
+                    <option value="peer_to_peer">Peer-to-Peer</option>
+                </select>
+            </div>
+            <button type="submit">Generate Ideas</button>
+        </form>
+    </div>
+    <script>
+        const ideas = {
+            small: {
+                low: {
+                    formal: [
+                        "'Employee of the Month' with a dedicated parking spot or prime desk location.",
+                        "Handwritten thank-you notes from leadership with a small gift card."
+                    ],
+                    informal: [
+                        "Public shout-outs in team meetings or company-wide emails.",
+                        "Team lunch or coffee break sponsored by the company."
+                    ],
+                    peer_to_peer: [
+                        "'Kudos Board' where employees can write notes of appreciation for colleagues.",
+                        "Rotating 'Peer Recognition Award' with a small trophy or certificate."
+                    ]
+                },
+                medium: {
+                    formal: [
+                        "Quarterly 'Impact Awards' with a small bonus or significant gift.",
+                        "Annual company-wide recognition event with awards for various categories."
+                    ],
+                    informal: [
+                        "Departmental celebrations for reaching milestones or project completion.",
+                        "Flexible work hours or an extra day off for exceptional contributions."
+                    ],
+                    peer_to_peer: [
+                        "Online recognition platform where peers can award points redeemable for gifts.",
+                        "'Thank You Thursday' where employees share appreciation for each other."
+                    ]
+                },
+                high: {
+                    formal: [
+                        "Annual 'President's Club' trip for top performers.",
+                        "Significant cash bonuses or stock options for outstanding achievements."
+                    ],
+                    informal: [
+                        "Personalized experiences (e.g., cooking classes, spa day) for high performers.",
+                        "Sabbatical opportunities for long-tenured employees."
+                    ],
+                    peer_to_peer: [
+                        "Robust peer bonus program with substantial rewards.",
+                        "Company-sponsored team-building retreats based on peer nominations."
+                    ]
+                }
+            },
+            medium: {
+                low: {
+                    formal: [
+                        "'Values Champion' award presented monthly, highlighting employees embodying company values.",
+                        "Public recognition in company newsletters or intranet with a small token of appreciation."
+                    ],
+                    informal: [
+                        "Spot bonuses for going above and beyond, communicated directly by managers.",
+                        "Team outings or happy hours to celebrate collective successes."
+                    ],
+                    peer_to_peer: [
+                        "Digital 'Recognition Wall' where employees can post appreciation messages.",
+                        "'High-Five' program where employees can give small, immediate rewards to peers."
+                    ]
+                },
+                medium: {
+                    formal: [
+                        "Quarterly 'Excellence Awards' with a monetary bonus and public acknowledgment.",
+                        "Leadership development opportunities or specialized training for high-potential employees."
+                    ],
+                    informal: [
+                        "Flexible work arrangements or remote work options as a reward for consistent performance.",
+                        "Company-sponsored professional development courses or conference attendance."
+                    ],
+                    peer_to_peer: [
+                        "Points-based recognition system where peers can award points for various achievements, redeemable for company swag or gift cards.",
+                        "'Innovation Challenge' with peer-voted prizes for creative solutions."
+                    ]
+                },
+                high: {
+                    formal: [
+                        "Annual 'Leadership Summit' for top managers and individual contributors.",
+                        "Performance-based bonuses tied to company and individual goal attainment."
+                    ],
+                    informal: [
+                        "Personalized career coaching or mentorship programs.",
+                        "Company-paid sabbaticals or extended leave for long-service employees."
+                    ],
+                    peer_to_peer: [
+                        "Comprehensive peer bonus program with significant financial incentives.",
+                        "Employee stock purchase plans or equity grants for all employees."
+                    ]
+                }
+            },
+            large: {
+                low: {
+                    formal: [
+                        "'Service Awards' for tenure milestones, recognized in company-wide communications.",
+                        "Departmental 'Achievement Awards' with certificates and public acknowledgment."
+                    ],
+                    informal: [
+                        "Company-wide 'Thank You' campaigns from leadership, highlighting team efforts.",
+                        "Small team celebrations for project completions or exceeding targets."
+                    ],
+                    peer_to_peer: [
+                        "Internal social media platform for peer recognition and shout-outs.",
+                        "'Spotlight' feature in company newsletters showcasing employee contributions."
+                    ]
+                },
+                medium: {
+                    formal: [
+                        "Annual 'Innovation Awards' with significant prizes and company-wide recognition.",
+                        "Leadership development programs for high-potential employees across departments."
+                    ],
+                    informal: [
+                        "Flexible work options, including compressed workweeks or remote opportunities.",
+                        "Wellness programs or gym memberships as a form of appreciation."
+                    ],
+                    peer_to_peer: [
+                        "Gamified recognition platform with leaderboards and redeemable rewards.",
+                        "'Employee Choice Awards' where peers nominate and vote for winners in various categories."
+                    ]
+                },
+                high: {
+                    formal: [
+                        "Executive-sponsored 'Excellence Awards' with substantial financial rewards and public ceremony.",
+                        "Global recognition programs for cross-functional team achievements."
+                    ],
+                    informal: [
+                        "Personalized professional development budgets for each employee.",
+                        "Company-wide events (e.g., concerts, sporting events) as a thank you."
+                    ],
+                    peer_to_peer: [
+                        "Advanced peer bonus system integrated with performance management for significant rewards.",
+                        "Employee ownership programs or profit-sharing initiatives."
+                    ]
+                }
+            }
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const companySize = document.getElementById('companySize').value;
+            const budget = document.getElementById('budget').value;
+            const recognitionType = document.getElementById('recognitionType').value;
+
+            const generatedIdeas = ideas[companySize][budget][recognitionType] || [];
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Employee Recognition Program Idea Generator',
+                    companySize: companySize,
+                    budget: budget,
+                    recognitionType: recognitionType,
+                    generatedIdeasCount: generatedIdeas.length
+                });
+            }
+
+            window.location.href = `/tools/results/employee-recognition-program-idea-generator-result.html?companySize=${encodeURIComponent(companySize)}&budget=${encodeURIComponent(budget)}&recognitionType=${encodeURIComponent(recognitionType)}&ideas=${encodeURIComponent(JSON.stringify(generatedIdeas))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Employee Recognition Program Idea Generator'
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Goal Setting Worksheet Result</title>
+    <meta name="description" content="Your generated employee goal setting worksheet. Set, track, and achieve professional goals.">
+    <meta property="og:title" content="Employee Goal Setting Worksheet Result">
+    <meta property="og:description" content="Your generated employee goal setting worksheet. Set, track, and achieve professional goals.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .worksheet-content { background-color: #f9f9f9; padding: 1.5em; border-radius: 5px; margin-top: 1.5em; text-align: left; }
+        .worksheet-content ul { list-style: disc; padding-left: 20px; margin-bottom: 1em; }
+        .worksheet-content li { margin-bottom: 0.5em; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Goal Setting Worksheet for <span id="employeeNameDisplay"></span></h1>
+        <p style="text-align: center;">Use this worksheet to define, track, and achieve your goals.</p>
+        <div class="worksheet-content">
+            <p><strong>Employee Name:</strong> <span id="employeeNameDetails"></span></p>
+            <p><strong>Goal Category:</strong> <span id="goalCategoryDisplay"></span></p>
+            <hr>
+            <h2>Goals:</h2>
+            <ul id="goalsListDisplay"></ul>
+            <hr>
+            <p><strong>Action Plan:</strong> ____________________________________________________________________________________________________</p>
+            <p><strong>Key Performance Indicators (KPIs):</strong> ____________________________________________________________________________________________________</p>
+            <p><strong>Target Date:</strong> _________________________</p>
+            <p><strong>Status:</strong> _________________________</p>
+            <p><strong>Manager Review:</strong> _________________________</p>
+        </div>
+        <hr>
+        <h2>Save Your Worksheet</h2>
+        <p>Enter your email to save this worksheet and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const employeeName = decodeURIComponent(urlParams.get('employeeName'));
+        const goalCategory = decodeURIComponent(urlParams.get('goalCategory'));
+        const goals = JSON.parse(decodeURIComponent(urlParams.get('goals')));
+
+        document.getElementById('employeeNameDisplay').textContent = employeeName;
+        document.getElementById('employeeNameDetails').textContent = employeeName;
+        document.getElementById('goalCategoryDisplay').textContent = goalCategory.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+
+        const goalsListDisplay = document.getElementById('goalsListDisplay');
+        goals.forEach(goal => {
+            const li = document.createElement('li');
+            li.textContent = goal;
+            goalsListDisplay.appendChild(li);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Employee Goal Setting Worksheet Generator',
+                employeeName: employeeName,
+                goalCategory: goalCategory,
+                goalsCount: goals.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Employee Goal Setting Worksheet Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

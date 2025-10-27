@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Needs Assessment Result</title>
+    <meta name="description" content="Review the identified training needs for the employee.">
+    <meta property="og:title" content="Employee Training Needs Assessment Result">
+    <meta property="og:description" content="A tool to help identify skill gaps and prioritize training programs.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function displayAssessmentResult() {
+            const params = new URLSearchParams(window.location.search);
+            const assessmentDetails = {};
+            for (const [key, value] of params.entries()) {
+                assessmentDetails[key] = value;
+            }
+
+            if (!assessmentDetails.employeeName || !assessmentDetails.department || !assessmentDetails.role) {
+                document.getElementById('assessment-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'EmployeeTrainingNeedsAssessment', assessmentDetails });
+
+            const employeeName = assessmentDetails.employeeName;
+            const department = assessmentDetails.department;
+            const role = assessmentDetails.role;
+
+            let skillGaps = [];
+            let developmentAreas = [];
+            let skillsHtml = '';
+
+            for (const key in assessmentDetails) {
+                if (key.startsWith('skill_')) {
+                    const skillName = key.substring(6);
+                    const skillLevel = assessmentDetails[key];
+                    skillsHtml += `<li><strong>${skillName}:</strong> ${skillLevel}</li>`;
+
+                    if (skillLevel === 'Beginner' || skillLevel === 'Intermediate') {
+                        skillGaps.push(skillName);
+                    }
+                    if (skillLevel === 'Beginner') {
+                        developmentAreas.push(`Foundational training in ${skillName}`);
+                    } else if (skillLevel === 'Intermediate') {
+                        developmentAreas.push(`Advanced training or practical application in ${skillName}`);
+                    }
+                }
+            }
+
+            let summaryHtml = `
+                <h2>Training Needs Assessment for ${employeeName}</h2>
+                <p><strong>Department:</strong> ${department}</p>
+                <p><strong>Role:</strong> ${role}</p>
+                <hr>
+                <h3>Skill Levels Assessed:</h3>
+                <ul>${skillsHtml}</ul>
+            `;
+
+            if (skillGaps.length > 0) {
+                summaryHtml += `
+                    <h3>Identified Skill Gaps:</h3>
+                    <p>Based on the self-assessment, potential skill gaps were identified in: <strong>${skillGaps.join(', ')}</strong>.</p>
+                    <h3>Recommended Development Areas:</h3>
+                    <ul>
+                        ${developmentAreas.map(area => `<li>${area}</li>`).join('')}
+                    </ul>
+                    <p>Further discussion with the employee and manager is recommended to prioritize these development areas and identify suitable training programs.</p>
+                `;
+            } else {
+                summaryHtml += `
+                    <h3>No Immediate Skill Gaps Identified:</h3>
+                    <p>The employee's self-assessment indicates a strong alignment with the required skills for their role. Consider opportunities for advanced development or mentorship.</p>
+                `;
+            }
+
+            document.getElementById('assessment-output').innerHTML = summaryHtml;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displayAssessmentResult();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'EmployeeTrainingNeedsAssessment', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'EmployeeTrainingNeedsAssessment', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more insights on talent development.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Employee Training Needs Assessment Result</h1>
+            </div>
+            <div class="card-body">
+                <div id="assessment-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Perform Another Assessment</button>
+                    <button class="btn btn-success" onclick="navigator.clipboard.writeText(document.getElementById('assessment-output').innerText)">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Develop Your Workforce</h4>
+                <p>Subscribe for expert strategies on identifying skill gaps and implementing effective training programs.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

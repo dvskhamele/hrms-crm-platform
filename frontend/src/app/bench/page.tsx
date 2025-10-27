@@ -1,350 +1,266 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Header from '../../components/Header';
-import { 
-  executeAction, 
-  getDashboardData,
-  ActionType, 
-  ActionPayload 
-} from '../../utils/actionAutomation';
-import { toast } from 'react-toastify';
+import { useAuth } from '@/context/AuthContext';
+import apiService from '@/utils/apiService';
+import Link from 'next/link';
 
-export default function BenchMatchingSystem() {
-  const [user, setUser] = useState<any>(null);
-  const [benchCandidates, setBenchCandidates] = useState<any[]>([]);
-  const [positions, setPositions] = useState<any[]>([]);
-  const [jobDescription, setJobDescription] = useState('');
-  const [matches, setMatches] = useState<any[]>([]);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [selectedCandidate, setSelectedCandidate] = useState<number | null>(null);
-  const [selectedPosition, setSelectedPosition] = useState<number | null>(null);
+// Define the type for a bench resource
+interface BenchResource {
+  id: string;
+  name: string;
+  skill: string;
+  experience: number; // Assuming experience is in years
+  status?: string;
+  department?: string;
+  lastUpdated?: string;
+}
+
+const BenchPage: React.FC = () => {
+  const { user } = useAuth();
+  const [benchResources, setBenchResources] = useState<BenchResource[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchBenchResources = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      // For this page, we'll create mock data since the API service doesn't have bench-specific methods
+      // In real implementation, you would call the appropriate API endpoint
+      await new Promise(resolve => setTimeout(resolve, 300)); // Simulate API delay
+      
+      const mockBenchData: BenchResource[] = [
+        { id: '1', name: 'John Smith', skill: 'React, Node.js', experience: 5, status: 'Available', department: 'Technology', lastUpdated: '2025-10-26' },
+        { id: '2', name: 'Jane Doe', skill: 'Python, Django', experience: 4, status: 'Available', department: 'Technology', lastUpdated: '2025-10-25' },
+        { id: '3', name: 'Robert Johnson', skill: 'Java, Spring', experience: 7, status: 'In Training', department: 'Technology', lastUpdated: '2025-10-24' },
+        { id: '4', name: 'Emily Davis', skill: 'React Native', experience: 3, status: 'Available', department: 'Mobile', lastUpdated: '2025-10-23' },
+        { id: '5', name: 'Michael Wilson', skill: 'DevOps, AWS', experience: 6, status: 'On Project', department: 'Technology', lastUpdated: '2025-10-22' },
+      ];
+      
+      setBenchResources(mockBenchData);
+    } catch (err) {
+      console.error('Error fetching bench resources:', err);
+      setError('Failed to load bench resources. Running in demo mode with mock data.');
+      
+      // Still show mock data even if there was an error
+      const mockBenchData: BenchResource[] = [
+        { id: '1', name: 'John Smith', skill: 'React, Node.js', experience: 5, status: 'Available', department: 'Technology', lastUpdated: '2025-10-26' },
+        { id: '2', name: 'Jane Doe', skill: 'Python, Django', experience: 4, status: 'Available', department: 'Technology', lastUpdated: '2025-10-25' },
+      ];
+      
+      setBenchResources(mockBenchData);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Get user from localStorage
-    const token = localStorage.getItem('token');
-    if (token) {
-      setUser({ name: 'Admin User', role: 'ADMIN' } as any);
-    }
-
-    // Load bench candidates from localStorage if available
-    const storedBenchCandidates = localStorage.getItem('benchCandidates');
-    if (storedBenchCandidates) {
-      try {
-        // In a real app, this would load full candidate details
-        const candidateIds = JSON.parse(storedBenchCandidates);
-        setBenchCandidates(candidateIds.map((id: number) => ({
-          id,
-          name: `Candidate ${id}`,
-          skills: ['JavaScript', 'React', 'Node.js', 'Python'], // Mock skills
-          experience: '5 years',
-          rating: 4.5
-        })));
-      } catch (e) {
-        console.error('Error parsing bench candidates from localStorage', e);
-      }
-    }
-
-    // Load mock positions
-    setPositions([
-      { id: 1, title: 'Senior Software Engineer', department: 'Technology', skills: ['JavaScript', 'React', 'Node.js'], priority: 'HIGH' },
-      { id: 2, title: 'Marketing Manager', department: 'Marketing', skills: ['Digital Marketing', 'SEO', 'Analytics'], priority: 'MEDIUM' },
-      { id: 3, title: 'Sales Associate', department: 'Sales', skills: ['Sales', 'Communication', 'CRM'], priority: 'HIGH' }
-    ]);
+    fetchBenchResources();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/';
+  const handleRefresh = () => {
+    fetchBenchResources();
   };
 
-  const handleAction = async (actionType: ActionType, payload: ActionPayload) => {
-    setIsProcessing(true);
-    try {
-      const result = await executeAction(actionType, payload);
-      
-      if (result.success) {
-        toast.success(result.message);
-      } else {
-        toast.error(result.message);
-      }
-    } catch (error) {
-      toast.error('Action failed');
-      console.error('Action execution error:', error);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h1>
+          <p className="text-gray-600 mb-6">Please log in to view bench resources</p>
+          <Link href="/login" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            Go to Login
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
-  const autoMatchCandidates = () => {
-    if (!jobDescription.trim()) {
-      toast.error('Please enter a job description');
-      return;
-    }
-
-    // Simple matching algorithm based on skills
-    const matched = benchCandidates.filter(candidate => {
-      // Extract relevant skills from job description
-      const jobSkills = jobDescription.toLowerCase().split(/[\s,]+/).filter(skill => skill.length > 2);
-      const candidateSkills = candidate.skills.map((s: string) => s.toLowerCase());
-      
-      // Match if at least one skill matches
-      return jobSkills.some(skill => 
-        candidateSkills.some(candidateSkill => 
-          candidateSkill.includes(skill) || skill.includes(candidateSkill)
-        )
-      );
-    });
-
-    setMatches(matched);
-    toast.success(`Found ${matched.length} matching candidates for the position`);
-  };
-
-  const handleAssignCandidate = (candidateId: number, positionId: number) => {
-    if (!selectedCandidate || !selectedPosition) {
-      toast.error('Please select both a candidate and a position');
-      return;
-    }
-
-    handleAction('ASSIGN_RECRUITER', {
-      applicationId: candidateId,
-      recruiterId: positionId
-    });
-
-    // Update local state
-    setBenchCandidates(prev => prev.filter(c => c.id !== candidateId));
-    
-    // Remove candidate from localStorage bench
-    const storedBench = localStorage.getItem('benchCandidates');
-    if (storedBench) {
-      const benchArray = JSON.parse(storedBench);
-      const updatedBench = benchArray.filter((id: number) => id !== candidateId);
-      localStorage.setItem('benchCandidates', JSON.stringify(updatedBench));
-    }
-
-    toast.success('Candidate assigned to position successfully');
-    setSelectedCandidate(null);
-    setSelectedPosition(null);
-  };
-
-  const handleDragStart = (e: React.DragEvent, candidateId: number) => {
-    e.dataTransfer.setData('candidateId', candidateId.toString());
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e: React.DragEvent, positionId: number) => {
-    e.preventDefault();
-    const candidateId = e.dataTransfer.getData('candidateId');
-    if (candidateId) {
-      handleAssignCandidate(parseInt(candidateId), positionId);
-    }
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-gray-50">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <span className="mt-4 text-gray-700">Loading bench resources...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <Header user={user} onLogout={handleLogout} />
-
-      <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-slate-800">Bench Matching System</h1>
-          <p className="text-slate-600">Auto-match candidates to open positions with one-tap assignments</p>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Bench Resources</h1>
+            <p className="mt-2 text-gray-600">Manage available resources on the bench</p>
+          </div>
+          <div className="flex space-x-3">
+            <button 
+              onClick={handleRefresh}
+              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors"
+            >
+              Refresh
+            </button>
+            <Link 
+              href="/bench/upload" 
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+            >
+              Upload Resources
+            </Link>
+          </div>
         </div>
 
-        {/* Job Description Input */}
-        <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">Auto-Match Candidates</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="md:col-span-3">
-              <label className="block text-sm font-medium text-slate-700 mb-1">Paste Job Description</label>
-              <textarea
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-                placeholder="Paste job description here to auto-match candidates..."
-                className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-800 bg-white h-32"
-              />
+        {error && (
+          <div className="mb-6 bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-md">
+            <strong className="font-bold">Demo Mode! </strong>
+            <span className="block sm:inline">{error}</span>
+          </div>
+        )}
+
+        <div className="bg-white shadow rounded-lg overflow-hidden">
+          {benchResources.length === 0 ? (
+            <div className="p-12 text-center">
+              <div className="text-gray-400 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-1">No bench resources found</h3>
+              <p className="text-gray-500">Get started by uploading some bench resources.</p>
+              <div className="mt-6">
+                <Link 
+                  href="/bench/upload" 
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  Upload Resources
+                </Link>
+              </div>
             </div>
-            <div className="flex items-end">
-              <button
-                className="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white py-2 px-4 rounded-lg hover:from-purple-600 hover:to-purple-700 transition duration-300 shadow-md disabled:opacity-50"
-                onClick={autoMatchCandidates}
-                disabled={isProcessing}
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-100">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Name
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Skills
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Experience
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Department
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Last Updated
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {benchResources.map((resource) => (
+                    <tr key={resource.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">{resource.name}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{resource.skill}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">{resource.experience} years</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                          ${resource.status === 'Available' ? 'bg-green-100 text-green-800' : 
+                            resource.status === 'In Training' ? 'bg-yellow-100 text-yellow-800' : 
+                            'bg-blue-100 text-blue-800'}`}
+                        >
+                          {resource.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {resource.department}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {resource.lastUpdated}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">Bench Overview</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Total Resources</span>
+                <span className="font-medium">{benchResources.length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Available</span>
+                <span className="font-medium text-green-600">
+                  {benchResources.filter(r => r.status === 'Available').length}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">In Training</span>
+                <span className="font-medium text-yellow-600">
+                  {benchResources.filter(r => r.status === 'In Training').length}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">Top Skills</h3>
+            <ul className="space-y-2">
+              {['React', 'Node.js', 'Python', 'Java', 'AWS'].map((skill, index) => (
+                <li key={index} className="flex justify-between text-sm">
+                  <span className="text-gray-600">{skill}</span>
+                  <span className="font-medium">{Math.floor(Math.random() * 5) + 1}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">Actions</h3>
+            <div className="space-y-3">
+              <Link 
+                href="/bench/upload" 
+                className="block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-center"
               >
-                {isProcessing ? 'Matching...' : 'Auto-Match'}
+                Upload New Resources
+              </Link>
+              <Link 
+                href="/bench/export" 
+                className="block px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 text-center"
+              >
+                Export Data
+              </Link>
+              <button 
+                onClick={handleRefresh}
+                className="w-full px-4 py-2 bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200"
+              >
+                Refresh Data
               </button>
             </div>
           </div>
         </div>
-
-        {/* Matching Results */}
-        {matches.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
-            <h2 className="text-xl font-semibold text-slate-800 mb-4">Matching Candidates</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {matches.map(candidate => (
-                <div 
-                  key={candidate.id} 
-                  className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                    selectedCandidate === candidate.id ? 'border-purple-500 bg-purple-50' : 'border-slate-200'
-                  }`}
-                  draggable
-                  onDragStart={(e) => handleDragStart(e, candidate.id)}
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-medium text-slate-800">{candidate.name}</h3>
-                      <p className="text-sm text-slate-600">{candidate.experience} experience</p>
-                      <div className="flex items-center mt-1">
-                        <span className="text-amber-500 mr-1">★</span>
-                        <span className="text-sm">{candidate.rating}</span>
-                      </div>
-                    </div>
-                    <span 
-                      className={`px-2 py-1 text-xs rounded-full ${
-                        selectedCandidate === candidate.id ? 'bg-purple-100 text-purple-800' : 'bg-slate-100 text-slate-800'
-                      }`}
-                      onClick={() => setSelectedCandidate(selectedCandidate === candidate.id ? null : candidate.id)}
-                    >
-                      {selectedCandidate === candidate.id ? 'Selected' : 'Select'}
-                    </span>
-                  </div>
-                  <div className="mt-2">
-                    <h4 className="text-xs font-medium text-slate-700">Skills:</h4>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {candidate.skills.slice(0, 3).map((skill: string, idx: number) => (
-                        <span key={idx} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Bench Candidates */}
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-slate-800">Bench Candidates</h2>
-              <span className="bg-purple-100 text-purple-800 text-sm px-2 py-1 rounded-full">
-                {benchCandidates.length} available
-              </span>
-            </div>
-            <div className="space-y-4">
-              {benchCandidates.map(candidate => (
-                <div 
-                  key={candidate.id} 
-                  className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                    selectedCandidate === candidate.id ? 'border-purple-500 bg-purple-50' : 'border-slate-200'
-                  }`}
-                  draggable
-                  onDragStart={(e) => handleDragStart(e, candidate.id)}
-                  onClick={() => setSelectedCandidate(selectedCandidate === candidate.id ? null : candidate.id)}
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-medium text-slate-800">{candidate.name}</h3>
-                      <p className="text-sm text-slate-600">{candidate.experience} experience</p>
-                    </div>
-                    <span 
-                      className={`px-2 py-1 text-xs rounded-full ${
-                        selectedCandidate === candidate.id ? 'bg-purple-100 text-purple-800' : 'bg-slate-100 text-slate-800'
-                      }`}
-                    >
-                      {selectedCandidate === candidate.id ? 'Selected' : 'Select'}
-                    </span>
-                  </div>
-                  <div className="mt-2 flex items-center">
-                    <span className="text-amber-500 mr-1">★</span>
-                    <span className="text-sm mr-3">{candidate.rating}</span>
-                    <div className="flex flex-wrap gap-1">
-                      {candidate.skills.slice(0, 3).map((skill: string, idx: number) => (
-                        <span key={idx} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {benchCandidates.length === 0 && (
-                <div className="text-center py-8 text-slate-500">
-                  No candidates on the bench. Add candidates to the bench from the candidate profiles page.
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Open Positions */}
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-slate-800">Open Positions</h2>
-              <span className="bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full">
-                {positions.length} positions
-              </span>
-            </div>
-            <div className="space-y-4">
-              {positions.map(position => (
-                <div 
-                  key={position.id} 
-                  className={`border rounded-lg p-4 transition-all duration-300 ${
-                    selectedPosition === position.id ? 'border-blue-500 bg-blue-50' : 'border-slate-200'
-                  }`}
-                  onDragOver={handleDragOver}
-                  onDrop={(e) => handleDrop(e, position.id)}
-                  onClick={() => setSelectedPosition(selectedPosition === position.id ? null : position.id)}
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-medium text-slate-800">{position.title}</h3>
-                      <p className="text-sm text-slate-600">{position.department}</p>
-                    </div>
-                    <span 
-                      className={`px-2 py-1 text-xs rounded-full ${
-                        position.priority === 'HIGH' ? 'bg-red-100 text-red-800' : 
-                        position.priority === 'MEDIUM' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-800'
-                      }`}
-                    >
-                      {position.priority}
-                    </span>
-                  </div>
-                  <div className="mt-3">
-                    <h4 className="text-xs font-medium text-slate-700">Required Skills:</h4>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {position.skills.map((skill: string, idx: number) => (
-                        <span key={idx} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Assign Button */}
-            {selectedCandidate && selectedPosition && (
-              <div className="mt-6">
-                <button
-                  className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-4 rounded-lg hover:from-green-600 hover:to-green-700 transition duration-300 shadow-md disabled:opacity-50"
-                  onClick={() => handleAssignCandidate(selectedCandidate, selectedPosition)}
-                  disabled={isProcessing}
-                >
-                  {isProcessing ? 'Processing...' : 'Assign Candidate to Position'}
-                </button>
-                <p className="text-xs text-slate-500 mt-2">
-                  This action will update candidate status, position application count, notify manager and candidate
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </main>
+      </div>
     </div>
   );
-}
+};
+
+export default BenchPage;

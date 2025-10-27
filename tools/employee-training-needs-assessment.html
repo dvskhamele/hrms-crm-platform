@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Training Needs Assessment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'EmployeeTrainingNeedsAssessment' });
+
+            const form = document.getElementById('training-needs-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const assessmentDetails = {};
+                formData.forEach((value, key) => {
+                    if (key.startsWith('skill_')) {
+                        const skillName = key.substring(5);
+                        assessmentDetails[skillName] = value;
+                    } else {
+                        assessmentDetails[key] = value;
+                    }
+                });
+
+                logAnalytics('ToolSubmitted', { toolName: 'EmployeeTrainingNeedsAssessment', formData: assessmentDetails });
+
+                const queryString = new URLSearchParams(assessmentDetails).toString();
+                window.location.href = `/tools/results/employee-training-needs-assessment-result.html?${queryString}`;
+            });
+
+            document.getElementById('keySkills').addEventListener('input', function() {
+                const skillsInput = this.value.split(/\n/).map(s => s.trim()).filter(s => s);
+                const skillAssessmentsDiv = document.getElementById('skillAssessments');
+                skillAssessmentsDiv.innerHTML = ''; // Clear previous assessments
+
+                skillsInput.forEach(skill => {
+                    const div = document.createElement('div');
+                    div.className = 'form-group';
+                    div.innerHTML = "`
+                        <label for="skill_${skill}">${skill} Level:</label>
+                        <select class="form-control" id="skill_${skill}" name="skill_${skill}">
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Expert">Expert</option>
+                        </select>
+                    ";
+                    skillAssessmentsDiv.appendChild(div);
+                });
+            });
+        });
+    </script>
+    <style>
+        #skillAssessments { border: 1px solid #ddd; padding: 15px; border-radius: 5px; margin-top: 20px; background-color: #f9f9f9; }
+        #skillAssessments label { font-weight: bold; margin-bottom: 5px; display: block; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Employee Training Needs Assessment</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Identify skill gaps and training opportunities for your employees.</p>
+                <form id="training-needs-form">
+                    <div class="form-group">
+                        <label for="employeeName">Employee Name</label>
+                        <input type="text" class="form-control" id="employeeName" name="employeeName" placeholder="e.g., Sarah Lee" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" class="form-control" id="department" name="department" placeholder="e.g., Product Development" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <input type="text" class="form-control" id="role" name="role" placeholder="e.g., Junior Product Manager" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="keySkills">Key Skills Required for Role (one per line, then assess below)</label>
+                        <textarea class="form-control" id="keySkills" name="keySkills" rows="5" placeholder="e.g.,&#10;Project Management&#10;Data Analysis&#10;Communication&#10;Software X Proficiency"></textarea>
+                    </div>
+                    <div id="skillAssessments"></div>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Assess Training Needs</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

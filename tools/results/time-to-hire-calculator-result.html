@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time to Hire Calculation Result</title>
+    <meta name="description" content="Review the calculated time to hire for a position.">
+    <meta property="og:title" content="Time to Hire Calculator Result">
+    <meta property="og:description" content="A tool to help HR professionals and recruiters measure recruitment efficiency.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function calculateTimeToHire() {
+            const params = new URLSearchParams(window.location.search);
+            const hireDetails = Object.fromEntries(params.entries());
+
+            if (!hireDetails.dateJobOpened || !hireDetails.dateOfferAccepted) {
+                document.getElementById('result-output').innerHTML = '<p class="text-danger">Error: Missing dates. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'TimeToHireCalculator', hireDetails });
+
+            const dateJobOpened = new Date(hireDetails.dateJobOpened);
+            const dateOfferAccepted = new Date(hireDetails.dateOfferAccepted);
+
+            const timeDiff = Math.abs(dateOfferAccepted.getTime() - dateJobOpened.getTime());
+            const daysToHire = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            const output = `
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Recruitment Details</h4>
+                    <p>Date Job Opened: <strong>${dateJobOpened.toLocaleDateString()}</strong></p>
+                    <p>Date Offer Accepted: <strong>${dateOfferAccepted.toLocaleDateString()}</strong></p>
+                </div>
+                <hr>
+                <h3>Calculated Time to Hire:</h3>
+                <h2 class="text-success">${daysToHire} Days</h2>
+                <p class="text-muted mt-3"><em>Time to hire measures the number of days from when a job requisition is opened until a candidate accepts the job offer.</em></p>
+            `;
+
+            document.getElementById('result-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateTimeToHire();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'TimeToHireCalculator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'TimeToHireCalculator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more recruitment insights.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Time to Hire Calculation</h1>
+            </div>
+            <div class="card-body">
+                <div id="result-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Recalculate</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Optimize Your Recruitment Process</h4>
+                <p>Subscribe for expert strategies on reducing time-to-hire and improving recruitment efficiency.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

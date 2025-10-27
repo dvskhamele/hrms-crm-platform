@@ -1,0 +1,27 @@
+{
+  "toolSlug": "candidate-interview-scorecard-generator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "Candidate Interview Scorecard Generator - Gem Tools",
+    "metaDescription": "Generate customizable interview scorecards to standardize candidate evaluation, reduce bias, and improve hiring consistency.",
+    "h1": "Candidate Interview Scorecard Generator",
+    "keywords": ["interview scorecard", "candidate evaluation", "hiring consistency", "reduce bias", "recruitment tool", "HR template", "interview template"],
+    "url": "/tools/candidate-interview-scorecard-generator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard"]
+  },
+  "marketingAudit": {
+    "targetAudience": "HR professionals, recruiters, talent acquisition specialists",
+    "valueProposition": "Standardize evaluations, reduce bias, improve hiring consistency",
+    "callToActions": ["Generate Scorecard", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Scorecard Generation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Job Title", "Key Skills/Competencies", "Evaluation Criteria", "Rating Scale"],
+    "validationRules": ["All fields required"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, intuitive flow"
+  }
+}

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Guest Feedback Analyzer | HotelOps</title>
+    <meta name="description" content="Analyze hotel guest feedback to identify trends, satisfaction scores, and improvement opportunities. Enhance your hotel operations with data-driven insights.">
+    <meta property="og:title" content="Hotel Guest Feedback Analyzer">
+    <meta property="og:description" content="Analyze hotel guest feedback to identify trends, satisfaction scores, and improvement opportunities.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hotelops.com/tools/guest-feedback-analyzer.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 150px;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-start;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .results-section {
+            display: none;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .sentiment-section {
+            margin: 30px 0;
+        }
+        
+        .sentiment-bar {
+            height: 30px;
+            border-radius: 15px;
+            margin: 10px 0;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .sentiment-bar-positive {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            height: 100%;
+        }
+        
+        .sentiment-bar-neutral {
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+            height: 100%;
+        }
+        
+        .sentiment-bar-negative {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            height: 100%;
+        }
+        
+        .feedback-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #e0e6ed;
+            border-radius: 8px;
+        }
+        
+        .feedback-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .positive {
+            border-left-color: #2ecc71;
+            background-color: #f8fff9;
+        }
+        
+        .neutral {
+            border-left-color: #f39c12;
+            background-color: #fffdf8;
+        }
+        
+        .negative {
+            border-left-color: #e74c3c;
+            background-color: #fff8f8;
+        }
+        
+        .feedback-text {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .sentiment-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .positive-tag {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .neutral-tag {
+            background: #fff8e1;
+            color: #f57f17;
+        }
+        
+        .negative-tag {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .lead-capture {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .lead-capture h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .email-input {
+            padding: 12px 20px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 15px;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hotel Guest Feedback Analyzer</h1>
+            <p class="subtitle">Analyze guest feedback to identify trends, satisfaction scores, and improvement opportunities to enhance your hotel operations</p>
+        </header>
+        
+        <main>
+            <div class="card">
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="feedbackInput">Enter Guest Feedback (one per line or separated by ||)</label>
+                        <textarea id="feedbackInput" placeholder="Example:
+The room was clean and comfortable.
+The staff was incredibly friendly and helpful.
+|| The breakfast was disappointing.
+|| Check-in process was too slow."></textarea>
+                    </div>
+                    
+                    <button id="analyzeBtn" class="btn">Analyze Feedback</button>
+                </div>
+                
+                <div id="resultsSection" class="results-section">
+                    <h2>Analysis Results</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalFeedback">0</div>
+                            <div class="stat-label">Total Feedback</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="positiveCount">0</div>
+                            <div class="stat-label">Positive</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="neutralCount">0</div>
+                            <div class="stat-label">Neutral</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="negativeCount">0</div>
+                            <div class="stat-label">Negative</div>
+                        </div>
+                    </div>
+                    
+                    <div class="sentiment-section">
+                        <h3>Sentiment Distribution</h3>
+                        <div class="sentiment-bar">
+                            <div id="positiveBar" class="sentiment-bar-positive" style="width: 0%"></div>
+                            <div id="neutralBar" class="sentiment-bar-neutral" style="width: 0%"></div>
+                            <div id="negativeBar" class="sentiment-bar-negative" style="width: 0%"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                            <span>Positive: <span id="positivePercent">0%</span></span>
+                            <span>Neutral: <span id="neutralPercent">0%</span></span>
+                            <span>Negative: <span id="negativePercent">0%</span></span>
+                        </div>
+                    </div>
+                    
+                    <h3>Feedback Details</h3>
+                    <div id="feedbackList" class="feedback-list">
+                        <!-- Feedback items will be added here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lead-capture">
+                <h3>Get More Insights Like This</h3>
+                <p>Subscribe to receive weekly analytics reports and optimization tips for your hotel operations</p>
+                <input type="email" id="emailInput" class="email-input" placeholder="Enter your email address">
+                <button id="subscribeBtn" class="btn">Subscribe Now</button>
+            </div>
+        </main>
+        
+        <footer>
+            <p>HotelOps Guest Feedback Analyzer | Enhancing Hotel Operations Since 2023</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const feedbackInput = document.getElementById('feedbackInput');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const resultsSection = document.getElementById('resultsSection');
+            const totalFeedbackEl = document.getElementById('totalFeedback');
+            const positiveCountEl = document.getElementById('positiveCount');
+            const neutralCountEl = document.getElementById('neutralCount');
+            const negativeCountEl = document.getElementById('negativeCount');
+            const positiveBar = document.getElementById('positiveBar');
+            const neutralBar = document.getElementById('neutralBar');
+            const negativeBar = document.getElementById('negativeBar');
+            const positivePercent = document.getElementById('positivePercent');
+            const neutralPercent = document.getElementById('neutralPercent');
+            const negativePercent = document.getElementById('negativePercent');
+            const feedbackList = document.getElementById('feedbackList');
+            const emailInput = document.getElementById('emailInput');
+            const subscribeBtn = document.getElementById('subscribeBtn');
+            
+            // Analyze feedback button click handler
+            analyzeBtn.addEventListener('click', analyzeFeedback);
+            
+            // Subscribe button click handler
+            subscribeBtn.addEventListener('click', captureEmail);
+            
+            // Capture email on Enter key
+            emailInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    captureEmail();
+                }
+            });
+            
+            function analyzeFeedback() {
+                const feedbackText = feedbackInput.value.trim();
+                if (!feedbackText) {
+                    alert('Please enter some feedback to analyze');
+                    return;
+                }
+                
+                // Split feedback by lines or by '||' separator
+                let feedbackItems = feedbackText.split('\n').filter(f => f.trim() !== '');
+                if (feedbackItems.length === 1) {
+                    feedbackItems = feedbackText.split('||').filter(f => f.trim() !== '');
+                }
+                
+                // Process each feedback item
+                const processedFeedback = feedbackItems.map(item => {
+                    return {
+                        text: item.trim(),
+                        sentiment: analyzeSentiment(item.trim()),
+                        words: item.trim().toLowerCase().split(' ')
+                    };
+                });
+                
+                // Calculate statistics
+                const total = processedFeedback.length;
+                const positive = processedFeedback.filter(f => f.sentiment === 'positive').length;
+                const neutral = processedFeedback.filter(f => f.sentiment === 'neutral').length;
+                const negative = processedFeedback.filter(f => f.sentiment === 'negative').length;
+                
+                const positivePercentVal = total > 0 ? Math.round((positive / total) * 100) : 0;
+                const neutralPercentVal = total > 0 ? Math.round((neutral / total) * 100) : 0;
+                const negativePercentVal = total > 0 ? Math.round((negative / total) * 100) : 0;
+                
+                // Update UI
+                totalFeedbackEl.textContent = total;
+                positiveCountEl.textContent = positive;
+                neutralCountEl.textContent = neutral;
+                negativeCountEl.textContent = negative;
+                
+                positiveBar.style.width = `${positivePercentVal}%`;
+                neutralBar.style.width = `${neutralPercentVal}%`;
+                negativeBar.style.width = `${negativePercentVal}%`;
+                
+                positivePercent.textContent = `${positivePercentVal}%`;
+                neutralPercent.textContent = `${neutralPercentVal}%`;
+                negativePercent.textContent = `${negativePercentVal}%`;
+                
+                // Display feedback items
+                feedbackList.innerHTML = '';
+                processedFeedback.forEach(feedback => {
+                    const feedbackItem = document.createElement('div');
+                    feedbackItem.className = `feedback-item ${feedback.sentiment}`;
+                    
+                    feedbackItem.innerHTML = `
+                        <div class="feedback-text">${feedback.text}</div>
+                        <div class="sentiment-tag ${feedback.sentiment}-tag">${feedback.sentiment.charAt(0).toUpperCase() + feedback.sentiment.slice(1)}</div>
+                    `;
+                    
+                    feedbackList.appendChild(feedbackItem);
+                });
+                
+                // Show results section
+                resultsSection.style.display = 'block';
+                
+                // Scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+                
+                // Log the analysis for analytics
+                logEvent('feedback_analysis', {
+                    total_feedback: total,
+                    positive: positive,
+                    negative: negative,
+                    neutral: neutral
+                });
+            }
+            
+            function analyzeSentiment(text) {
+                // Simple sentiment analysis based on keywords
+                const positiveWords = [
+                    'good', 'great', 'excellent', 'amazing', 'wonderful', 'fantastic', 'outstanding',
+                    'perfect', 'love', 'like', 'enjoy', 'satisfied', 'pleased', 'happy', 'delighted',
+                    'impressed', 'friendly', 'helpful', 'accommodating', 'clean', 'comfortable',
+                    'beautiful', 'perfect', 'best', 'favorite', 'recommend', 'appreciate', 'thank'
+                ];
+                
+                const negativeWords = [
+                    'bad', 'terrible', 'awful', 'horrible', 'disappointing', 'poor', 'worst',
+                    'hate', 'dislike', 'unhappy', 'angry', 'frustrated', 'annoyed', 'disgusted',
+                    'dirty', 'slow', 'disappointing', 'disgusting', 'broken', 'problem', 'issue',
+                    'complaint', 'concern', 'unprofessional', 'rude', 'disrespectful', 'difficult'
+                ];
+                
+                const words = text.toLowerCase().split(' ');
+                let positiveScore = 0;
+                let negativeScore = 0;
+                
+                words.forEach(word => {
+                    if (positiveWords.includes(word)) {
+                        positiveScore++;
+                    }
+                    if (negativeWords.includes(word)) {
+                        negativeScore++;
+                    }
+                });
+                
+                if (positiveScore > negativeScore) {
+                    return 'positive';
+                } else if (negativeScore > positiveScore) {
+                    return 'negative';
+                } else {
+                    return 'neutral';
+                }
+            }
+            
+            function captureEmail() {
+                const email = emailInput.value.trim();
+                
+                if (!email) {
+                    alert('Please enter your email address');
+                    return;
+                }
+                
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
+                
+                // Save email to local storage
+                const subscribers = JSON.parse(localStorage.getItem('feedbackAnalyzerSubscribers') || '[]');
+                if (!subscribers.includes(email)) {
+                    subscribers.push(email);
+                    localStorage.setItem('feedbackAnalyzerSubscribers', JSON.stringify(subscribers));
+                    
+                    // Show success message
+                    alert('Thank you for subscribing! You will receive weekly analytics reports.');
+                    emailInput.value = '';
+                    
+                    // Log the subscription
+                    logEvent('email_capture', { email: email });
+                } else {
+                    alert('This email is already subscribed!');
+                }
+            }
+            
+            function logEvent(eventType, data) {
+                // Log analytics event to console (in a real app, this would send to a server)
+                const event = {
+                    type: eventType,
+                    data: data,
+                    timestamp: new Date().toISOString(),
+                    tool: 'guest-feedback-analyzer',
+                    userAgent: navigator.userAgent,
+                    timestampMs: Date.now()
+                };
+                
+                console.log('Analytics Event:', event);
+                
+                // Store in localStorage for later analysis
+                const events = JSON.parse(localStorage.getItem('analyticsEvents') || '[]');
+                events.push(event);
+                
+                // Limit stored events to last 1000 to prevent storage overflow
+                if (events.length > 1000) {
+                    events.splice(0, events.length - 1000);
+                }
+                
+                localStorage.setItem('analyticsEvents', JSON.stringify(events));
+                
+                // Update tool usage statistics
+                updateToolUsageStats();
+            }
+            
+            function updateToolUsageStats() {
+                // Update usage statistics in localStorage
+                const stats = JSON.parse(localStorage.getItem('toolUsageStats') || '{}');
+                
+                stats.totalUses = (stats.totalUses || 0) + 1;
+                stats.lastUse = new Date().toISOString();
+                
+                if (!stats.firstUse) {
+                    stats.firstUse = stats.lastUse;
+                }
+                
+                localStorage.setItem('toolUsageStats', JSON.stringify(stats));
+            }
+            
+            function getToolStats() {
+                return JSON.parse(localStorage.getItem('toolUsageStats') || '{}');
+            }
+            
+            // Display tool stats on load
+            function displayToolStats() {
+                const stats = getToolStats();
+                
+                if (stats.totalUses > 0) {
+                    console.log(`Tool has been used ${stats.totalUses} times. Last use: ${stats.lastUse}`);
+                }
+            }
+            
+            // Initialize tool stats display
+            displayToolStats();
+            
+            // Initialize with sample feedback
+            feedbackInput.value = `The room was clean and comfortable.
+The staff was incredibly friendly and helpful.
+|| The breakfast was disappointing.
+|| Check-in process was too slow.
+The pool area needs more seating.
+|| Amazing view from the room!
+Great customer service from Maria at the front desk.
+|| Room service was delivered late.`;
+        });
+    </script>
+</body>
+</html>

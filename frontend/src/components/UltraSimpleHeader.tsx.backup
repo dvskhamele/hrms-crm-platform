@@ -1,0 +1,241 @@
+'use client'
+
+import React from 'react'
+import Link from 'next/link'
+import { useAuth } from '../context/AuthContext'
+
+interface NavItem {
+  name: string;
+  href: string;
+  icon: string;
+  roles?: string[];
+}
+
+const UltraSimpleHeader = () => {
+  const { user } = useAuth();
+  return (
+    <header style={{
+      backgroundColor: 'white',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 50,
+      width: '100%',
+      padding: '0 1rem'
+    }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '0.75rem 0'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Link href="/dashboard" style={{
+            fontSize: '1.25rem',
+            fontWeight: 'bold',
+            color: '#1e293b',
+            display: 'flex',
+            alignItems: 'center',
+            textDecoration: 'none'
+          }}>
+            <svg xmlns="http://www.w3.org/2000/svg" style={{ height: '1.75rem', width: '1.75rem', color: '#0d9488', marginRight: '0.375rem' }} viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+            <span>Gem</span>
+          </Link>
+        </div>
+        
+        <nav style={{
+          display: 'flex',
+          gap: '0.5rem', /* Reduced gap for more items */
+          flexGrow: 1,
+          justifyContent: 'center',
+          margin: '0 1rem',
+          flexWrap: 'wrap' /* Allow wrapping on smaller screens */
+        }}>
+          <Link href="/dashboard" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Dashboard
+          </Link>
+          <Link href="/candidate-profiles" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Candidates
+          </Link>
+          <Link href="/bench" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Bench
+          </Link>
+          <Link href="/positions" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Positions
+          </Link>
+          <Link href="/applications" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Applications
+          </Link>
+          <Link href="/recruiters" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Recruiters
+          </Link>
+          <Link href="/recruiter-tracking" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Recruiter Tracking
+          </Link>
+          <Link href="/ai-sourcing" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            AI Sourcing
+          </Link>
+          <Link href="/voice-commands" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Voice Commands
+          </Link>
+          <Link href="/screening" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Screening
+          </Link>
+          <Link href="/analytics" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Analytics
+          </Link>
+          <Link href="/departments" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Departments
+          </Link>
+          <Link href="/tools" style={{
+            color: '#475569',
+            textDecoration: 'none',
+            padding: '0.5rem 0.75rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Tools
+          </Link>
+        </nav>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ position: 'relative' }}>
+            <button style={{
+              position: 'relative',
+              padding: '0.5rem',
+              color: '#475569',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer'
+            }}>
+              <svg xmlns="http://www.w3.org/2000/svg" style={{ height: '1.5rem', width: '1.5rem' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <div style={{ position: 'relative' }}>
+            <button style={{
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: '0.875rem',
+              fontWeight: 500,
+              color: '#334155',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer'
+            }}>
+              <span style={{ marginRight: '0.25rem' }}>Admin User</span>
+              <svg xmlns="http://www.w3.org/2000/svg" style={{ height: '1.25rem', width: '1.25rem' }} viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
+
+export default UltraSimpleHeader

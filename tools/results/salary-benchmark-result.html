@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Benchmark Results | Gem HRMS</title>
+    <link rel="stylesheet" href="../salary-benchmarking-tool/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Salary Benchmark Results</h1>
+        <div id="results-container">
+            <!-- Results will be dynamically inserted here -->
+        </div>
+        <div class="lead-capture">
+            <h2>Get a Detailed Report</h2>
+            <p>Enter your email to receive a more detailed salary report and stay updated with our latest tools.</p>
+            <form id="lead-form">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Get Report</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytic('ToolResultViewed');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const resultId = urlParams.get('id');
+
+            // In a real application, you would fetch the results based on the ID.
+            // For this demo, we'll just display a placeholder.
+            const resultsContainer = document.getElementById('results-container');
+            const resultData = JSON.parse(localStorage.getItem('salaryResult'));
+
+            if (resultData) {
+                resultsContainer.innerHTML = `
+                    <p><strong>Job Title:</strong> ${resultData.jobTitle}</p>
+                    <p><strong>Industry:</strong> ${resultData.industry}</p>
+                    <p><strong>Location:</strong> ${resultData.location}</p>
+                    <p><strong>Years of Experience:</strong> ${resultData.experience}</p>
+                    <p><strong>Estimated Salary Range:</strong> ${resultData.salaryRange}</p>
+                `;
+            } else {
+                resultsContainer.innerHTML = `<p>No results found. Please try the salary benchmarking tool again.</p>`;
+            }
+
+            const leadForm = document.getElementById('lead-form');
+            leadForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                logAnalytic('LeadCaptured');
+                const email = document.getElementById('email').value;
+                // In a real application, you would send the email to your backend.
+                console.log(`Email captured: ${email}`);
+                alert('Thank you! Your detailed report will be sent to your email.');
+            });
+        });
+
+        function logAnalytic(eventName) {
+            // In a real application, this would send data to an analytics service
+            console.log(`Analytics Event: ${eventName}`);
+        }
+    </script>
+</body>
+</html>

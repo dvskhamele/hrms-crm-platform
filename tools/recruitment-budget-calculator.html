@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Budget Calculator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: 0.5em; }
+        input[type="number"] { width: 100%; padding: 0.5em; }
+        button { padding: 0.75em 1.5em; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        #budget-output { margin-top: 2em; padding: 1em; border: 1px solid #ccc; }
+        .email-capture { margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recruitment Budget Calculator</h1>
+        <p>Plan and manage your recruitment expenses effectively.</p>
+
+        <div id="budget-form">
+            <div class="form-group">
+                <label for="hires-needed">Number of Hires Needed</label>
+                <input type="number" id="hires-needed" value="10">
+            </div>
+            <div class="form-group">
+                <label for="avg-cost-per-hire">Average Cost Per Hire ($)</label>
+                <input type="number" id="avg-cost-per-hire" value="5000">
+            </div>
+            <div class="form-group">
+                <label for="marketing-budget">Marketing & Advertising Budget ($)</label>
+                <input type="number" id="marketing-budget" value="2000">
+            </div>
+            <div class="form-group">
+                <label for="tool-software-cost">Tools & Software Cost ($)</label>
+                <input type="number" id="tool-software-cost" value="1000">
+            </div>
+            <button type="button" id="calculate-budget">Calculate Budget</button>
+        </div>
+
+        <div id="budget-output" style="display: none;">
+            <!-- Budget will be displayed here -->
+        </div>
+
+        <div class="email-capture" id="email-capture" style="display: none;">
+            <h2>Get Your Budget Report</h2>
+            <p>Enter your email to receive a detailed report of your recruitment budget.</p>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@yourcompany.com">
+            </div>
+            <button type="button" id="submit-email">Download Report</button>
+            <p id="email-message"></p>
+        </div>
+    </div>
+
+    <script src="recruitment-budget-calculator.js"></script>
+</body>
+</html>

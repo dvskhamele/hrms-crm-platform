@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDPR Data Request Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>GDPR Data Request Form Generator</h1>
+        <p>Easily generate a GDPR-compliant data request form for data access, rectification, or erasure.</p>
+
+        <div class="input-section">
+            <label for="request-type">Type of Request:</label>
+            <select id="request-type">
+                <option value="access">Data Access Request</option>
+                <option value="rectification">Data Rectification Request</option>
+                <option value="erasure">Data Erasure (Right to be Forgotten) Request</option>
+            </select>
+
+            <label for="data-subject-name">Data Subject's Full Name:</label>
+            <input type="text" id="data-subject-name" placeholder="e.g., Jane Doe">
+
+            <label for="data-subject-email">Data Subject's Email:</label>
+            <input type="email" id="data-subject-email" placeholder="e.g., jane.doe@example.com">
+
+            <button id="generate-btn">Generate Request Form</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Generated Request Form Text:</h2>
+            <textarea id="generated-form-text" rows="15" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

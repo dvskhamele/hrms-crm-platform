@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promotion Letter Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Promotion Letter Generator</h1>
+        <p>Generate a professional letter to formally announce an employee's promotion.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            </div>
+            <div class="input-group">
+                <label for="old-job-title">Current Job Title:</label>
+                <input type="text" id="old-job-title" placeholder="e.g., Marketing Assistant">
+            </div>
+            <div class="input-group">
+                <label for="new-job-title">New Job Title:</label>
+                <input type="text" id="new-job-title" placeholder="e.g., Marketing Specialist">
+            </div>
+            <div class="input-group">
+                <label for="new-salary">New Annual Salary ($):</label>
+                <input type="number" id="new-salary" placeholder="e.g., 65000">
+            </div>
+            <div class="input-group">
+                <label for="effective-date">Effective Date of Promotion:</label>
+                <input type="date" id="effective-date">
+            </div>
+            <div class="input-group full-width">
+                <label for="reason">Reason for Promotion (Optional):</label>
+                <textarea id="reason" rows="3" placeholder="e.g., In recognition of your outstanding performance and leadership in the recent Q3 campaign."></textarea>
+            </div>
+            <button id="generate-letter-btn">Generate Promotion Letter</button>
+        </div>
+
+        <div id="letter-output" class="hidden">
+            <h2>Generated Promotion Letter</h2>
+            <div id="letter-content"></div>
+            <button id="copy-letter-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Sourcing Strategy</title>
+    <meta name="description" content="Review your tailored candidate sourcing strategy.">
+    <meta property="og:title" content="Candidate Sourcing Strategy Builder Result">
+    <meta property="og:description" content="A tool to help recruiters and HR professionals build effective sourcing plans.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function generateStrategy() {
+            const params = new URLSearchParams(window.location.search);
+            const strategyDetails = Object.fromEntries(params.entries());
+
+            if (!strategyDetails.jobType || !strategyDetails.experienceLevel || !strategyDetails.budget) {
+                document.getElementById('strategy-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'CandidateSourcingStrategyBuilder', strategyDetails });
+
+            let strategy = [];
+            const jobType = strategyDetails.jobType;
+            const experienceLevel = strategyDetails.experienceLevel;
+            const budget = strategyDetails.budget;
+            const targetAudience = strategyDetails.targetAudience || 'general candidates';
+
+            strategy.push(`<h2>Sourcing Strategy for ${jobType} (${experienceLevel})</h2>`);
+            strategy.push(`<p><strong>Target Audience:</strong> ${targetAudience}</p>`);
+
+            strategy.push(`<h3>Recommended Channels:</h3>`);
+            strategy.push(`<ul>`);
+
+            // Channel recommendations based on job type and experience
+            if (jobType === 'Technical') {
+                strategy.push(`<li>LinkedIn Recruiter & LinkedIn Groups (for experienced talent)</li>`);
+                strategy.push(`<li>GitHub, Stack Overflow, specialized tech forums</li>`);
+                strategy.push(`<li>Technical job boards (e.g., Dice, Hired)</li>`);
+                if (experienceLevel === 'Entry-Level') {
+                    strategy.push(`<li>University career fairs & coding bootcamps</li>`);
+                }
+            } else if (jobType === 'Sales') {
+                strategy.push(`<li>LinkedIn Sales Navigator</li>`);
+                strategy.push(`<li>Sales-specific job boards & communities</li>`);
+                strategy.push(`<li>Referral programs</li>`);
+            } else if (jobType === 'Marketing') {
+                strategy.push(`<li>LinkedIn & professional marketing associations</li>`);
+                strategy.push(`<li>Content marketing platforms & communities</li>`);
+                strategy.push(`<li>Creative job boards (e.g., Behance, Dribbble for design roles)</li>`);
+            } else if (jobType === 'HR') {
+                strategy.push(`<li>SHRM, HRCI communities & job boards</li>`);
+                strategy.push(`<li>LinkedIn HR groups</li>`);
+            } else {
+                strategy.push(`<li>General job boards (e.g., Indeed, Glassdoor)</li>`);
+                strategy.push(`<li>Company career page</li>`);
+            }
+
+            // Adjust based on budget
+            if (budget === 'Low') {
+                strategy.push(`<li>Leverage free job boards and social media outreach.</li>`);
+                strategy.push(`<li>Focus on internal referrals.</li>`);
+            } else if (budget === 'Medium') {
+                strategy.push(`<li>Consider paid job board postings and LinkedIn Recruiter Lite.</li>`);
+                strategy.push(`<li>Attend industry-specific virtual events.</li>`);
+            } else if (budget === 'High') {
+                strategy.push(`<li>Engage with recruitment agencies for specialized roles.</li>`);
+                strategy.push(`<li>Invest in premium job board placements and targeted advertising.</li>`);
+                strategy.push(`<li>Utilize advanced sourcing tools and platforms.</li>`);
+            }
+
+            strategy.push(`</ul>`);
+
+            strategy.push(`<h3>Key Actions:</h3>`);
+            strategy.push(`<ul>`);
+            strategy.push(`<li>Optimize job descriptions for SEO and clarity.</li>`);
+            strategy.push(`<li>Develop compelling employer branding content.</li>`);
+            strategy.push(`<li>Build a strong talent pipeline through continuous engagement.</li>`);
+            strategy.push(`<li>Track key sourcing metrics (e.g., time-to-hire, cost-per-hire per channel).</li>`);
+            strategy.push(`</ul>`);
+
+            document.getElementById('strategy-output').innerHTML = strategy.join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateStrategy();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'CandidateSourcingStrategyBuilder', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'CandidateSourcingStrategyBuilder', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more sourcing insights.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Your Candidate Sourcing Strategy</h1>
+            </div>
+            <div class="card-body">
+                <div id="strategy-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Refine Strategy</button>
+                    <button class="btn btn-success" onclick="navigator.clipboard.writeText(document.getElementById('strategy-output').innerText)">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Optimize Your Talent Acquisition</h4>
+                <p>Subscribe for advanced sourcing techniques and recruitment trends.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

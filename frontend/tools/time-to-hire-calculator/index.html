@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time to Hire Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Calculate the time to hire for your recruitment process. Identify bottlenecks and optimize your hiring speed.">
+    <meta property="og:title" content="Time to Hire Calculator">
+    <meta property="og:description" content="Calculate the time to hire for your recruitment process. Identify bottlenecks and optimize your hiring speed.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="YOUR_SHAREABLE_URL_HERE">
+</head>
+<body>
+    <div class="container">
+        <h1>Time to Hire Calculator</h1>
+        <p>Measure and optimize the efficiency of your recruitment process.</p>
+
+        <div class="form-group">
+            <label for="jobRequisitionOpen">Job Requisition Open Date:</label>
+            <input type="date" id="jobRequisitionOpen">
+        </div>
+
+        <div class="form-group">
+            <label for="applicationReceived">First Application Received Date:</label>
+            <input type="date" id="applicationReceived">
+        </div>
+
+        <div class="form-group">
+            <label for="interviewsStart">Interviews Start Date:</label>
+            <input type="date" id="interviewsStart">
+        </div>
+
+        <div class="form-group">
+            <label for="offerExtended">Offer Extended Date:</label>
+            <input type="date" id="offerExtended">
+        </div>
+
+        <div class="form-group">
+            <label for="offerAccepted">Offer Accepted Date:</label>
+            <input type="date" id="offerAccepted">
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Employee Start Date:</label>
+            <input type="date" id="startDate">
+        </div>
+
+        <button id="calculateBtn">Calculate Time to Hire</button>
+
+        <div class="result-section">
+            <h2>Result:</h2>
+            <p>Time from Requisition to Start: <span id="timeToStart">0</span> days</p>
+            <p>Time from Application to Hire: <span id="timeToHire">0</span> days</p>
+            <p id="timeToHireInterpretation"></p>
+        </div>
+
+        <div class="lead-capture-section">
+            <h2>Get more HR insights!</h2>
+            <p>Enter your email to receive exclusive HR tools and tips directly in your inbox.</p>
+            <input type="email" id="leadEmail" placeholder="your.email@example.com">
+            <button id="subscribeBtn">Subscribe</button>
+            <p id="leadMessage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

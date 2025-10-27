@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360-Degree Feedback Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>360-Degree Feedback Form Generator</h1>
+        <p>Create a comprehensive 360-degree feedback form to gather insights from multiple perspectives.</p>
+
+        <div class="generator-controls">
+            <div class="input-group">
+                <label for="employee-name">Employee Being Reviewed:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Alex Smith">
+            </div>
+            <div class="input-group">
+                <label for="reviewer-type">Reviewer Type:</label>
+                <select id="reviewer-type">
+                    <option value="self">Self-Assessment</option>
+                    <option value="manager">Manager</option>
+                    <option value="peer">Peer</option>
+                    <option value="direct-report">Direct Report</option>
+                </select>
+            </div>
+            <button id="generate-form-btn">Generate Feedback Form</button>
+        </div>
+
+        <div id="form-output" class="hidden">
+            <h2>Generated 360-Degree Feedback Form</h2>
+            <div id="form-content"></div>
+            <button id="copy-form-btn">Copy Form Text</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

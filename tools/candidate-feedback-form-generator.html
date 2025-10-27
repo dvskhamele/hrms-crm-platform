@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Feedback Form Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], textarea { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        #criteriaList { list-style: none; padding: 0; margin-top: 1em; }
+        #criteriaList li { background-color: #f0f0f0; padding: .5em; margin-bottom: .5em; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; }
+        #criteriaList li button { background-color: #dc3545; padding: .3em .6em; font-size: .8em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Feedback Form Generator</h1>
+        <p>Create customized feedback forms to collect structured and objective input after candidate interviews.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" placeholder="e.g., Marketing Manager" required>
+            </div>
+            <div class="form-group">
+                <label for="candidateName">Candidate Name</label>
+                <input type="text" id="candidateName" placeholder="e.g., Emily White" required>
+            </div>
+            <div class="form-group">
+                <label for="criteria">Add Evaluation Criteria</label>
+                <input type="text" id="criteria" placeholder="e.g., Technical Skills, Communication, Cultural Fit">
+                <button type="button" id="addCriteria">Add Criteria</button>
+            </div>
+            <ul id="criteriaList"></ul>
+            <button type="submit">Generate Feedback Form</button>
+        </form>
+    </div>
+    <script>
+        const criteria = [];
+
+        document.getElementById('addCriteria').addEventListener('click', function() {
+            const criteriaInput = document.getElementById('criteria');
+            const criteriaText = criteriaInput.value.trim();
+            if (criteriaText) {
+                criteria.push(criteriaText);
+                renderCriteria();
+                criteriaInput.value = '';
+            }
+        });
+
+        function renderCriteria() {
+            const list = document.getElementById('criteriaList');
+            list.innerHTML = '';
+            criteria.forEach((crit, index) => {
+                const li = document.createElement('li');
+                li.textContent = crit;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    criteria.splice(index, 1);
+                    renderCriteria();
+                });
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const jobTitle = document.getElementById('jobTitle').value;
+            const candidateName = document.getElementById('candidateName').value;
+
+            if (criteria.length === 0) {
+                alert('Please add at least one evaluation criteria.');
+                return;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Candidate Feedback Form Generator',
+                    jobTitle: jobTitle,
+                    candidateName: candidateName,
+                    criteria: criteria.join(', ')
+                });
+            }
+
+            window.location.href = `/tools/results/candidate-feedback-form-generator-result.html?jobTitle=${encodeURIComponent(jobTitle)}&candidateName=${encodeURIComponent(candidateName)}&criteria=${encodeURIComponent(JSON.stringify(criteria))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Candidate Feedback Form Generator'
+            });
+        }
+    </script>
+</body>
+</html>

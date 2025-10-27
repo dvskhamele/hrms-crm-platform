@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTE Calculation Result</title>
+    <meta name="description" content="Review the calculated Full-Time Equivalent (FTE) for your workforce.">
+    <meta property="og:title" content="FTE Calculator Result">
+    <meta property="og:description" content="A tool to help HR professionals and managers calculate workforce FTE.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function calculateFTE() {
+            const params = new URLSearchParams(window.location.search);
+            const fteDetails = Object.fromEntries(params.entries());
+
+            if (!fteDetails.fullTimeEmployees || !fteDetails.partTimeEmployees || !fteDetails.avgPartTimeHours || !fteDetails.standardFullTimeHours) {
+                document.getElementById('fte-output').innerHTML = '<p class="text-danger">Error: Missing calculation details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'FTECalculator', fteDetails });
+
+            const fullTimeEmployees = parseFloat(fteDetails.fullTimeEmployees);
+            const partTimeEmployees = parseFloat(fteDetails.partTimeEmployees);
+            const avgPartTimeHours = parseFloat(fteDetails.avgPartTimeHours);
+            const standardFullTimeHours = parseFloat(fteDetails.standardFullTimeHours);
+
+            const partTimeFTE = (partTimeEmployees * avgPartTimeHours) / standardFullTimeHours;
+            const totalFTE = fullTimeEmployees + partTimeFTE;
+
+            const output = `
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Workforce Details</h4>
+                    <p>Number of Full-Time Employees: <strong>${fullTimeEmployees}</strong></p>
+                    <p>Number of Part-Time Employees: <strong>${partTimeEmployees}</strong></p>
+                    <p>Average Weekly Hours for Part-Time Employees: <strong>${avgPartTimeHours}</strong></p>
+                    <p>Standard Full-Time Weekly Hours: <strong>${standardFullTimeHours}</strong></p>
+                </div>
+                <hr>
+                <h3>Calculated Total FTE:</h3>
+                <h2 class="text-success">${totalFTE.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h2>
+                <p class="text-muted mt-3"><em>Full-Time Equivalent (FTE) is a unit of measure that indicates the workload of an employed person in a way that makes workloads comparable across various contexts.</em></p>
+            `;
+
+            document.getElementById('fte-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateFTE();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'FTECalculator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'FTECalculator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more workforce planning insights.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">FTE Calculation Result</h1>
+            </div>
+            <div class="card-body">
+                <div id="fte-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Recalculate FTE</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Optimize Your Workforce Planning</h4>
+                <p>Subscribe for expert strategies on workforce management and analytics.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

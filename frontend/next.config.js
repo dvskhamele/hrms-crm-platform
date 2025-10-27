@@ -5,8 +5,8 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true
-  },
-  output: 'export'
+  }
+  // Removed output: 'export' to allow dynamic routes
 }
 
 module.exports = nextConfig

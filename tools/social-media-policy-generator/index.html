@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Policy Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Social Media Policy Generator</h1>
+        <p>Create a clear and comprehensive Social Media Policy for your employees.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="policy-date">Effective Date:</label>
+                <input type="date" id="policy-date">
+            </div>
+            <div class="input-group full-width">
+                <label for="personal-use-guidelines">Personal Use Guidelines:</label>
+                <textarea id="personal-use-guidelines" rows="3" placeholder="e.g., Employees are encouraged to use social media responsibly and professionally. Avoid discussing confidential company information."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="professional-use-guidelines">Professional Use Guidelines (if applicable):</label>
+                <textarea id="professional-use-guidelines" rows="3" placeholder="e.g., Employees authorized to represent the company on social media must adhere to brand guidelines and disclose their affiliation."></textarea>
+            </div>
+            <button id="generate-policy-btn">Generate Policy</button>
+        </div>
+
+        <div id="policy-output" class="hidden">
+            <h2>Generated Social Media Policy</h2>
+            <div id="policy-content"></div>
+            <button id="copy-policy-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Hire Onboarding Checklist Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>New Hire Onboarding Checklist Generator</h1>
+        <p>Create a comprehensive and customized onboarding checklist for your new employees.</p>
+
+        <div class="generator-controls">
+            <h3>Customization Options</h3>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="include-it" checked> IT Setup</label>
+                <label><input type="checkbox" id="include-hr" checked> HR Paperwork</label>
+                <label><input type="checkbox" id="include-training" checked> Team & Role Training</label>
+                <label><input type="checkbox" id="include-culture" checked> Company Culture</label>
+            </div>
+            <button id="generate-checklist-btn">Generate Checklist</button>
+        </div>
+
+        <div id="checklist-output" class="hidden">
+            <h2>Your Onboarding Checklist</h2>
+            <div id="checklist-content"></div>
+            <button id="copy-checklist-btn">Copy Checklist</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

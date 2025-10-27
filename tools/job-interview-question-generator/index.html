@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Interview Question Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Job Interview Question Generator</h1>
+        <p>Generate relevant and effective interview questions based on job roles and desired skills.</p>
+        <div id="question-inputs">
+            <label for="job-role">Job Role:</label>
+            <input type="text" id="job-role" placeholder="e.g., Software Engineer">
+
+            <label for="desired-skills">Desired Skills (comma-separated):</label>
+            <input type="text" id="desired-skills" placeholder="e.g., Python, Project Management, Communication">
+
+            <button id="generate-btn">Generate Questions</button>
+        </div>
+        <div id="generated-questions-container">
+            <h2>Generated Interview Questions:</h2>
+            <ul id="question-list"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

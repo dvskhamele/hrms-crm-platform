@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benefits Enrollment Checklist Result</title>
+    <meta name="description" content="Your generated benefits enrollment checklist. Guide employees through the enrollment process.">
+    <meta property="og:title" content="Benefits Enrollment Checklist Result">
+    <meta property="og:description" content="Your generated benefits enrollment checklist. Guide employees through the enrollment process.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .checklist-content { background-color: #f9f9f9; padding: 1.5em; border-radius: 5px; margin-top: 1.5em; text-align: left; }
+        .checklist-content ul { list-style: none; padding-left: 0; }
+        .checklist-content li { margin-bottom: 0.8em; }
+        .checklist-content li input[type="checkbox"] { margin-right: 10px; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Benefits Enrollment Checklist for <span id="companyNameDisplay"></span></h1>
+        <p style="text-align: center;">Enrollment Deadline: <span id="enrollmentDeadlineDisplay"></span></p>
+        <div class="checklist-content">
+            <h2>Steps to Complete:</h2>
+            <ul>
+                <li><input type="checkbox"> Review all available benefits information.</li>
+                <li><input type="checkbox"> Attend benefits orientation session (if applicable).</li>
+                <li><input type="checkbox"> Log in to the benefits portal.</li>
+                <li><input type="checkbox"> Select your desired benefit plans.</li>
+                <li><input type="checkbox"> Designate beneficiaries.</li>
+                <li><input type="checkbox"> Submit all required documentation.</li>
+                <hr>
+                <div id="benefitsChecklist"></div>
+            </ul>
+            <hr>
+            <p><strong>Questions?</strong> Contact HR at [HR Contact Info]</p>
+        </div>
+        <hr>
+        <h2>Save Your Checklist</h2>
+        <p>Enter your email to save this checklist and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const companyName = decodeURIComponent(urlParams.get('companyName'));
+        const enrollmentDeadline = decodeURIComponent(urlParams.get('enrollmentDeadline'));
+        const benefits = JSON.parse(decodeURIComponent(urlParams.get('benefits')));
+
+        document.getElementById('companyNameDisplay').textContent = companyName;
+        document.getElementById('enrollmentDeadlineDisplay').textContent = enrollmentDeadline;
+
+        const benefitsChecklist = document.getElementById('benefitsChecklist');
+        benefits.forEach(ben => {
+            const li = document.createElement('li');
+            li.innerHTML = `<input type="checkbox"> Enroll in ${ben}.`;
+            benefitsChecklist.appendChild(li);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Benefits Enrollment Checklist Generator',
+                companyName: companyName,
+                enrollmentDeadline: enrollmentDeadline,
+                benefitsCount: benefits.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Benefits Enrollment Checklist Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

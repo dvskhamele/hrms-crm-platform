@@ -1,0 +1,10 @@
+scheduled_tasks:
+  - name: PageScheduler
+    schedule: "0 0 * * *" # Daily at midnight
+    description: Generates new landing/content pages from seed combinations.
+  - name: ToolScheduler
+    schedule: "0 1 * * *" # Daily at 1 AM
+    description: Generates new complete tools (UI + JS logic + result pages + audits + analytics).
+  - name: AutoReport
+    schedule: "0 2 * * 1" # Weekly on Monday at 2 AM
+    description: Generates a weekly log report.

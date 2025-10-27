@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Generated Job Description</title>
+    <meta name="description" content="Review and use your professionally generated job description.">
+    <meta property="og:title" content="Job Description Generator Result">
+    <meta property="og:description" content="A powerful tool for HR professionals to create job descriptions instantly.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function generateJobDescription() {
+            const params = new URLSearchParams(window.location.search);
+            const jobDetails = Object.fromEntries(params.entries());
+
+            if (!jobDetails.jobTitle) {
+                document.getElementById('job-description-output').innerHTML = '<p class="text-danger">Error: Job details not provided. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'JobDescriptionGenerator', jobDetails });
+
+            const responsibilities = jobDetails.keyResponsibilities.split('\n').map(item => `<li>${item.trim()}</li>`).join('');
+            const skills = jobDetails.skills.split('\n').map(item => `<li>${item.trim()}</li>`).join('');
+
+            const output = `
+                <h3>Job Title: ${jobDetails.jobTitle}</h3>
+                <p><strong>Department:</strong> ${jobDetails.department}</p>
+                <p><strong>Experience Level:</strong> ${jobDetails.experienceLevel}</p>
+                <hr>
+                <h4>About the Role</h4>
+                <p>We are seeking a motivated and experienced ${jobDetails.jobTitle} to join our dynamic ${jobDetails.department} team. The ideal candidate will be passionate about their craft and eager to contribute to a collaborative environment.</p>
+                <h4>Key Responsibilities</h4>
+                <ul>${responsibilities}</ul>
+                <h4>Skills & Qualifications</h4>
+                <ul>${skills}</ul>
+                <hr>
+                <p>If you are a results-driven individual with a passion for excellence, we encourage you to apply.</p>
+            `;
+
+            document.getElementById('job-description-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateJobDescription();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'JobDescriptionGenerator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST', // This should be a POST to a proper endpoint
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'JobDescriptionGenerator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for your interest! We will be in touch.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Your Generated Job Description</h1>
+            </div>
+            <div class="card-body">
+                <div id="job-description-output"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Back to Form</button>
+                    <button class="btn btn-success" onclick="navigator.clipboard.writeText(document.getElementById('job-description-output').innerText)">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Get More Tools & Insights</h4>
+                <p>Enter your email to receive updates on new tools and HR best practices.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

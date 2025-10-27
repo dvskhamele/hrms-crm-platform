@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Goal Setting Worksheet Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], textarea, select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        #goalsList { list-style: none; padding: 0; margin-top: 1em; }
+        #goalsList li { background-color: #f0f0f0; padding: .5em; margin-bottom: .5em; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; }
+        #goalsList li button { background-color: #dc3545; padding: .3em .6em; font-size: .8em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Goal Setting Worksheet Generator</h1>
+        <p>Generate a structured worksheet to help employees set, track, and achieve their professional goals.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="employeeName">Employee Name</label>
+                <input type="text" id="employeeName" placeholder="e.g., Alex Smith" required>
+            </div>
+            <div class="form-group">
+                <label for="goalCategory">Goal Category</label>
+                <select id="goalCategory" required>
+                    <option value="professional_development">Professional Development</option>
+                    <option value="project_based">Project-Based</option>
+                    <option value="personal_growth">Personal Growth</option>
+                    <option value="team_contribution">Team Contribution</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="goal">Add a Goal (e.g., Complete advanced certification, Lead Q3 project)</label>
+                <input type="text" id="goal" placeholder="e.g., Improve public speaking skills">
+                <button type="button" id="addGoal">Add Goal</button>
+            </div>
+            <ul id="goalsList"></ul>
+            <button type="submit">Generate Worksheet</button>
+        </form>
+    </div>
+    <script>
+        const goals = [];
+
+        document.getElementById('addGoal').addEventListener('click', function() {
+            const goalInput = document.getElementById('goal');
+            const goalText = goalInput.value.trim();
+            if (goalText) {
+                goals.push(goalText);
+                renderGoals();
+                goalInput.value = '';
+            }
+        });
+
+        function renderGoals() {
+            const list = document.getElementById('goalsList');
+            list.innerHTML = '';
+            goals.forEach((g, index) => {
+                const li = document.createElement('li');
+                li.textContent = g;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    goals.splice(index, 1);
+                    renderGoals();
+                });
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const employeeName = document.getElementById('employeeName').value;
+            const goalCategory = document.getElementById('goalCategory').value;
+
+            if (goals.length === 0) {
+                alert('Please add at least one goal.');
+                return;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Employee Goal Setting Worksheet Generator',
+                    employeeName: employeeName,
+                    goalCategory: goalCategory,
+                    goalsCount: goals.length
+                });
+            }
+
+            window.location.href = `/tools/results/employee-goal-setting-worksheet-generator-result.html?employeeName=${encodeURIComponent(employeeName)}&goalCategory=${encodeURIComponent(goalCategory)}&goals=${encodeURIComponent(JSON.stringify(goals))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Employee Goal Setting Worksheet Generator'
+            });
+        }
+    </script>
+</body>
+</html>

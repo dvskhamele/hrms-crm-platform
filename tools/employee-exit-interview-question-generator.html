@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Exit Interview Question Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Exit Interview Question Generator</h1>
+        <p>Generate relevant and insightful questions for employee exit interviews to gather valuable feedback.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="reasonForLeaving">Reason for Leaving</label>
+                <select id="reasonForLeaving" required>
+                    <option value="better_opportunity">Better Career Opportunity</option>
+                    <option value="work_life_balance">Work-Life Balance</option>
+                    <option value="management_issues">Management/Leadership Issues</option>
+                    <option value="compensation_benefits">Compensation/Benefits</option>
+                    <option value="company_culture">Company Culture</option>
+                    <option value="relocation">Relocation</option>
+                    <option value="retirement">Retirement</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <button type="submit">Generate Questions</button>
+        </form>
+    </div>
+    <script>
+        const questions = {
+            better_opportunity: [
+                "What was it about the new opportunity that attracted you?",
+                "What could our company have done to make you stay?",
+                "How do you feel this new role will help you achieve your career goals?"
+            ],
+            work_life_balance: [
+                "What aspects of your work-life balance here were challenging?",
+                "What suggestions do you have for improving work-life balance for employees?",
+                "Did you feel supported in managing your workload and personal commitments?"
+            ],
+            management_issues: [
+                "Can you describe specific instances where you felt management could have been more supportive or effective?",
+                "What changes in management style or approach would have improved your experience?",
+                "Did you feel comfortable discussing your concerns with your manager or HR?"
+            ],
+            compensation_benefits: [
+                "How do you feel our compensation and benefits package compares to industry standards?",
+                "Were there specific benefits or compensation elements that were particularly important to you?",
+                "What suggestions do you have regarding our compensation and benefits structure?"
+            ],
+            company_culture: [
+                "What aspects of our company culture did you find most positive, and what areas do you think need improvement?",
+                "Did you feel a sense of belonging and inclusion within the company?",
+                "How would you describe the overall work environment here?"
+            ],
+            relocation: [
+                "What factors influenced your decision to relocate?",
+                "Did you consider remote work options with our company before deciding to leave?",
+                "Is there anything the company could have done to support your relocation needs?"
+            ],
+            retirement: [
+                "What are your plans for retirement?",
+                "What advice would you give to your successor or to new employees joining the company?",
+                "What was the most rewarding part of your career here?"
+            ],
+            other: [
+                "Is there anything else you would like to share about your experience working here?",
+                "What advice would you give to the company to improve employee satisfaction and retention?",
+                "What was your overall impression of the company as an employer?"
+            ]
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const reasonForLeaving = document.getElementById('reasonForLeaving').value;
+            const generatedQuestions = questions[reasonForLeaving] || [];
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Employee Exit Interview Question Generator',
+                    reasonForLeaving: reasonForLeaving,
+                    generatedQuestionsCount: generatedQuestions.length
+                });
+            }
+
+            window.location.href = `/tools/results/employee-exit-interview-question-generator-result.html?reason=${encodeURIComponent(reasonForLeaving)}&questions=${encodeURIComponent(JSON.stringify(generatedQuestions))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Employee Exit Interview Question Generator'
+            });
+        }
+    </script>
+</body>
+</html>

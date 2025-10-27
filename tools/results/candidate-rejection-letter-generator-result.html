@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Candidate Rejection Letter</title>
+    <meta name="description" content="Review and use your professionally generated candidate rejection letter.">
+    <meta property="og:title" content="Candidate Rejection Letter Generator Result">
+    <meta property="og:description" content="A tool to help HR professionals craft respectful rejection letters.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function generateRejectionLetter() {
+            const params = new URLSearchParams(window.location.search);
+            const letterDetails = Object.fromEntries(params.entries());
+
+            if (!letterDetails.candidateName || !letterDetails.jobTitle || !letterDetails.companyName) {
+                document.getElementById('letter-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'CandidateRejectionLetterGenerator', letterDetails });
+
+            let letterContent = '';
+            const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            switch (letterDetails.tone) {
+                case 'formal':
+                    letterContent = `
+                        <p>Dear ${letterDetails.candidateName},</p>
+                        <p>Thank you for your interest in the ${letterDetails.jobTitle} position at ${letterDetails.companyName}. We appreciate you taking the time to interview with our team.</p>
+                        <p>While your qualifications are impressive, we have decided to move forward with other candidates whose qualifications and experience were a closer match for the specific requirements of this role at this time.</p>
+                        <p>We wish you the best of luck in your job search and future endeavors. We encourage you to visit our careers page for future opportunities that may align with your skills.</p>
+                        <p>Sincerely,</p>
+                        <p>The Hiring Team<br>${letterDetails.companyName}</p>
+                    `;
+                    break;
+                case 'brief':
+                    letterContent = `
+                        <p>Dear ${letterDetails.candidateName},</p>
+                        <p>Thank you for your application for the ${letterDetails.jobTitle} position at ${letterDetails.companyName}.</p>
+                        <p>We have decided to pursue other candidates for this role. We appreciate your interest and wish you success in your job search.</p>
+                        <p>Sincerely,</p>
+                        <p>The Hiring Team<br>${letterDetails.companyName}</p>
+                    `;
+                    break;
+                case 'personal':
+                    letterContent = `
+                        <p>Dear ${letterDetails.candidateName},</p>
+                        <p>Thank you so much for your application and for taking the time to speak with us about the ${letterDetails.jobTitle} position at ${letterDetails.companyName}. We truly enjoyed learning more about your experience.</p>
+                        <p>This was a very competitive search, and while your background is very strong, we have decided to move forward with another candidate who we feel is a slightly better fit for our current needs. This was a difficult decision, and we want to thank you again for your interest.</p>
+                        <p>We wish you all the best in your career journey and hope our paths cross again in the future.</p>
+                        <p>Warmly,</p>
+                        <p>The Hiring Team<br>${letterDetails.companyName}</p>
+                    `;
+                    break;
+                default:
+                    letterContent = `<p class="text-danger">Error: Invalid tone selected.</p>`;
+            }
+
+            document.getElementById('letter-output').innerHTML = `
+                <p class="text-right">${date}</p>
+                ${letterContent}
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateRejectionLetter();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'CandidateRejectionLetterGenerator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'CandidateRejectionLetterGenerator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! We'll send you more helpful HR content.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Your Generated Rejection Letter</h1>
+            </div>
+            <div class="card-body">
+                <div id="letter-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Edit Letter</button>
+                    <button class="btn btn-success" onclick="navigator.clipboard.writeText(document.getElementById('letter-output').innerText)">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Improve Your Candidate Experience</h4>
+                <p>Subscribe to our newsletter for tips on enhancing your recruitment process and candidate communication.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

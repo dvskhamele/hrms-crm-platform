@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit Interview Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Exit Interview Form Generator</h1>
+        <p>Create a structured exit interview questionnaire to gather valuable feedback from departing employees.</p>
+
+        <div class="generator-controls">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="employee-name">Employee Name (Optional):</label>
+                <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            </div>
+            <button id="generate-form-btn">Generate Exit Interview Form</button>
+        </div>
+
+        <div id="form-output" class="hidden">
+            <h2>Generated Exit Interview Form</h2>
+            <div id="form-content"></div>
+            <button id="copy-form-btn">Copy Form Text</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

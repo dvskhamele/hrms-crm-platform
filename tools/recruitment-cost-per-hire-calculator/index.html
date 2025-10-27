@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Cost Per Hire Calculator | Gem HRMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Recruitment Cost Per Hire Calculator</h1>
+            <form id="cphCalculatorForm">
+                <div class="mb-4">
+                    <label for="totalExternalCosts" class="block text-gray-700 font-bold mb-2">Total External Recruitment Costs</label>
+                    <input type="number" id="totalExternalCosts" name="totalExternalCosts" min="0" value="10000" class="w-full px-3 py-2 border rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="totalInternalCosts" class="block text-gray-700 font-bold mb-2">Total Internal Recruitment Costs</label>
+                    <input type="number" id="totalInternalCosts" name="totalInternalCosts" min="0" value="5000" class="w-full px-3 py-2 border rounded-md" required>
+                </div>
+                <div class="mb-4">
+                    <label for="numHires" class="block text-gray-700 font-bold mb-2">Number of Hires in Period</label>
+                    <input type="number" id="numHires" name="numHires" min="1" value="5" class="w-full px-3 py-2 border rounded-md" required>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-md hover:bg-purple-700">Calculate Cost Per Hire</button>
+            </form>
+        </div>
+
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8 mt-8">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Get Advanced Recruitment Analytics</h2>
+            <p class="text-center text-gray-600 mb-4">Subscribe to our newsletter to receive advanced guides on recruitment metrics, cost optimization strategies, and talent acquisition analytics.</p>
+            <form id="leadCaptureForm">
+                <div class="flex items-center">
+                    <input type="email" id="leadEmail" class="w-full px-3 py-2 border rounded-l-md" placeholder="Enter your email" required>
+                    <button type="submit" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-r-md hover:bg-blue-700">Subscribe</button>
+                </div>
+                <p id="leadCaptureMessage" class="text-center text-green-500 mt-4 hidden"></p>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

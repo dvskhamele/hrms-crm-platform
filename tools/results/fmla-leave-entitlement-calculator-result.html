@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMLA Eligibility Result</title>
+    <meta name="description" content="Review the FMLA eligibility status for an employee.">
+    <meta property="og:title" content="FMLA Leave Entitlement Calculator Result">
+    <meta property="og:description" content="A tool to help HR professionals determine FMLA eligibility based on federal guidelines.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function checkFMLAEligibility() {
+            const params = new URLSearchParams(window.location.search);
+            const fmlaDetails = Object.fromEntries(params.entries());
+
+            if (!fmlaDetails.employeeStartDate || !fmlaDetails.hoursWorked || !fmlaDetails.companySize || !fmlaDetails.worksiteEmployees) {
+                document.getElementById('eligibility-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'FMLALeaveEntitlementCalculator', fmlaDetails });
+
+            const employeeStartDate = new Date(fmlaDetails.employeeStartDate);
+            const hoursWorked = parseFloat(fmlaDetails.hoursWorked);
+            const companySize = parseFloat(fmlaDetails.companySize);
+            const worksiteEmployees = parseFloat(fmlaDetails.worksiteEmployees);
+            const currentDate = new Date();
+
+            // FMLA Criteria:
+            // 1. Employed for at least 12 months (need not be consecutive)
+            const monthsEmployed = (currentDate.getFullYear() - employeeStartDate.getFullYear()) * 12 + (currentDate.getMonth() - employeeStartDate.getMonth());
+            const employedFor12Months = monthsEmployed >= 12;
+
+            // 2. Worked at least 1,250 hours during the 12 months prior to the start of leave
+            const worked1250Hours = hoursWorked >= 1250;
+
+            // 3. Works at a location where the employer has 50 or more employees within 75 miles
+            const worksiteMeetsSize = worksiteEmployees >= 50;
+
+            let isEligible = false;
+            let reasons = [];
+            let notEligibleReasons = [];
+
+            if (employedFor12Months && worked1250Hours && worksiteMeetsSize) {
+                isEligible = true;
+                reasons.push("Employee has been employed for at least 12 months.");
+                reasons.push("Employee has worked at least 1,250 hours in the past 12 months.");
+                reasons.push("Employee works at a location with 50 or more employees within 75 miles.");
+            } else {
+                if (!employedFor12Months) {
+                    notEligibleReasons.push("Employee has not been employed for at least 12 months.");
+                }
+                if (!worked1250Hours) {
+                    notEligibleReasons.push("Employee has not worked at least 1,250 hours in the past 12 months.");
+                }
+                if (!worksiteMeetsSize) {
+                    notEligibleReasons.push("Employee does not work at a location with 50 or more employees within 75 miles.");
+                }
+            }
+
+            const output = `
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Employee Details Provided</h4>
+                    <p><strong>Employee Start Date:</strong> ${employeeStartDate.toLocaleDateString()}</p>
+                    <p><strong>Hours Worked (last 12 months):</strong> ${hoursWorked}</p>
+                    <p><strong>Company Size:</strong> ${companySize}</p>
+                    <p><strong>Worksite Employees (within 75 miles):</strong> ${worksiteEmployees}</p>
+                </div>
+                <hr>
+                <h3>FMLA Eligibility Status:</h3>
+                <h2 class="${isEligible ? 'text-success' : 'text-danger'}">${isEligible ? 'ELIGIBLE' : 'NOT ELIGIBLE'}</h2>
+                ${isEligible ? 
+                    `<p><strong>Reasons for Eligibility:</strong></p><ul>${reasons.map(r => `<li>${r}</li>`).join('')}</ul>` : 
+                    `<p><strong>Reasons for Ineligibility:</strong></p><ul>${notEligibleReasons.map(r => `<li>${r}</li>`).join('')}</ul>`
+                }
+                <p class="text-muted mt-3"><em>This calculator provides a general estimate based on federal FMLA guidelines. It is not legal advice. Consult with an HR professional or legal counsel for specific situations.</em></p>
+            `;
+
+            document.getElementById('eligibility-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkFMLAEligibility();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'FMLALeaveEntitlementCalculator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'FMLALeaveEntitlementCalculator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more HR compliance updates.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">FMLA Eligibility Result</h1>
+            </div>
+            <div class="card-body">
+                <div id="eligibility-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Recalculate Eligibility</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Stay Compliant with FMLA</h4>
+                <p>Subscribe for essential updates on FMLA regulations and leave management best practices.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

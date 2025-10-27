@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Description Enhancer</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: 0.5em; }
+        textarea { width: 100%; padding: 0.5em; height: 200px; }
+        button { padding: 0.75em 1.5em; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        #result { margin-top: 2em; padding: 1em; border: 1px solid #ccc; }
+        .email-capture { margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Job Description Enhancer</h1>
+        <p>Analyze and improve your job descriptions to attract more qualified candidates.</p>
+
+        <div id="enhancer-form">
+            <div class="form-group">
+                <label for="job-description">Paste Your Job Description</label>
+                <textarea id="job-description" placeholder="Paste your job description here..."></textarea>
+            </div>
+            <button type="button" id="enhance-description">Enhance Description</button>
+        </div>
+
+        <div id="result" style="display: none;">
+            <!-- Enhanced description will be displayed here -->
+        </div>
+
+        <div class="email-capture" id="email-capture" style="display: none;">
+            <h2>Get Your Enhanced Description</h2>
+            <p>Enter your email to receive a copy of your enhanced job description.</p>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@yourcompany.com">
+            </div>
+            <button type="button" id="submit-email">Download Description</button>
+            <p id="email-message"></p>
+        </div>
+    </div>
+
+    <script src="job-description-enhancer.js"></script>
+</body>
+</html>

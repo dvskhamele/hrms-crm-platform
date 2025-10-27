@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Screening Question Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Screening Question Generator</h1>
+        <p class="intro">Generate effective screening questions to quickly assess candidate fit for your open roles.</p>
+        
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="job-role">Job Role:</label>
+                <input type="text" id="job-role" placeholder="e.g., Software Engineer">
+            </div>
+
+            <div class="input-group">
+                <label for="key-skills">Key Skills (comma-separated):</label>
+                <input type="text" id="key-skills" placeholder="e.g., JavaScript, React, Node.js">
+            </div>
+
+            <div class="input-group">
+                <label for="experience-level">Experience Level:</label>
+                <select id="experience-level">
+                    <option value="entry">Entry-Level</option>
+                    <option value="mid">Mid-Level</option>
+                    <option value="senior">Senior-Level</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="desired-traits">Desired Traits (comma-separated, optional):</label>
+                <input type="text" id="desired-traits" placeholder="e.g., problem-solver, team player">
+            </div>
+
+            <button id="generate-btn">Generate Questions</button>
+        </div>
+
+        <div class="results-container">
+            <h2>Generated Screening Questions</h2>
+            <textarea id="generated-questions" rows="10" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

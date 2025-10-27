@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Budget Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Training Budget Calculator</h1>
+        <p>Estimate and manage your training budget effectively.</p>
+        <div id="cost-inputs">
+            <div class="input-group">
+                <label for="course-fees">Course/Program Fees ($):</label>
+                <input type="number" id="course-fees" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="materials-costs">Materials & Resources Costs ($):</label>
+                <input type="number" id="materials-costs" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="instructor-fees">Instructor/Facilitator Fees ($):</label>
+                <input type="number" id="instructor-fees" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="travel-accommodation">Travel & Accommodation ($):</label>
+                <input type="number" id="travel-accommodation" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="lost-productivity">Lost Productivity (Employee Time) ($):</label>
+                <input type="number" id="lost-productivity" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="miscellaneous-costs">Miscellaneous Costs ($):</label>
+                <input type="number" id="miscellaneous-costs" value="0" min="0">
+            </div>
+        </div>
+        <button id="calculate-btn">Calculate Total Budget</button>
+        <div id="total-budget-container">
+            <h2>Total Training Budget: <span id="total-budget">$0</span></h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

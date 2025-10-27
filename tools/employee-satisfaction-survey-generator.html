@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Satisfaction Survey Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Satisfaction Survey Generator</h1>
+        <p>Generate insightful questions for employee satisfaction surveys to gauge morale, engagement, and identify areas for improvement.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="category">Select Survey Category</label>
+                <select id="category" required>
+                    <option value="work_environment">Work Environment</option>
+                    <option value="management">Management & Leadership</option>
+                    <option value="compensation">Compensation & Benefits</option>
+                    <option value="career_growth">Career Growth & Development</option>
+                    <option value="work_life_balance">Work-Life Balance</option>
+                    <option value="communication">Communication</option>
+                    <option value="recognition">Recognition & Appreciation</option>
+                </select>
+            </div>
+            <button type="submit">Generate Questions</button>
+        </form>
+    </div>
+    <script>
+        const questions = {
+            work_environment: [
+                "How satisfied are you with your physical work environment?",
+                "Do you have the necessary resources and tools to perform your job effectively?",
+                "Do you feel the work environment is inclusive and respectful?"
+            ],
+            management: [
+                "How would you rate your manager's effectiveness in supporting your work?",
+                "Do you receive regular and constructive feedback from your manager?",
+                "Do you feel your manager trusts you to do your job well?"
+            ],
+            compensation: [
+                "How satisfied are you with your current compensation package (salary, bonuses)?",
+                "Do you feel your benefits package meets your needs?",
+                "Do you believe your pay is fair compared to others in similar roles within the company and industry?"
+            ],
+            career_growth: [
+                "Do you see opportunities for career growth and advancement within the company?",
+                "Do you feel the company invests in your professional development?",
+                "Are you satisfied with the training and development opportunities available to you?"
+            ],
+            work_life_balance: [
+                "Do you feel you have a healthy work-life balance?",
+                "Does your workload allow you to maintain a good work-life balance?",
+                "Does the company support flexible work arrangements when needed?"
+            ],
+            communication: [
+                "How effective is communication within your team and across the company?",
+                "Do you feel informed about company decisions and changes?",
+                "Do you feel comfortable sharing your ideas and concerns with leadership?"
+            ],
+            recognition: [
+                "Do you feel your contributions are recognized and appreciated by your manager and peers?",
+                "How often do you receive recognition for your work?",
+                "What types of recognition are most meaningful to you?"
+            ]
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const selectedCategory = document.getElementById('category').value;
+            const generatedQuestions = questions[selectedCategory] || [];
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Employee Satisfaction Survey Generator',
+                    selectedCategory: selectedCategory,
+                    generatedQuestionsCount: generatedQuestions.length
+                });
+            }
+
+            window.location.href = `/tools/results/employee-satisfaction-survey-generator-result.html?category=${encodeURIComponent(selectedCategory)}&questions=${encodeURIComponent(JSON.stringify(generatedQuestions))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Employee Satisfaction Survey Generator'
+            });
+        }
+    </script>
+</body>
+</html>

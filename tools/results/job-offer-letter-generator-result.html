@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Offer Letter Result</title>
+    <meta name="description" content="Your generated job offer letter. Customize and send professional offers to candidates.">
+    <meta property="og:title" content="Job Offer Letter Result">
+    <meta property="og:description" content="Your generated job offer letter. Customize and send professional offers to candidates.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .offer-letter-content { white-space: pre-wrap; font-family: monospace; background-color: #f9f9f9; padding: 1.5em; border-radius: 5px; margin-top: 1.5em; text-align: left; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Generated Job Offer Letter</h1>
+        <div class="offer-letter-content" id="offerLetterDisplay"></div>
+        <hr>
+        <h2>Save Your Offer Letter</h2>
+        <p>Enter your email to save this offer letter and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const candidateName = decodeURIComponent(urlParams.get('candidateName'));
+        const jobTitle = decodeURIComponent(urlParams.get('jobTitle'));
+        const annualSalary = decodeURIComponent(urlParams.get('annualSalary'));
+        const startDate = decodeURIComponent(urlParams.get('startDate'));
+        const reportingManager = decodeURIComponent(urlParams.get('reportingManager'));
+        const benefitsSummary = decodeURIComponent(urlParams.get('benefitsSummary'));
+        const offerLetter = decodeURIComponent(urlParams.get('offerLetter'));
+
+        document.getElementById('offerLetterDisplay').textContent = offerLetter;
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Job Offer Letter Generator',
+                candidateName: candidateName,
+                jobTitle: jobTitle,
+                annualSalary: annualSalary,
+                startDate: startDate,
+                reportingManager: reportingManager,
+                benefitsSummary: benefitsSummary
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Job Offer Letter Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

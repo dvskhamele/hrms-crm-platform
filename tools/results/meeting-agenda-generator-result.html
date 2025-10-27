@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Agenda Result</title>
+    <meta name="description" content="Your generated meeting agenda. Ensure productive discussions and efficient use of time.">
+    <meta property="og:title" content="Meeting Agenda Result">
+    <meta property="og:description" content="Your generated meeting agenda. Ensure productive discussions and efficient use of time.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .agenda-content { background-color: #f9f9f9; padding: 1.5em; border-radius: 5px; margin-top: 1.5em; text-align: left; }
+        .agenda-content ul { list-style: none; padding-left: 0; }
+        .agenda-content li { margin-bottom: 0.5em; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="meetingTitleDisplay"></h1>
+        <p style="text-align: center;">Date: <span id="meetingDateDisplay"></span> | Time: <span id="meetingTimeDisplay"></span></p>
+        <p style="text-align: center;">Attendees: <span id="attendeesDisplay"></span></p>
+        <div class="agenda-content">
+            <h2>Agenda Topics:</h2>
+            <ul id="topicsListDisplay"></ul>
+            <hr>
+            <p><strong>Action Items:</strong> ____________________________________________________________________________________________________</p>
+            <p><strong>Next Meeting:</strong> _________________________</p>
+        </div>
+        <hr>
+        <h2>Save Your Agenda</h2>
+        <p>Enter your email to save this agenda and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const meetingTitle = decodeURIComponent(urlParams.get('meetingTitle'));
+        const meetingDate = decodeURIComponent(urlParams.get('meetingDate'));
+        const meetingTime = decodeURIComponent(urlParams.get('meetingTime'));
+        const attendees = decodeURIComponent(urlParams.get('attendees'));
+        const topics = JSON.parse(decodeURIComponent(urlParams.get('topics')));
+
+        document.getElementById('meetingTitleDisplay').textContent = meetingTitle;
+        document.getElementById('meetingDateDisplay').textContent = meetingDate;
+        document.getElementById('meetingTimeDisplay').textContent = meetingTime;
+        document.getElementById('attendeesDisplay').textContent = attendees;
+
+        const topicsListDisplay = document.getElementById('topicsListDisplay');
+        topics.forEach(t => {
+            const li = document.createElement('li');
+            li.textContent = `${t.topic} ${t.time ? `(${t.time} min)` : ''}`;
+            topicsListDisplay.appendChild(li);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Meeting Agenda Generator',
+                meetingTitle: meetingTitle,
+                meetingDate: meetingDate,
+                meetingTime: meetingTime,
+                attendees: attendees,
+                topicsCount: topics.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Meeting Agenda Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

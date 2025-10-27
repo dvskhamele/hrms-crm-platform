@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee PIP Result</title>
+    <meta name="description" content="Your generated Employee Performance Improvement Plan (PIP) outline. Support employee development.">
+    <meta property="og:title" content="Employee PIP Result">
+    <meta property="og:description" content="Your generated Employee Performance Improvement Plan (PIP) outline. Support employee development.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .pip-content { background-color: #f9f9f9; padding: 1.5em; border-radius: 5px; margin-top: 1.5em; text-align: left; }
+        .pip-content ul { list-style: decimal; padding-left: 20px; margin-bottom: 1em; }
+        .pip-content li { margin-bottom: 0.5em; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Performance Improvement Plan (PIP)</h1>
+        <div class="pip-content">
+            <p><strong>Employee Name:</strong> <span id="employeeNameDisplay"></span></p>
+            <p><strong>Date:</strong> <span id="currentDate"></span></p>
+            <hr>
+            <h2>Area(s) for Improvement:</h2>
+            <p id="areaForImprovementDisplay"></p>
+            <hr>
+            <h2>Desired Outcome:</h2>
+            <p id="desiredOutcomeDisplay"></p>
+            <hr>
+            <h2>Action Steps:</h2>
+            <ul id="actionStepsListDisplay"></ul>
+            <hr>
+            <h2>Timeline for Improvement:</h2>
+            <p id="timelineDisplay"></p>
+            <hr>
+            <p><strong>Manager Signature:</strong> _________________________</p>
+            <p><strong>Employee Signature:</strong> _________________________</p>
+        </div>
+        <hr>
+        <h2>Save Your PIP</h2>
+        <p>Enter your email to save this PIP and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const employeeName = decodeURIComponent(urlParams.get('employeeName'));
+        const areaForImprovement = decodeURIComponent(urlParams.get('areaForImprovement'));
+        const desiredOutcome = decodeURIComponent(urlParams.get('desiredOutcome'));
+        const timeline = decodeURIComponent(urlParams.get('timeline'));
+        const actionSteps = JSON.parse(decodeURIComponent(urlParams.get('actionSteps')));
+
+        document.getElementById('employeeNameDisplay').textContent = employeeName;
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
+        document.getElementById('areaForImprovementDisplay').textContent = areaForImprovement;
+        document.getElementById('desiredOutcomeDisplay').textContent = desiredOutcome;
+        document.getElementById('timelineDisplay').textContent = timeline;
+
+        const actionStepsListDisplay = document.getElementById('actionStepsListDisplay');
+        actionSteps.forEach(step => {
+            const li = document.createElement('li');
+            li.textContent = step;
+            actionStepsListDisplay.appendChild(li);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Employee PIP Generator',
+                employeeName: employeeName,
+                areaForImprovement: areaForImprovement,
+                desiredOutcome: desiredOutcome,
+                timeline: timeline,
+                actionStepsCount: actionSteps.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Employee PIP Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

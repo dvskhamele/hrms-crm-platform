@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time-to-Hire Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Time-to-Hire Calculator</h1>
+        <p>Calculate the average time it takes to fill a position, a key recruitment metric.</p>
+        <div class="input-group">
+            <label for="job-posted-date">Job Posted Date:</label>
+            <input type="date" id="job-posted-date">
+        </div>
+        <div class="input-group">
+            <label for="offer-accepted-date">Offer Accepted Date:</label>
+            <input type="date" id="offer-accepted-date">
+        </div>
+        <button id="calculate-btn">Calculate Time-to-Hire</button>
+        <div id="result-container">
+            <h2>Time-to-Hire: <span id="time-to-hire">0</span> days</h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Review Comment Result</title>
+    <meta name="description" content="Your generated performance review comment. Use our free tool to create constructive feedback.">
+    <meta property="og:title" content="Performance Review Comment Result">
+    <meta property="og:description" content="Your generated performance review comment. Use our free tool to create constructive feedback.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; text-align: center; }
+        .result { font-size: 1.2em; margin: 1em 0; padding: 1em; background-color: #f9f9f9; border-radius: 5px; text-align: left; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Performance Review Comment</h1>
+        <div class="result" id="commentResult"></div>
+        <hr>
+        <h2>Save Your Result</h2>
+        <p>Enter your email to save this comment and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const employeeName = decodeURIComponent(urlParams.get('employeeName'));
+        const performanceArea = decodeURIComponent(urlParams.get('performanceArea'));
+        const performanceLevel = decodeURIComponent(urlParams.get('performanceLevel'));
+        const specificExamples = decodeURIComponent(urlParams.get('specificExamples'));
+        const comment = decodeURIComponent(urlParams.get('comment'));
+
+        document.getElementById('commentResult').textContent = comment;
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Performance Review Comment Generator',
+                employeeName: employeeName,
+                performanceArea: performanceArea,
+                performanceLevel: performanceLevel,
+                specificExamples: specificExamples,
+                generatedComment: comment
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Performance Review Comment Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

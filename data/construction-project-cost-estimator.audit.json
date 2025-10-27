@@ -1,0 +1,27 @@
+{
+  "toolSlug": "construction-project-cost-estimator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "Construction Project Cost Estimator - Gem Tools",
+    "metaDescription": "Estimate the total cost of a construction project by breaking down expenses for materials, labor, equipment, and overhead.",
+    "h1": "Construction Project Cost Estimator",
+    "keywords": ["construction cost estimate", "project cost calculator", "building cost estimator", "construction budget", "contractor estimating software", "construction finance", "project planning tools"],
+    "url": "/tools/construction-project-cost-estimator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator", "/tools/job-description-enhancer", "/tools/new-hire-onboarding-checklist-generator", "/tools/performance-review-phrase-generator", "/tools/salary-range-estimator", "/tools/recruitment-roi-calculator", "/tools/employee-turnover-cost-calculator", "/tools/hr-policy-generator", "/tools/employee-engagement-survey-question-generator", "/tools/construction-change-order-calculator", "/tools/construction-daily-log-generator"]
+  },
+  "marketingAudit": {
+    "targetAudience": "Construction project managers, contractors, developers, estimators",
+    "valueProposition": "Get accurate and detailed cost estimates for construction projects to improve budgeting and financial planning.",
+    "callToActions": ["Estimate Project Cost", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Project Cost Estimation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Project Type", "Project Size", "Material Cost per Unit", "Labor Cost per Hour", "Estimated Labor Hours", "Equipment Rental Cost per Day", "Estimated Equipment Days", "Overhead Percentage", "Profit Margin Percentage"],
+    "validationRules": ["All required fields", "Valid numbers"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, comprehensive breakdown"
+  }
+}

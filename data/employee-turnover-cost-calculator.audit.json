@@ -1,0 +1,27 @@
+{
+  "toolSlug": "employee-turnover-cost-calculator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "Employee Turnover Cost Calculator - Gem Tools",
+    "metaDescription": "Calculate the hidden and direct costs associated with employee turnover to understand its financial impact on your organization.",
+    "h1": "Employee Turnover Cost Calculator",
+    "keywords": ["employee turnover cost", "retention strategies", "HR analytics", "cost of turnover", "employee retention", "HR budget", "workforce planning"],
+    "url": "/tools/employee-turnover-cost-calculator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator", "/tools/job-description-enhancer", "/tools/new-hire-onboarding-checklist-generator", "/tools/performance-review-phrase-generator", "/tools/salary-range-estimator", "/tools/recruitment-roi-calculator"]
+  },
+  "marketingAudit": {
+    "targetAudience": "HR professionals, finance managers, business leaders",
+    "valueProposition": "Quantify the financial impact of employee turnover to justify retention investments and optimize HR strategies.",
+    "callToActions": ["Calculate Turnover Cost", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Turnover Cost Calculation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Employee's Annual Salary", "Benefits Cost", "Recruitment Costs", "Onboarding & Training Costs", "Lost Productivity", "Manager's Time"],
+    "validationRules": ["All fields required", "Valid numbers"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, straightforward calculation"
+  }
+}

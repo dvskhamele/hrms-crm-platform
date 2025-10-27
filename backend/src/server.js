@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import recruitmentRoutes from './routes/recruitmentRoutes.js';
 
+// Create Express app
 const app = express();
 
 // Middleware
@@ -13,8 +14,8 @@ app.use(morgan('combined')); // Logging
 app.use(express.json()); // Parse JSON bodies
 app.use(express.static('public')); // Serve static files
 
-// Routes
-app.use('/', recruitmentRoutes);
+// Routes - using /api prefix for all routes
+app.use('/api', recruitmentRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -32,9 +33,12 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Recruitment API server is running on port ${PORT}`);
-});
+// Conditionally start the server only if not in a serverless environment
+if (!process.env.VERCEL_REGION) {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`Recruitment API server is running on port ${PORT}`);
+  });
+}
 
 export default app;

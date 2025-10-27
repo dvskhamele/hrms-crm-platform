@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Rejection Letter Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Rejection Letter Generator</h1>
+        <p>Generate professional candidate rejection letters.</p>
+        <div class="form-container">
+            <label for="candidate-name">Candidate Name:</label>
+            <input type="text" id="candidate-name">
+            <label for="job-title">Job Title Applied For:</label>
+            <input type="text" id="job-title">
+            <label for="company-name">Company Name:</label>
+            <input type="text" id="company-name">
+            <label for="reason">Reason for Rejection (optional):</label>
+            <textarea id="reason" placeholder="e.g., Stronger candidates, lack of specific experience"></textarea>
+            <button id="generate-btn">Generate Letter</button>
+        </div>
+        <div id="rejection-letter"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

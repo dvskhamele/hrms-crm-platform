@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Offer Letter Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], input[type="date"], input[type="number"], textarea { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Job Offer Letter Generator</h1>
+        <p>Generate a professional job offer letter quickly and efficiently.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="candidateName">Candidate Name</label>
+                <input type="text" id="candidateName" placeholder="e.g., Alex Johnson" required>
+            </div>
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" placeholder="e.g., Senior Software Engineer" required>
+            </div>
+            <div class="form-group">
+                <label for="annualSalary">Annual Salary ($)</label>
+                <input type="number" id="annualSalary" placeholder="e.g., 120000" required>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="reportingManager">Reporting Manager</label>
+                <input type="text" id="reportingManager" placeholder="e.g., Sarah Lee, Head of Engineering" required>
+            </div>
+            <div class="form-group">
+                <label for="benefitsSummary">Benefits Summary (e.g., Health, Dental, Vision, 401k, PTO)</label>
+                <textarea id="benefitsSummary" rows="4" placeholder="e.g., Comprehensive health, dental, and vision insurance; 401k with company match; generous paid time off."></textarea>
+            </div>
+            <button type="submit">Generate Offer Letter</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const candidateName = document.getElementById('candidateName').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+            const annualSalary = document.getElementById('annualSalary').value;
+            const startDate = document.getElementById('startDate').value;
+            const reportingManager = document.getElementById('reportingManager').value;
+            const benefitsSummary = document.getElementById('benefitsSummary').value;
+
+            const offerLetterContent = `
+Dear ${candidateName},
+
+We are delighted to offer you the position of ${jobTitle} at Gem. We believe your skills and experience will be a valuable asset to our team.
+
+In this role, you will report to ${reportingManager}. Your annual starting salary will be $${parseInt(annualSalary).toLocaleString()}. Your anticipated start date is ${startDate}.
+
+As a full-time employee, you will be eligible for our comprehensive benefits package, which includes: ${benefitsSummary}
+
+We are excited about the prospect of you joining our team and look forward to your positive contributions.
+
+Sincerely,
+
+The Gem Hiring Team
+            `;
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Job Offer Letter Generator',
+                    candidateName: candidateName,
+                    jobTitle: jobTitle,
+                    annualSalary: annualSalary,
+                    startDate: startDate,
+                    reportingManager: reportingManager,
+                    benefitsSummary: benefitsSummary
+                });
+            }
+
+            window.location.href = `/tools/results/job-offer-letter-generator-result.html?candidateName=${encodeURIComponent(candidateName)}&jobTitle=${encodeURIComponent(jobTitle)}&annualSalary=${encodeURIComponent(annualSalary)}&startDate=${encodeURIComponent(startDate)}&reportingManager=${encodeURIComponent(reportingManager)}&benefitsSummary=${encodeURIComponent(benefitsSummary)}&offerLetter=${encodeURIComponent(offerLetterContent)}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Job Offer Letter Generator'
+            });
+        }
+    </script>
+</body>
+</html>

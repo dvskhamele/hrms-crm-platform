@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Deduction Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Payroll Deduction Calculator</h1>
+        <p>Calculate various payroll deductions.</p>
+        <div class="form-container">
+            <label for="gross-pay">Gross Pay:</label>
+            <input type="number" id="gross-pay" min="0">
+            <label for="federal-tax-rate">Federal Tax Rate (%):</label>
+            <input type="number" id="federal-tax-rate" value="15" min="0" max="100">
+            <label for="state-tax-rate">State Tax Rate (%):</label>
+            <input type="number" id="state-tax-rate" value="5" min="0" max="100">
+            <label for="social-security-rate">Social Security Rate (%):</label>
+            <input type="number" id="social-security-rate" value="6.2" min="0" max="100">
+            <label for="medicare-rate">Medicare Rate (%):</label>
+            <input type="number" id="medicare-rate" value="1.45" min="0" max="100">
+            <label for="health-insurance-premium">Health Insurance Premium:</label>
+            <input type="number" id="health-insurance-premium" min="0">
+            <label for="retirement-contribution">Retirement Contribution:</label>
+            <input type="number" id="retirement-contribution" min="0">
+            <button id="calculate-btn">Calculate Net Pay</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

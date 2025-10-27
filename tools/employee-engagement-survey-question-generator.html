@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Engagement Survey Question Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'EmployeeEngagementSurveyQuestionGenerator' });
+
+            const form = document.getElementById('survey-question-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const surveyDetails = Object.fromEntries(formData.entries());
+
+                logAnalytics('ToolSubmitted', { toolName: 'EmployeeEngagementSurveyQuestionGenerator', formData: surveyDetails });
+
+                const queryString = new URLSearchParams(surveyDetails).toString();
+                window.location.href = `/tools/results/employee-engagement-survey-question-generator-result.html?${queryString}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Employee Engagement Survey Question Generator</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Generate effective questions for your employee engagement surveys.</p>
+                <form id="survey-question-form">
+                    <div class="form-group">
+                        <label for="surveyFocus">Survey Focus Area</label>
+                        <select class="form-control" id="surveyFocus" name="surveyFocus">
+                            <option value="Overall Engagement">Overall Engagement</option>
+                            <option value="Leadership Effectiveness">Leadership Effectiveness</option>
+                            <option value="Work-Life Balance">Work-Life Balance</option>
+                            <option value="Career Growth">Career Growth & Development</option>
+                            <option value="Compensation & Benefits">Compensation & Benefits</option>
+                            <option value="Company Culture">Company Culture & Values</option>
+                            <option value="Communication">Communication</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="numQuestions">Number of Questions to Generate</label>
+                        <input type="number" class="form-control" id="numQuestions" name="numQuestions" min="1" max="10" value="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="questionType">Question Type</label>
+                        <select class="form-control" id="questionType" name="questionType">
+                            <option value="Likert Scale">Likert Scale (e.g., 1-5 rating)</option>
+                            <option value="Open-ended">Open-ended</option>
+                            <option value="Multiple Choice">Multiple Choice</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Generate Questions</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

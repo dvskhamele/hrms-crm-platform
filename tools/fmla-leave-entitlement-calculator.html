@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMLA Leave Entitlement Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'FMLALeaveEntitlementCalculator' });
+
+            const form = document.getElementById('fmla-calculator-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const fmlaDetails = Object.fromEntries(formData.entries());
+
+                logAnalytics('ToolSubmitted', { toolName: 'FMLALeaveEntitlementCalculator', formData: fmlaDetails });
+
+                const queryString = new URLSearchParams(fmlaDetails).toString();
+                window.location.href = `/tools/results/fmla-leave-entitlement-calculator-result.html?${queryString}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">FMLA Leave Entitlement Calculator</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Determine an employee's eligibility for FMLA leave based on federal guidelines.</p>
+                <form id="fmla-calculator-form">
+                    <div class="form-group">
+                        <label for="employeeStartDate">Employee Start Date</label>
+                        <input type="date" class="form-control" id="employeeStartDate" name="employeeStartDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hoursWorked">Hours Worked in Last 12 Months</label>
+                        <input type="number" class="form-control" id="hoursWorked" name="hoursWorked" placeholder="e.g., 1250" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="companySize">Total Number of Employees in Company</label>
+                        <input type="number" class="form-control" id="companySize" name="companySize" placeholder="e.g., 75" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="worksiteEmployees">Number of Employees at or within 75 miles of Worksite</label>
+                        <input type="number" class="form-control" id="worksiteEmployees" name="worksiteEmployees" placeholder="e.g., 60" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Check FMLA Eligibility</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

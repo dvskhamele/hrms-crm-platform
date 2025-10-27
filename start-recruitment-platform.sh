@@ -14,7 +14,7 @@ sleep 2
 # Start the main backend server (Hotel Ops - but we'll use it for Gem too)
 echo "🔧 Starting backend server on port 3001..."
 cd /Users/test/startups/hrmscrm
-node server.js > backend.log 2>&1 &
+PORT=3001 node server.js > backend.log 2>&1 &
 
 # Wait a moment for backend to start
 sleep 3

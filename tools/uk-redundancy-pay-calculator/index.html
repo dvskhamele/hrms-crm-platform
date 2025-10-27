@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Redundancy Pay Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>UK Statutory Redundancy Pay Calculator</h1>
+        <p class="intro">Calculate the statutory redundancy pay an employee is entitled to under UK law. This tool is for employees in England, Scotland, and Wales.</p>
+        
+        <div class="calculator-form">
+            <div class="input-group">
+                <label for="age">Employee's age at time of redundancy:</label>
+                <input type="number" id="age" placeholder="e.g., 45">
+            </div>
+
+            <div class="input-group">
+                <label for="years-service">Full years of service:</label>
+                <input type="number" id="years-service" placeholder="e.g., 10">
+            </div>
+
+            <div class="input-group">
+                <label for="weekly-pay">Average weekly pay before tax (&pound;):</label>
+                <input type="number" id="weekly-pay" placeholder="e.g., 500">
+            </div>
+
+            <button id="calculate-btn">Calculate Redundancy Pay</button>
+        </div>
+
+        <div class="results-container">
+            <h2>Estimated Statutory Redundancy Pay</h2>
+            <p class="result-text">&pound;<span id="redundancy-pay-result">0.00</span></p>
+            <div class="disclaimer">
+                <p>This calculation is an estimate of the statutory minimum. The current cap for weekly pay is £700 (as of April 2024) and the maximum number of years that can be counted is 20. This tool does not account for contractual redundancy pay which may be higher.</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

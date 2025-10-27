@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Budget Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>HR Budget Planner</h1>
+        <p>Plan your HR budget effectively.</p>
+        <div class="form-container">
+            <label for="salaries">Salaries & Wages:</label>
+            <input type="number" id="salaries" min="0">
+            <label for="benefits">Benefits:</label>
+            <input type="number" id="benefits" min="0">
+            <label for="recruitment">Recruitment Costs:</label>
+            <input type="number" id="recruitment" min="0">
+            <label for="training">Training & Development:</label>
+            <input type="number" id="training" min="0">
+            <label for="other">Other HR Expenses:</label>
+            <input type="number" id="other" min="0">
+            <button id="calculate-btn">Calculate Total Budget</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

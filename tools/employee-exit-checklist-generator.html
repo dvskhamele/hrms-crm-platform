@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Exit Checklist Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], input[type="date"], select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Exit Checklist Generator</h1>
+        <p>Generate a comprehensive checklist to ensure a smooth and compliant offboarding process for departing employees.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="employeeName">Employee Name</label>
+                <input type="text" id="employeeName" placeholder="e.g., John Doe" required>
+            </div>
+            <div class="form-group">
+                <label for="lastDay">Last Day of Employment</label>
+                <input type="date" id="lastDay" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" placeholder="e.g., Sales" required>
+            </div>
+            <div class="form-group">
+                <label for="reasonForExit">Reason for Exit</label>
+                <select id="reasonForExit" required>
+                    <option value="resignation">Resignation</option>
+                    <option value="termination">Termination</option>
+                    <option value="retirement">Retirement</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <button type="submit">Generate Checklist</button>
+        </form>
+    </div>
+    <script>
+        const checklists = {
+            resignation: [
+                "Conduct exit interview",
+                "Collect company property (laptop, keys, badge)",
+                "Disable system access",
+                "Finalize payroll and benefits",
+                "Provide COBRA information",
+                "Review non-compete/NDA agreements",
+                "Transfer knowledge and responsibilities"
+            ],
+            termination: [
+                "Conduct termination meeting",
+                "Collect company property (laptop, keys, badge)",
+                "Disable system access immediately",
+                "Finalize payroll and benefits",
+                "Provide COBRA information",
+                "Review non-compete/NDA agreements",
+                "Escort employee from premises (if necessary)",
+                "Communicate exit to team/company"
+            ],
+            retirement: [
+                "Conduct exit interview",
+                "Celebrate employee's tenure (optional)",
+                "Collect company property (if applicable)",
+                "Finalize retirement benefits and pension plans",
+                "Provide information on post-retirement benefits",
+                "Disable system access",
+                "Knowledge transfer and succession planning"
+            ],
+            other: [
+                "Conduct exit interview (if applicable)",
+                "Collect company property",
+                "Disable system access",
+                "Finalize payroll and benefits",
+                "Provide relevant information (e.g., COBRA, severance)",
+                "Knowledge transfer"
+            ]
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const employeeName = document.getElementById('employeeName').value;
+            const lastDay = document.getElementById('lastDay').value;
+            const department = document.getElementById('department').value;
+            const reasonForExit = document.getElementById('reasonForExit').value;
+
+            const generatedChecklist = checklists[reasonForExit] || [];
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Employee Exit Checklist Generator',
+                    employeeName: employeeName,
+                    lastDay: lastDay,
+                    department: department,
+                    reasonForExit: reasonForExit,
+                    generatedChecklistCount: generatedChecklist.length
+                });
+            }
+
+            window.location.href = `/tools/results/employee-exit-checklist-generator-result.html?employeeName=${encodeURIComponent(employeeName)}&lastDay=${encodeURIComponent(lastDay)}&department=${encodeURIComponent(department)}&reasonForExit=${encodeURIComponent(reasonForExit)}&checklist=${encodeURIComponent(JSON.stringify(generatedChecklist))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Employee Exit Checklist Generator'
+            });
+        }
+    </script>
+</body>
+</html>

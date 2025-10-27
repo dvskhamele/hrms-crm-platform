@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stay Interview Question Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stay Interview Question Generator</h1>
+        <p>Generate insightful questions for stay interviews to proactively understand employee satisfaction and retention factors.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="focusArea">Select a Focus Area</label>
+                <select id="focusArea" required>
+                    <option value="career_development">Career Development & Growth</option>
+                    <option value="work_life_balance">Work-Life Balance</option>
+                    <option value="management_support">Management & Leadership Support</option>
+                    <option value="compensation_benefits">Compensation & Benefits</option>
+                    <option value="work_environment">Work Environment & Culture</option>
+                    <option value="recognition_appreciation">Recognition & Appreciation</option>
+                </select>
+            </div>
+            <button type="submit">Generate Questions</button>
+        </form>
+    </div>
+    <script>
+        const questions = {
+            career_development: [
+                "What opportunities for growth and development are most important to you right now?",
+                "Do you feel you are learning new skills and growing professionally in your current role?",
+                "What kind of career path do you envision for yourself here? How can we help you achieve it?"
+            ],
+            work_life_balance: [
+                "What aspects of your work-life balance are working well, and what could be improved?",
+                "Do you feel you have the flexibility you need to manage your personal and professional life?",
+                "What support do you need to maintain a healthy work-life balance?"
+            ],
+            management_support: [
+                "What kind of support do you receive from your manager that helps you succeed?",
+                "What could your manager do differently to better support you?",
+                "Do you feel comfortable sharing your ideas and concerns with your manager?"
+            ],
+            compensation_benefits: [
+                "How do you feel about your current compensation and benefits package?",
+                "Are there any benefits that you feel are missing or could be improved?",
+                "Do you feel your contributions are fairly recognized through your compensation?"
+            ],
+            work_environment: [
+                "What do you enjoy most about our work environment and culture?",
+                "Are there any aspects of our work environment that you find challenging or would like to see changed?",
+                "Do you feel a sense of belonging and inclusion here?"
+            ],
+            recognition_appreciation: [
+                "How do you prefer to be recognized for your contributions?",
+                "Do you feel your efforts are adequately recognized and appreciated?",
+                "What more could we do to show appreciation for your work?"
+            ]
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const focusArea = document.getElementById('focusArea').value;
+            const generatedQuestions = questions[focusArea] || [];
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Stay Interview Question Generator',
+                    focusArea: focusArea,
+                    generatedQuestionsCount: generatedQuestions.length
+                });
+            }
+
+            window.location.href = `/tools/results/stay-interview-question-generator-result.html?focusArea=${encodeURIComponent(focusArea)}&questions=${encodeURIComponent(JSON.stringify(generatedQuestions))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Stay Interview Question Generator'
+            });
+        }
+    </script>
+</body>
+</html>

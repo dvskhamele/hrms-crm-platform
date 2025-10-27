@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Applicant Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Applicant Tracker</h1>
+        <p>A lightweight tool to track candidates through your hiring pipeline.</p>
+
+        <div class="add-candidate-form">
+            <h2>Add New Candidate</h2>
+            <input type="text" id="candidate-name" placeholder="Candidate Name">
+            <input type="text" id="candidate-role" placeholder="Role Applied For">
+            <button id="add-candidate-btn">Add Candidate</button>
+        </div>
+
+        <div class="applicant-table-container">
+            <h2>Candidates</h2>
+            <table id="applicant-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Stage</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Candidate rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

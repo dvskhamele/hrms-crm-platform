@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Evaluation Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Self-Evaluation Form Generator</h1>
+        <p>Create a structured self-evaluation form for performance reviews.</p>
+
+        <div class="generator-controls">
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            </div>
+            <div class="input-group">
+                <label for="review-period">Review Period:</label>
+                <input type="text" id="review-period" placeholder="e.g., Q3 2025 / Annual 2025">
+            </div>
+            <button id="generate-form-btn">Generate Self-Evaluation Form</button>
+        </div>
+
+        <div id="form-output" class="hidden">
+            <h2>Your Self-Evaluation Form:</h2>
+            <textarea id="generated-form" rows="20"></textarea>
+            <button id="copy-form-btn">Copy Form Text</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

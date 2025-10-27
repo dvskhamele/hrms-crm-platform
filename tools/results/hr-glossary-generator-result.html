@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Glossary Result</title>
+    <meta name="description" content="Definition and related terms for your HR query. Understand key HR concepts.">
+    <meta property="og:title" content="HR Glossary Result">
+    <meta property="og:description" content="Definition and related terms for your HR query. Understand key HR concepts.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .term-definition { background-color: #f9f9f9; padding: 1.5em; border-radius: 5px; margin-top: 1.5em; text-align: left; }
+        .related-terms { list-style: disc; padding-left: 20px; margin-top: 1em; text-align: left; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HR Term: <span id="searchTermDisplay"></span></h1>
+        <div class="term-definition">
+            <h2>Definition:</h2>
+            <p id="definitionDisplay"></p>
+        </div>
+        <div id="relatedTermsSection" style="display: none;">
+            <h2>Related Terms:</h2>
+            <ul class="related-terms" id="relatedTermsList"></ul>
+        </div>
+        <hr>
+        <h2>Save Your Search</h2>
+        <p>Enter your email to save this definition and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const term = decodeURIComponent(urlParams.get('term'));
+        const definition = decodeURIComponent(urlParams.get('definition'));
+        const related = JSON.parse(decodeURIComponent(urlParams.get('related')));
+
+        document.getElementById('searchTermDisplay').textContent = term.toUpperCase();
+        document.getElementById('definitionDisplay').textContent = definition;
+
+        if (related.length > 0) {
+            document.getElementById('relatedTermsSection').style.display = 'block';
+            const relatedTermsList = document.getElementById('relatedTermsList');
+            related.forEach(rTerm => {
+                const li = document.createElement('li');
+                li.textContent = rTerm;
+                relatedTermsList.appendChild(li);
+            });
+        }
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'HR Glossary Generator',
+                searchTerm: term,
+                definitionLength: definition.length,
+                relatedTermsCount: related.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'HR Glossary Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

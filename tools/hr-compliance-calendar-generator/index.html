@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Compliance Calendar Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>HR Compliance Calendar Generator</h1>
+        <p>Generate a calendar of key HR compliance deadlines.</p>
+        <div class="form-container">
+            <label for="year">Year:</label>
+            <input type="number" id="year" value="2025" min="2020" max="2030">
+            <label for="country">Country:</label>
+            <input type="text" id="country" placeholder="e.g., USA, UK">
+            <button id="generate-btn">Generate Calendar</button>
+        </div>
+        <div id="calendar"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

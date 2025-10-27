@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Performance Review Phrase</title>
+    <meta name="description" content="Review and use your generated performance review phrase.">
+    <meta property="og:title" content="Performance Review Phrase Generator Result">
+    <meta property="og:description" content="A tool to help managers and HR craft effective performance reviews.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function generatePhrase() {
+            const params = new URLSearchParams(window.location.search);
+            const phraseDetails = Object.fromEntries(params.entries());
+
+            if (!phraseDetails.employeeName || !phraseDetails.performanceArea || !phraseDetails.performanceLevel) {
+                document.getElementById('phrase-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'PerformanceReviewPhraseGenerator', phraseDetails });
+
+            let phrase = '';
+            const employeeName = phraseDetails.employeeName;
+            const area = phraseDetails.performanceArea;
+            const level = phraseDetails.performanceLevel;
+
+            // Simple phrase generation logic based on area and level
+            if (level === 'Exceeds Expectations') {
+                switch (area) {
+                    case 'Communication':
+                        phrase = `${employeeName} consistently demonstrates exceptional communication skills, articulating complex ideas clearly and fostering open dialogue within the team.`;
+                        break;
+                    case 'Teamwork':
+                        phrase = `${employeeName} is an outstanding team player, actively collaborating with colleagues and consistently going above and beyond to support team goals.`;
+                        break;
+                    case 'Problem Solving':
+                        phrase = `${employeeName} exhibits superior problem-solving abilities, proactively identifying challenges and implementing innovative and effective solutions.`;
+                        break;
+                    case 'Leadership':
+                        phrase = `${employeeName} is a natural leader who inspires and motivates the team, consistently guiding projects to successful completion and fostering a positive work environment.`;
+                        break;
+                    case 'Productivity':
+                        phrase = `${employeeName} consistently exceeds productivity targets, delivering high-quality work efficiently and managing multiple priorities with exceptional skill.`;
+                        break;
+                    case 'Quality of Work':
+                        phrase = `${employeeName} consistently produces work of the highest quality, demonstrating meticulous attention to detail and a commitment to excellence in all tasks.`;
+                        break;
+                    case 'Adaptability':
+                        phrase = `${employeeName} demonstrates exceptional adaptability, quickly embracing new challenges and effectively adjusting strategies to meet evolving project requirements.`;
+                        break;
+                }
+            } else if (level === 'Meets Expectations') {
+                switch (area) {
+                    case 'Communication':
+                        phrase = `${employeeName} effectively communicates information, ensuring team members are informed and understanding of project updates and requirements.`;
+                        break;
+                    case 'Teamwork':
+                        phrase = `${employeeName} collaborates well with team members, contributing to a positive and productive group dynamic.`;
+                        break;
+                    case 'Problem Solving':
+                        phrase = `${employeeName} effectively addresses challenges, seeking appropriate solutions and demonstrating a logical approach to problem resolution.`;
+                        break;
+                    case 'Leadership':
+                        phrase = `${employeeName} demonstrates solid leadership qualities, guiding team efforts and ensuring tasks are completed effectively.`;
+                        break;
+                    case 'Productivity':
+                        phrase = `${employeeName} consistently meets productivity expectations, delivering assigned tasks within established timelines.`;
+                        break;
+                    case 'Quality of Work':
+                        phrase = `${employeeName} produces work that consistently meets established quality standards, demonstrating care and attention to detail.`;
+                        break;
+                    case 'Adaptability':
+                        phrase = `${employeeName} adapts well to new situations and changes in project scope, maintaining effectiveness in evolving environments.`;
+                        break;
+                }
+            } else if (level === 'Needs Improvement') {
+                switch (area) {
+                    case 'Communication':
+                        phrase = `${employeeName} needs to improve communication clarity and frequency, particularly in providing updates and articulating challenges to the team.`;
+                        break;
+                    case 'Teamwork':
+                        phrase = `${employeeName} should focus on enhancing collaboration and active participation in team discussions to better support collective goals.`;
+                        break;
+                    case 'Problem Solving':
+                        phrase = `${employeeName} would benefit from developing more proactive problem-solving strategies and seeking guidance when encountering significant obstacles.`;
+                        break;
+                    case 'Leadership':
+                        phrase = `${employeeName} needs to develop stronger leadership presence and decision-making skills, particularly in guiding team members and managing project direction.`;
+                        break;
+                    case 'Productivity':
+                        phrase = `${employeeName} needs to improve consistency in meeting productivity targets and managing time effectively to ensure timely completion of tasks.`;
+                        break;
+                    case 'Quality of Work':
+                        phrase = `${employeeName} should focus on improving the overall quality and accuracy of work, paying closer attention to detail and reviewing output more thoroughly.`;
+                        break;
+                    case 'Adaptability':
+                        phrase = `${employeeName} needs to enhance adaptability to changes, demonstrating a more flexible approach when project requirements or priorities shift.`;
+                        break;
+                }
+            }
+
+            document.getElementById('phrase-output').innerHTML = `
+                <p><strong>Employee:</strong> ${employeeName}</p>
+                <p><strong>Area:</strong> ${area}</p>
+                <p><strong>Level:</strong> ${level}</p>
+                <hr>
+                <h4>Generated Phrase:</h4>
+                <p class="lead">${phrase}</p>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generatePhrase();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'PerformanceReviewPhraseGenerator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'PerformanceReviewPhraseGenerator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more HR insights.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Your Performance Review Phrase</h1>
+            </div>
+            <div class="card-body">
+                <div id="phrase-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Generate Another Phrase</button>
+                    <button class="btn btn-success" onclick="navigator.clipboard.writeText(document.getElementById('phrase-output').innerText)">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Enhance Your Performance Management</h4>
+                <p>Subscribe for expert tips on employee development and performance reviews.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

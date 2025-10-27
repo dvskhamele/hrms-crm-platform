@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Budget Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Recruitment Budget Planner</h1>
+        <p>Plan your recruitment budget effectively.</p>
+        <div class="form-container">
+            <label for="advertising-costs">Advertising Costs:</label>
+            <input type="number" id="advertising-costs" min="0">
+            <label for="agency-fees">Agency Fees:</label>
+            <input type="number" id="agency-fees" min="0">
+            <label for="software-tools">Recruitment Software & Tools:</label>
+            <input type="number" id="software-tools" min="0">
+            <label for="interviewer-time">Interviewer Time (estimated cost):</label>
+            <input type="number" id="interviewer-time" min="0">
+            <label for="other-recruitment-expenses">Other Recruitment Expenses:</label>
+            <input type="number" id="other-recruitment-expenses" min="0">
+            <button id="calculate-btn">Calculate Total Budget</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

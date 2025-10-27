@@ -1,0 +1,27 @@
+{
+  "toolSlug": "job-description-enhancer",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "Job Description Enhancer - Gem Tools",
+    "metaDescription": "Improve your job descriptions for clarity, SEO, and inclusivity to attract top talent.",
+    "h1": "Job Description Enhancer",
+    "keywords": ["job description optimization", "inclusive job descriptions", "job ad writing", "recruitment marketing", "talent attraction", "HR tools", "job description template"],
+    "url": "/tools/job-description-enhancer",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator"]
+  },
+  "marketingAudit": {
+    "targetAudience": "HR professionals, recruiters, hiring managers",
+    "valueProposition": "Attract top talent with optimized, inclusive, and SEO-friendly job descriptions.",
+    "callToActions": ["Enhance Job Description", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Job Description Enhancement", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Raw Job Description"],
+    "validationRules": ["Job Description is required"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - single input, clear output"
+  }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMART Goal Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], textarea { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SMART Goal Generator</h1>
+        <p>Transform your general goals into Specific, Measurable, Achievable, Relevant, and Time-bound (SMART) objectives.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="generalGoal">Your General Goal Idea</label>
+                <input type="text" id="generalGoal" placeholder="e.g., Improve sales performance" required>
+            </div>
+            <button type="submit">Generate SMART Goal</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const generalGoal = document.getElementById('generalGoal').value;
+
+            // Simple logic to generate SMART prompts/examples
+            const smartPrompts = {
+                specific: `What exactly do you want to achieve? Who is involved? Where will it happen? Why is this goal important? (e.g., "Increase sales of Product X in Region Y")`,
+                measurable: `How will you track progress and know when the goal is achieved? What metrics will you use? (e.g., "Increase sales by 15%")`,
+                achievable: `Is this goal realistic and attainable given your resources and constraints? (e.g., "Achievable by implementing a new marketing strategy")`,
+                relevant: `Does this goal align with broader objectives? Is it worthwhile? (e.g., "Relevant to company's Q4 revenue targets")`,
+                timeBound: `When do you want to achieve this goal? What is the deadline? (e.g., "By the end of the next fiscal quarter")`
+            };
+
+            const generatedSmartGoal = `
+General Goal: ${generalGoal}
+
+Specific: ${smartPrompts.specific}
+
+Measurable: ${smartPrompts.measurable}
+
+Achievable: ${smartPrompts.achievable}
+
+Relevant: ${smartPrompts.relevant}
+
+Time-bound: ${smartPrompts.timeBound}
+            `;
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'SMART Goal Generator',
+                    generalGoal: generalGoal,
+                    generatedSmartGoalLength: generatedSmartGoal.length
+                });
+            }
+
+            window.location.href = `/tools/results/smart-goal-generator-result.html?generalGoal=${encodeURIComponent(generalGoal)}&smartGoal=${encodeURIComponent(generatedSmartGoal)}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'SMART Goal Generator'
+            });
+        }
+    </script>
+</body>
+</html>

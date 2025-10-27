@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Recognition Idea Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Recognition Idea Generator</h1>
+        <p>Generate creative and effective ideas to recognize your employees.</p>
+
+        <div class="generator-controls">
+            <h3>Select Recognition Categories:</h3>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="public-recognition" checked> Public Recognition</label>
+                <label><input type="checkbox" id="personal-gestures" checked> Personal Gestures</label>
+                <label><input type="checkbox" id="time-rewards" checked> Time-Based Rewards</label>
+                <label><input type="checkbox" id="development-opportunities" checked> Development Opportunities</label>
+                <label><input type="checkbox" id="creative-fun" checked> Creative & Fun Ideas</label>
+            </div>
+            <button id="generate-ideas-btn">Generate Ideas</button>
+        </div>
+
+        <div id="ideas-output" class="hidden">
+            <h2>Generated Recognition Ideas</h2>
+            <div id="ideas-content"></div>
+            <button id="copy-ideas-btn">Copy Ideas</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

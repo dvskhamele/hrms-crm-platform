@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Increase Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'SalaryIncreaseCalculator' });
+
+            const form = document.getElementById('salary-increase-form');
+            const increaseTypeRadios = document.querySelectorAll('input[name="increaseType"]');
+            const increaseValueLabel = document.getElementById('increaseValueLabel');
+            const increaseValueInput = document.getElementById('increaseValue');
+
+            function updateIncreaseValueLabel() {
+                const selectedType = document.querySelector('input[name="increaseType"]:checked').value;
+                if (selectedType === 'percentage') {
+                    increaseValueLabel.textContent = 'Increase Percentage (%)';
+                    increaseValueInput.placeholder = 'e.g., 5';
+                } else {
+                    increaseValueLabel.textContent = 'Fixed Increase Amount ($)';
+                    increaseValueInput.placeholder = 'e.g., 3000';
+                }
+            }
+
+            increaseTypeRadios.forEach(radio => {
+                radio.addEventListener('change', updateIncreaseValueLabel);
+            });
+
+            // Initial update
+            updateIncreaseValueLabel();
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const calcDetails = Object.fromEntries(formData.entries());
+
+                logAnalytics('ToolSubmitted', { toolName: 'SalaryIncreaseCalculator', formData: calcDetails });
+
+                const queryString = new URLSearchParams(calcDetails).toString();
+                window.location.href = `/tools/results/salary-increase-calculator-result.html?${queryString}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Salary Increase Calculator</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Calculate new salary and percentage increase based on current salary and desired increase.</p>
+                <form id="salary-increase-form">
+                    <div class="form-group">
+                        <label for="currentSalary">Current Annual Salary ($)</label>
+                        <input type="number" class="form-control" id="currentSalary" name="currentSalary" placeholder="e.g., 75000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type of Increase</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="increaseType" id="percentageIncrease" value="percentage" checked>
+                                <label class="form-check-label" for="percentageIncrease">Percentage</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="increaseType" id="fixedAmountIncrease" value="fixed">
+                                <label class="form-check-label" for="fixedAmountIncrease">Fixed Amount</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="increaseValue" id="increaseValueLabel">Increase Percentage (%)</label>
+                        <input type="number" class="form-control" id="increaseValue" name="increaseValue" placeholder="e.g., 5" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Calculate New Salary</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

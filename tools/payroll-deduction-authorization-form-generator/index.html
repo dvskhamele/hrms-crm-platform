@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Deduction Authorization Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Payroll Deduction Authorization Form Generator</h1>
+        <p>Generate a form for employees to authorize payroll deductions for various purposes.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            </div>
+            <div class="input-group">
+                <label for="employee-id">Employee ID (Optional):</label>
+                <input type="text" id="employee-id" placeholder="e.g., 12345">
+            </div>
+            <div class="input-group">
+                <label for="authorization-date">Authorization Date:</label>
+                <input type="date" id="authorization-date">
+            </div>
+            <div class="input-group full-width">
+                <label for="deduction-details">Deduction Details (one per line: Type, Amount/Percentage, Frequency):</label>
+                <textarea id="deduction-details" rows="5" placeholder="e.g., Health Insurance, $150.00, Bi-weekly
+401(k) Contribution, 5%, Per Pay Period
+Gym Membership, $25.00, Monthly"></textarea>
+            </div>
+            <button id="generate-form-btn">Generate Authorization Form</button>
+        </div>
+
+        <div id="form-output" class="hidden">
+            <h2>Generated Payroll Deduction Authorization Form</h2>
+            <div id="form-content"></div>
+            <button id="copy-form-btn">Copy Form Text</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

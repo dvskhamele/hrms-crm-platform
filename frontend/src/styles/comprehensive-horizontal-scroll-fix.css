@@ -1,0 +1,225 @@
+/* Comprehensive horizontal scrolling fixes for all devices */
+
+/* Global fixes for horizontal scrolling issues */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+}
+
+/* Ensure all elements respect viewport boundaries */
+* {
+  box-sizing: border-box;
+  max-width: 100vw !important;
+}
+
+/* Fix for container elements */
+.container,
+.max-w-7xl,
+.max-w-6xl,
+.max-w-5xl,
+.max-w-4xl,
+.max-w-3xl,
+.max-w-2xl,
+.max-w-xl,
+.max-w-lg,
+.max-w-md,
+.max-w-sm {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
+/* Fix for flex containers */
+.flex,
+.flex-row,
+.flex-col {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
+/* Fix for grid containers */
+.grid {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
+/* Fix for dashboard-specific elements */
+.dashboard-container,
+.dashboard-main-content,
+.main-container,
+.content-wrapper {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Fix for navigation elements */
+nav,
+.header,
+.navigation-menu {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
+/* Fix for table elements */
+.table-container {
+  overflow-x: auto !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.table-container table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Fix for card elements */
+.card,
+.card-container,
+.rounded-xl,
+.rounded-2xl {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
+/* Fix for button elements */
+button,
+.btn {
+  max-width: 100% !important;
+}
+
+/* Fix for text elements */
+.text-ellipsis,
+.truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 767px) {
+  html, body {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .mobile-dashboard,
+  .mobile-container,
+  .mobile-content {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+  
+  .mobile-dashboard * {
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  
+  /* Fix for mobile navigation */
+  nav a,
+  .nav-item,
+  .mobile-nav,
+  .mobile-navigation {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  
+  /* Fix for mobile cards */
+  .mobile-card,
+  .mobile-card-container {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  
+  /* Fix for mobile tables */
+  .mobile-table-container {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  .mobile-table-container table {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Tablet-specific fixes */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tablet-dashboard,
+  .tablet-container {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .tablet-dashboard * {
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+}
+
+/* Laptop/desktop fixes */
+@media (min-width: 1024px) {
+  .desktop-dashboard,
+  .desktop-container {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .desktop-dashboard * {
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  
+  /* Ensure dashboard grid containers don't overflow */
+  .dashboard-grid-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Fix for wide tables */
+  .dashboard-table-container {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  .dashboard-table-container table {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Prevent absolutely positioned elements from causing overflow */
+*[style*="position: absolute"] {
+  max-width: 100vw !important;
+}
+
+/* Fix for elements with fixed positioning */
+*[style*="position: fixed"] {
+  max-width: 100vw !important;
+}
+
+/* Ensure modals and overlays don't cause horizontal overflow */
+.modal,
+.overlay,
+.dialog {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
+/* Fix for elements with explicit widths that might cause overflow */
+*[style*="width:"] {
+  max-width: 100vw !important;
+}

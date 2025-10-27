@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behavioral Interview Question Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Behavioral Interview Question Generator</h1>
+        <p>Generate effective behavioral interview questions to assess candidates' past behaviors and predict future performance.</p>
+
+        <div class="input-section">
+            <label for="skill-area">Select Skill Area:</label>
+            <select id="skill-area">
+                <option value="teamwork">Teamwork</option>
+                <option value="leadership">Leadership</option>
+                <option value="problem-solving">Problem-Solving</option>
+                <option value="adaptability">Adaptability</option>
+                <option value="communication">Communication</option>
+            </select>
+            <button id="generate-btn">Generate Questions</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Generated Questions:</h2>
+            <ul id="questions-list">
+                <!-- Questions will be inserted here by JavaScript -->
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

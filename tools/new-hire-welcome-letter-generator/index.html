@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Hire Welcome Letter Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>New Hire Welcome Letter Generator</h1>
+        <p class="intro">Generate a personalized welcome letter for your new employees to make their first day special.</p>
+        
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="new-hire-name">New Hire's Name:</label>
+                <input type="text" id="new-hire-name" placeholder="e.g., Emily White">
+            </div>
+
+            <div class="input-group">
+                <label for="job-title">Job Title:</label>
+                <input type="text" id="job-title" placeholder="e.g., Marketing Specialist">
+            </div>
+
+            <div class="input-group">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date">
+            </div>
+
+            <div class="input-group">
+                <label for="manager-name">Manager's Name:</label>
+                <input type="text" id="manager-name" placeholder="e.g., David Lee">
+            </div>
+
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Solutions">
+            </div>
+
+            <button id="generate-btn">Generate Welcome Letter</button>
+        </div>
+
+        <div class="results-container">
+            <h2>Generated Welcome Letter</h2>
+            <textarea id="generated-letter" rows="15" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

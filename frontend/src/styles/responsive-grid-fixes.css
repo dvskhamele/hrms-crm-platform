@@ -15,7 +15,7 @@
 
 /* Ensure proper overflow handling */
 .main-container {
-  overflow-x: auto;
+  overflow-x: hidden;
   width: 100%;
 }
 

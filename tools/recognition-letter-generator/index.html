@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Recognition Letter Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Recognition Letter Generator</h1>
+        <p>Generate a formal letter to recognize and appreciate outstanding employee contributions.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Alex Smith">
+            </div>
+            <div class="input-group">
+                <label for="recognition-date">Date of Recognition:</label>
+                <input type="date" id="recognition-date">
+            </div>
+            <div class="input-group full-width">
+                <label for="reason">Reason for Recognition:</label>
+                <textarea id="reason" rows="4" placeholder="e.g., For your exceptional leadership in the successful completion of Project X, which resulted in a 15% increase in client satisfaction."></textarea>
+            </div>
+            <button id="generate-letter-btn">Generate Recognition Letter</button>
+        </div>
+
+        <div id="letter-output" class="hidden">
+            <h2>Generated Recognition Letter</h2>
+            <div id="letter-content"></div>
+            <button id="copy-letter-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Sourcing Plan Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], textarea { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        #skillsList, #channelsList { list-style: none; padding: 0; margin-top: 1em; }
+        #skillsList li, #channelsList li { background-color: #f0f0f0; padding: .5em; margin-bottom: .5em; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; }
+        #skillsList li button, #channelsList li button { background-color: #dc3545; padding: .3em .6em; font-size: .8em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Sourcing Plan Generator</h1>
+        <p>Create a structured plan to effectively source top talent for your open positions.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" placeholder="e.g., Product Manager" required>
+            </div>
+            <div class="form-group">
+                <label for="seniority">Target Seniority</label>
+                <select id="seniority" required>
+                    <option value="junior">Junior</option>
+                    <option value="mid">Mid-Level</option>
+                    <option value="senior">Senior</option>
+                    <option value="executive">Executive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="skill">Add Key Skill/Requirement</label>
+                <input type="text" id="skill" placeholder="e.g., SaaS experience, Agile methodology">
+                <button type="button" id="addSkill">Add Skill</button>
+            </div>
+            <ul id="skillsList"></ul>
+            <div class="form-group">
+                <label for="channel">Add Sourcing Channel</label>
+                <input type="text" id="channel" placeholder="e.g., LinkedIn Recruiter, Industry Conferences, Employee Referrals">
+                <button type="button" id="addChannel">Add Channel</button>
+            </div>
+            <ul id="channelsList"></ul>
+            <button type="submit">Generate Sourcing Plan</button>
+        </form>
+    </div>
+    <script>
+        const skills = [];
+        const channels = [];
+
+        document.getElementById('addSkill').addEventListener('click', function() {
+            const skillInput = document.getElementById('skill');
+            const skillText = skillInput.value.trim();
+            if (skillText) {
+                skills.push(skillText);
+                renderSkills();
+                skillInput.value = '';
+            }
+        });
+
+        document.getElementById('addChannel').addEventListener('click', function() {
+            const channelInput = document.getElementById('channel');
+            const channelText = channelInput.value.trim();
+            if (channelText) {
+                channels.push(channelText);
+                renderChannels();
+                channelInput.value = '';
+            }
+        });
+
+        function renderSkills() {
+            const list = document.getElementById('skillsList');
+            list.innerHTML = '';
+            skills.forEach((s, index) => {
+                const li = document.createElement('li');
+                li.textContent = s;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    skills.splice(index, 1);
+                    renderSkills();
+                });
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        function renderChannels() {
+            const list = document.getElementById('channelsList');
+            list.innerHTML = '';
+            channels.forEach((c, index) => {
+                const li = document.createElement('li');
+                li.textContent = c;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    channels.splice(index, 1);
+                    renderChannels();
+                });
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const jobTitle = document.getElementById('jobTitle').value;
+            const seniority = document.getElementById('seniority').value;
+
+            if (skills.length === 0 || channels.length === 0) {
+                alert('Please add at least one skill and one sourcing channel.');
+                return;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Candidate Sourcing Plan Generator',
+                    jobTitle: jobTitle,
+                    seniority: seniority,
+                    skillsCount: skills.length,
+                    channelsCount: channels.length
+                });
+            }
+
+            window.location.href = `/tools/results/candidate-sourcing-plan-generator-result.html?jobTitle=${encodeURIComponent(jobTitle)}&seniority=${encodeURIComponent(seniority)}&skills=${encodeURIComponent(JSON.stringify(skills))}&channels=${encodeURIComponent(JSON.stringify(channels))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Candidate Sourcing Plan Generator'
+            });
+        }
+    </script>
+</body>
+</html>

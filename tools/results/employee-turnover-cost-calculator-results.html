@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Turnover Cost Report - Your Custom Calculation</title>
+    <meta name="description" content="Your personalized employee turnover cost calculation from our HRMS CRM Tool. Understand the financial impact of turnover with a detailed breakdown.">
+    <meta property="og:title" content="Employee Turnover Cost Report - Your Custom Calculation">
+    <meta property="og:description" content="Your personalized employee turnover cost calculation from our HRMS CRM Tool. Understand the financial impact of turnover with a detailed breakdown.">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../employee-turnover-cost-calculator/style.css">
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="container mx-auto p-4">
+        <header class="text-center my-8">
+            <h1 class="text-4xl font-bold text-gray-800">Your Employee Turnover Cost Report</h1>
+            <p class="text-lg text-gray-600 mt-2">A detailed breakdown of your estimated turnover expenses.</p>
+        </header>
+
+        <main class="bg-white p-6 rounded-lg shadow-md">
+            <section id="inputSummary" class="mb-8 p-4 bg-gray-50 rounded-md">
+                <h2 class="text-xl font-bold text-gray-800 mb-3">Summary of Your Inputs:</h2>
+                <p><strong>Employee Annual Salary:</strong> $<span id="summaryEmployeeAnnualSalary"></span></p>
+                <p><strong>Benefits as % of Salary:</strong> <span id="summaryBenefitsPercentage"></span>%</p>
+                <p><strong>Recruitment Costs:</strong> $<span id="summaryRecruitmentCost"></span></p>
+                <p><strong>Onboarding & Training Costs:</strong> $<span id="summaryOnboardingTrainingCost"></span></p>
+                <p><strong>Lost Productivity Days:</strong> <span id="summaryLostProductivityDays"></span></p>
+                <p><strong>Estimated Daily Revenue Loss:</strong> $<span id="summaryDailyRevenueLoss"></span></p>
+                <p><strong>Management Time Cost:</strong> $<span id="summaryManagementTimeCost"></span></p>
+            </section>
+
+            <section id="results" class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Estimated Total Turnover Cost: <span id="totalTurnoverCost" class="text-indigo-600"></span></h2>
+                <div class="space-y-2 mt-4">
+                    <h3 class="text-xl font-semibold text-gray-800">Cost Breakdown:</h3>
+                    <p><strong>Direct Recruitment Cost:</strong> $<span id="breakdownDirectRecruitmentCost"></span></p>
+                    <p><strong>Direct Onboarding & Training Cost:</strong> $<span id="breakdownDirectOnboardingTrainingCost"></span></p>
+                    <p><strong>Direct Management Time Cost:</strong> $<span id="breakdownDirectManagementTimeCost"></span></p>
+                    <p><strong>Benefits Cost:</strong> $<span id="breakdownBenefitsCost"></span></p>
+                    <p><strong>Lost Productivity Cost:</strong> $<span id="breakdownLostProductivityCost"></span></p>
+                </div>
+                <button id="copyResultsButton" class="mt-4 bg-green-600 text-white p-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Copy Results</button>
+            </section>
+
+            <section id="leadCapture" class="mt-8 bg-gray-50 p-6 rounded-lg shadow-inner">
+                <h2 class="text-xl font-bold text-gray-800 mb-3">Get a Detailed Report & Retention Strategies!</h2>
+                <p class="text-gray-600 mb-4">Enter your email to receive a comprehensive report on your turnover costs, industry benchmarks, and actionable strategies to reduce employee turnover.</p>
+                <form id="leadCaptureForm" class="flex flex-col sm:flex-row gap-2">
+                    <input type="email" id="leadEmail" placeholder="your.email@example.com" class="flex-grow p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    <button type="submit" class="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Get Enhanced Report</button>
+                </form>
+                <p id="leadCaptureMessage" class="mt-2 text-sm text-green-600 hidden"></p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Analytics Logging (Placeholder - In a real scenario, this would send data to an analytics service)
+        function logAnalyticsEvent(eventName, data = {}) {
+            console.log(`Analytics Event: ${eventName}`, data);
+            // Example: fetch('/api/log-analytics', { method: 'POST', body: JSON.stringify({ eventName, data }) });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalyticsEvent('ToolResultViewed', { tool: 'EmployeeTurnoverCostCalculator' });
+
+            const params = new URLSearchParams(window.location.search);
+            const encodedData = params.get('data');
+
+            if (encodedData) {
+                try {
+                    const decodedData = JSON.parse(atob(encodedData));
+                    const { inputs, results } = decodedData;
+
+                    // Display Inputs Summary
+                    document.getElementById('summaryEmployeeAnnualSalary').textContent = parseFloat(inputs.employeeAnnualSalary).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    document.getElementById('summaryBenefitsPercentage').textContent = parseFloat(inputs.benefitsPercentage).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    document.getElementById('summaryRecruitmentCost').textContent = parseFloat(inputs.recruitmentCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    document.getElementById('summaryOnboardingTrainingCost').textContent = parseFloat(inputs.onboardingTrainingCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    document.getElementById('summaryLostProductivityDays').textContent = parseInt(inputs.lostProductivityDays).toLocaleString('en-US');
+                    document.getElementById('summaryDailyRevenueLoss').textContent = parseFloat(inputs.dailyRevenueLoss).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    document.getElementById('summaryManagementTimeCost').textContent = parseFloat(inputs.managementTimeCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    // Display Results
+                    document.getElementById('totalTurnoverCost').textContent = parseFloat(results.estimatedTotalTurnoverCost).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                    document.getElementById('breakdownDirectRecruitmentCost').textContent = parseFloat(results.breakdown.directRecruitmentCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    document.getElementById('breakdownDirectOnboardingTrainingCost').textContent = parseFloat(results.breakdown.directOnboardingTrainingCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    document.getElementById('breakdownDirectManagementTimeCost').textContent = parseFloat(results.breakdown.directManagementTimeCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    document.getElementById('breakdownBenefitsCost').textContent = parseFloat(results.breakdown.benefitsCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    document.getElementById('breakdownLostProductivityCost').textContent = parseFloat(results.breakdown.lostProductivityCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    // Copy Results Button
+                    const copyResultsButton = document.getElementById('copyResultsButton');
+                    copyResultsButton.addEventListener('click', () => {
+                        const resultsText = `Employee Turnover Cost Report:\n\n` +
+                                            `Estimated Total Turnover Cost: ${document.getElementById('totalTurnoverCost').textContent}\n\n` +
+                                            `--- Input Summary ---
+` +
+                                            `Employee Annual Salary: $${document.getElementById('summaryEmployeeAnnualSalary').textContent}
+` +
+                                            `Benefits as % of Salary: ${document.getElementById('summaryBenefitsPercentage').textContent}%
+` +
+                                            `Recruitment Costs: $${document.getElementById('summaryRecruitmentCost').textContent}
+` +
+                                            `Onboarding & Training Costs: $${document.getElementById('summaryOnboardingTrainingCost').textContent}
+` +
+                                            `Lost Productivity Days: ${document.getElementById('summaryLostProductivityDays').textContent}
+` +
+                                            `Estimated Daily Revenue Loss: $${document.getElementById('summaryDailyRevenueLoss').textContent}
+` +
+                                            `Management Time Cost: $${document.getElementById('summaryManagementTimeCost').textContent}
+
+` +
+                                            `--- Cost Breakdown ---
+` +
+                                            `Direct Recruitment Cost: $${document.getElementById('breakdownDirectRecruitmentCost').textContent}
+` +
+                                            `Direct Onboarding & Training Cost: $${document.getElementById('breakdownDirectOnboardingTrainingCost').textContent}
+` +
+                                            `Direct Management Time Cost: $${document.getElementById('breakdownDirectManagementTimeCost').textContent}
+` +
+                                            `Benefits Cost: $${document.getElementById('breakdownBenefitsCost').textContent}
+` +
+                                            `Lost Productivity Cost: $${document.getElementById('breakdownLostProductivityCost').textContent}
+`;
+
+                        navigator.clipboard.writeText(resultsText).then(() => {
+                            copyResultsButton.textContent = 'Copied!';
+                            setTimeout(() => copyResultsButton.textContent = 'Copy Results', 2000);
+                        }).catch(err => {
+                            console.error('Failed to copy: ', err);
+                        });
+                    });
+
+                } catch (error) {
+                    console.error('Error decoding or parsing data:', error);
+                    document.getElementById('totalTurnoverCost').textContent = 'Error loading data.';
+                    document.getElementById('results').innerHTML = '<p class="text-red-500">Error loading results. Please try again from the <a href="../employee-turnover-cost-calculator/index.html" class="text-blue-600 hover:underline">calculator page</a>.</p>';
+                }
+            } else {
+                document.getElementById('totalTurnoverCost').textContent = 'No data found.';
+                document.getElementById('results').innerHTML = '<p class="text-red-500">No data found. Please use the <a href="../employee-turnover-cost-calculator/index.html" class="text-blue-600 hover:underline">calculator page</a> to calculate costs.</p>';
+            }
+
+            const leadCaptureForm = document.getElementById('leadCaptureForm');
+            const leadEmailInput = document.getElementById('leadEmail');
+            const leadCaptureMessage = document.getElementById('leadCaptureMessage');
+
+            leadCaptureForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = leadEmailInput.value.trim();
+                if (email) {
+                    logAnalyticsEvent('LeadCaptured', { tool: 'EmployeeTurnoverCostCalculator', email: email });
+                    leadCaptureMessage.textContent = 'Thank you! Your detailed report will be sent to ' + email;
+                    leadCaptureMessage.classList.remove('hidden');
+                    leadEmailInput.value = ''; // Clear the input
+                    // In a real application, you would send this email to a backend service
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Agreement Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Equipment Agreement Form Generator</h1>
+        <p>Generate a clear agreement for company-issued equipment to employees.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            </div>
+            <div class="input-group full-width">
+                <label for="equipment-list">Equipment Issued (one item per line, e.g., Laptop - Dell XPS 15, Monitor - LG Ultrafine):</label>
+                <textarea id="equipment-list" rows="5" placeholder="e.g., Laptop - MacBook Pro\nMonitor - Dell UltraSharp\nKeyboard - Apple Magic Keyboard"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="agreement-date">Agreement Date:</label>
+                <input type="date" id="agreement-date">
+            </div>
+            <button id="generate-agreement-btn">Generate Agreement</button>
+        </div>
+
+        <div id="agreement-output" class="hidden">
+            <h2>Generated Equipment Agreement</h2>
+            <div id="agreement-content"></div>
+            <button id="copy-agreement-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

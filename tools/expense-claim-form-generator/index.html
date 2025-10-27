@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Claim Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Claim Form Generator</h1>
+        <p>Generate a simple form for employees to submit their business expense claims.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Alex Smith">
+            </div>
+            <div class="input-group">
+                <label for="department">Department:</label>
+                <input type="text" id="department" placeholder="e.g., Sales">
+            </div>
+            <div class="input-group">
+                <label for="claim-date">Claim Date:</label>
+                <input type="date" id="claim-date">
+            </div>
+            <div class="input-group full-width">
+                <label for="expense-items">Expense Items (one per line: Date, Description, Amount):</label>
+                <textarea id="expense-items" rows="5" placeholder="e.g., 2025-10-20, Client Lunch, 55.00
+2025-10-21, Travel - Taxi to Airport, 30.50"></textarea>
+            </div>
+            <button id="generate-form-btn">Generate Expense Claim Form</button>
+        </div>
+
+        <div id="form-output" class="hidden">
+            <h2>Generated Expense Claim Form</h2>
+            <div id="form-content"></div>
+            <button id="copy-form-btn">Copy Form Text</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

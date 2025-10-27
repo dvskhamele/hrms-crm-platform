@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Budget Calculation Results | Gem HRMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Recruitment Budget Calculation Results</h1>
+            <div id="results" class="prose max-w-none">
+                <!-- Results content will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logAnalyticsEvent(eventName, data = {}) {
+            console.log(`Analytics Event: ${eventName}`, data);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const data = urlParams.get('data');
+
+            if (data) {
+                try {
+                    const decodedData = JSON.parse(atob(data));
+                    logAnalyticsEvent('ToolResultViewed', { tool: 'RecruitmentBudgetCalculator', results: decodedData });
+
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = `
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Recruitment Budget Summary</h2>
+                        <p class="mb-2"><strong>Number of Hires Planned:</strong> ${decodedData.inputs.numHires}</p>
+                        <p class="mb-2"><strong>Average Salary per Hire:</strong> $${parseFloat(decodedData.inputs.avgSalary).toLocaleString()}</p>
+                        <p class="mb-2"><strong>Average Recruitment Fee:</strong> ${decodedData.inputs.recruitmentFee}%</p>
+                        <p class="mb-2"><strong>Total Advertising & Job Board Costs:</strong> $${parseFloat(decodedData.inputs.advertisingCost).toLocaleString()}</p>
+                        <p class="mb-4"><strong>Other Recruitment Costs:</strong> $${parseFloat(decodedData.inputs.otherCosts).toLocaleString()}</p>
+
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2">Estimated Total Recruitment Budget:</h3>
+                        <p class="text-3xl font-bold text-green-600 mb-4">$${decodedData.results.totalBudget.toLocaleString()}</p>
+
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2">Budget Breakdown:</h3>
+                        <ul class="list-disc list-inside space-y-1 mb-4">
+                            <li>Agency Fees: $${decodedData.results.breakdown.agencyFees.toLocaleString()}</li>
+                            <li>Advertising & Job Board Costs: $${decodedData.results.breakdown.advertisingCosts.toLocaleString()}</li>
+                            <li>Other Costs: $${decodedData.results.breakdown.otherCosts.toLocaleString()}</li>
+                        </ul>
+                    `;
+                } catch (error) {
+                    console.error('Error decoding results data:', error);
+                    document.getElementById('results').innerHTML = '<p class="text-red-500 text-center">Could not display results. The data may be corrupted.</p>';
+                }
+            } else {
+                document.getElementById('results').innerHTML = '<p class="text-red-500 text-center">No budget data found.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your HR Policy</title>
+    <meta name="description" content="Review and use your generated HR policy template.">
+    <meta property="og:title" content="HR Policy Generator Result">
+    <meta property="og:description" content="A tool to help HR professionals generate essential policy documents.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function generatePolicy() {
+            const params = new URLSearchParams(window.location.search);
+            const policyDetails = Object.fromEntries(params.entries());
+
+            if (!policyDetails.companyName || !policyDetails.policyType || !policyDetails.effectiveDate) {
+                document.getElementById('policy-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'HRPolicyGenerator', policyDetails });
+
+            let policyContent = [];
+            const companyName = policyDetails.companyName;
+            const policyType = policyDetails.policyType;
+            const effectiveDate = new Date(policyDetails.effectiveDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            const keyDetails = policyDetails.keyDetails;
+
+            policyContent.push(`<h1>${policyType}</h1>`);
+            policyContent.push(`<p><strong>Company:</strong> ${companyName}</p>`);
+            policyContent.push(`<p><strong>Effective Date:</strong> ${effectiveDate}</p>`);
+            policyContent.push(`<hr>`);
+
+            if (policyType === 'Remote Work') {
+                policyContent.push(`<h2>Purpose</h2>`);
+                policyContent.push(`<p>This policy outlines the guidelines and expectations for remote work arrangements at ${companyName}. It aims to provide flexibility while ensuring productivity, collaboration, and compliance with company standards.</p>`);
+                policyContent.push(`<h2>Scope</h2>`);
+                policyContent.push(`<p>This policy applies to all eligible employees of ${companyName} who wish to work remotely, either full-time or on a hybrid schedule.</p>`);
+                policyContent.push(`<h2>Guidelines</h2>`);
+                policyContent.push(`<ul>
+                    <li>Employees must have a dedicated, safe, and ergonomic workspace.</li>
+                    <li>Remote work requests must be approved by management.</li>
+                    <li>Employees are expected to maintain regular communication with their teams.</li>
+                    <li>All company policies, including data security and confidentiality, apply to remote work.</li>
+                </ul>`);
+            } else if (policyType === 'PTO') {
+                policyContent.push(`<h2>Purpose</h2>`);
+                policyContent.push(`<p>This Paid Time Off (PTO) policy at ${companyName} provides employees with paid leave for vacation, personal time, and short-term illness, promoting work-life balance and well-being.</p>`);
+                policyContent.push(`<h2>Accrual</h2>`);
+                policyContent.push(`<p>Employees accrue PTO at a rate of [X] hours/days per [pay period/month/year], up to a maximum of [Y] hours/days.</p>`);
+                policyContent.push(`<h2>Usage</h2>`);
+                policyContent.push(`<ul>
+                    <li>PTO requests should be submitted [X] days in advance for approval.</li>
+                    <li>Unused PTO may be [carried over/paid out/forfeited] at the end of the year.</li>
+                    <li>PTO can be used for vacation, personal appointments, or illness.</li>
+                </ul>`);
+            } else if (policyType === 'Harassment') {
+                policyContent.push(`<h2>Purpose</h2>`);
+                policyContent.push(`<p>${companyName} is committed to providing a work environment free from harassment and discrimination. This policy prohibits harassment of any kind, including sexual harassment, and outlines procedures for reporting and investigating complaints.</p>`);
+                policyContent.push(`<h2>Prohibited Conduct</h2>`);
+                policyContent.push(`<p>Harassment includes, but is not limited to, offensive jokes, slurs, epithets or name calling, physical assaults or threats, intimidation, ridicule or mockery, insults or put-downs, offensive objects or pictures, and interference with work performance.</p>`);
+                policyContent.push(`<h2>Reporting Procedures</h2>`);
+                policyContent.push(`<p>Any employee who believes they have been subjected to harassment, or has witnessed harassment, should report it immediately to [HR/Manager]. All complaints will be investigated promptly and impartially.</p>`);
+            } else if (policyType === 'Data Privacy') {
+                policyContent.push(`<h2>Purpose</h2>`);
+                policyContent.push(`<p>This Employee Data Privacy Policy at ${companyName} outlines our commitment to protecting the personal data of our employees and ensuring compliance with relevant data protection laws.</p>`);
+                policyContent.push(`<h2>Data Collection and Use</h2>`);
+                policyContent.push(`<p>We collect and process employee data only for legitimate business purposes, such as payroll, benefits administration, and performance management. Data will be kept accurate, up-to-date, and secure.</p>`);
+                policyContent.push(`<h2>Employee Rights</h2>`);
+                policyContent.push(`<p>Employees have the right to access, correct, and request deletion of their personal data, subject to legal and operational limitations.</p>`);
+            } else if (policyType === 'Code of Conduct') {
+                policyContent.push(`<h2>Purpose</h2>`);
+                policyContent.push(`<p>The Code of Conduct at ${companyName} sets forth the ethical principles and behavioral expectations for all employees, fostering a respectful, inclusive, and productive work environment.</p>`);
+                policyContent.push(`<h2>Core Principles</h2>`);
+                policyContent.push(`<ul>
+                    <li><strong>Integrity:</strong> Act honestly and ethically in all business dealings.</li>
+                    <li><strong>Respect:</strong> Treat colleagues, customers, and partners with dignity and respect.</li>
+                    <li><strong>Compliance:</strong> Adhere to all applicable laws, regulations, and company policies.</li>
+                    <li><strong>Professionalism:</strong> Maintain a high standard of professionalism in conduct and appearance.</li>
+                </ul>`);
+                policyContent.push(`<h2>Reporting Violations</h2>`);
+                policyContent.push(`<p>Employees are encouraged to report any suspected violations of this Code of Conduct to [HR/Management] without fear of retaliation.</p>`);
+            }
+
+            if (keyDetails) {
+                policyContent.push(`<h2>Additional Details/Notes</h2>`);
+                policyContent.push(`<p>${keyDetails.replace(/\n/g, '<br>')}</p>`);
+            }
+
+            document.getElementById('policy-output').innerHTML = policyContent.join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generatePolicy();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'HRPolicyGenerator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'HRPolicyGenerator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more HR policy templates and updates.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Your Generated HR Policy</h1>
+            </div>
+            <div class="card-body">
+                <div id="policy-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Generate Another Policy</button>
+                    <button class="btn btn-success" onclick="navigator.clipboard.writeText(document.getElementById('policy-output').innerText)">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Stay Compliant & Informed</h4>
+                <p>Subscribe for updates on HR regulations and new policy templates.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Agency Fee Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Recruitment Agency Fee Calculator</h1>
+        <p>Calculate the fees for recruitment agencies.</p>
+        <div class="form-container">
+            <label for="candidate-salary">Candidate Annual Salary:</label>
+            <input type="number" id="candidate-salary" min="0">
+            <label for="fee-percentage">Agency Fee Percentage (%):</label>
+            <input type="number" id="fee-percentage" min="0" max="100">
+            <button id="calculate-btn">Calculate Agency Fee</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

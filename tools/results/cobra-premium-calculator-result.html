@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COBRA Premium Calculation Result</title>
+    <meta name="description" content="Review the estimated COBRA continuation coverage premium.">
+    <meta property="og:title" content="COBRA Premium Calculator Result">
+    <meta property="og:description" content="A tool to help individuals and HR professionals estimate COBRA costs.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function calculateCOBRAPremium() {
+            const params = new URLSearchParams(window.location.search);
+            const cobraDetails = Object.fromEntries(params.entries());
+
+            if (!cobraDetails.healthPremium) {
+                document.getElementById('premium-output').innerHTML = '<p class="text-danger">Error: Missing health premium. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'COBRAPremiumCalculator', cobraDetails });
+
+            const healthPremium = parseFloat(cobraDetails.healthPremium);
+            const dentalPremium = parseFloat(cobraDetails.dentalPremium || 0);
+            const visionPremium = parseFloat(cobraDetails.visionPremium || 0);
+            const employerContribution = parseFloat(cobraDetails.employerContribution || 0) / 100;
+
+            const totalPremium = healthPremium + dentalPremium + visionPremium;
+            const employeeShare = totalPremium * (1 - employerContribution);
+
+            // COBRA premium is typically 102% of the total cost of the plan
+            const cobraPremium = employeeShare * 1.02; // Assuming employer pays the rest of the 100%
+
+            const output = `
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Your Current Plan Details</h4>
+                    <p>Monthly Health Premium: <strong>$${healthPremium.toLocaleString()}</strong></p>
+                    <p>Monthly Dental Premium: <strong>$${dentalPremium.toLocaleString()}</strong></p>
+                    <p>Monthly Vision Premium: <strong>$${visionPremium.toLocaleString()}</strong></p>
+                    <p>Total Monthly Premium: <strong>$${totalPremium.toLocaleString()}</strong></p>
+                    <p>Employer Contribution: <strong>${(employerContribution * 100).toFixed(0)}%</strong></p>
+                </div>
+                <hr>
+                <h3>Estimated Monthly COBRA Premium:</h3>
+                <h2 class="text-success">$${cobraPremium.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h2>
+                <p class="text-muted mt-3"><em>This estimate includes the 2% administrative fee allowed under COBRA. Actual premiums may vary. Consult your plan administrator for exact costs.</em></p>
+            `;
+
+            document.getElementById('premium-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateCOBRAPremium();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'COBRAPremiumCalculator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'COBRAPremiumCalculator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more benefits insights.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">COBRA Premium Calculation</h1>
+            </div>
+            <div class="card-body">
+                <div id="premium-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Recalculate Premium</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Navigate Benefits & Compliance</h4>
+                <p>Subscribe for essential updates on benefits administration and HR compliance.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

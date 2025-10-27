@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gross to Net Pay Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Calculate your estimated net pay from gross earnings, considering pre-tax deductions and estimated tax rates. Understand your take-home pay.">
+    <meta property="og:title" content="Gross to Net Pay Calculator">
+    <meta property="og:description" content="Calculate your estimated net pay from gross earnings, considering pre-tax deductions and estimated tax rates. Understand your take-home pay.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="YOUR_SHAREABLE_URL_HERE">
+</head>
+<body>
+    <div class="container">
+        <h1>Gross to Net Pay Calculator</h1>
+        <p>Estimate your take-home pay after deductions and taxes.</p>
+
+        <div class="form-group">
+            <label for="grossPay">Gross Pay (per pay period):</label>
+            <input type="number" id="grossPay" min="0" value="2000">
+        </div>
+
+        <div class="form-group">
+            <label for="preTaxDeductions">Pre-Tax Deductions (e.g., 401k, health insurance - per pay period):</label>
+            <input type="number" id="preTaxDeductions" min="0" value="200">
+        </div>
+
+        <div class="form-group">
+            <label for="federalTaxRate">Estimated Federal Tax Rate (%):</label>
+            <input type="number" id="federalTaxRate" min="0" max="100" value="15">
+        </div>
+
+        <div class="form-group">
+            <label for="stateTaxRate">Estimated State Tax Rate (%):</label>
+            <input type="number" id="stateTaxRate" min="0" max="100" value="5">
+        </div>
+
+        <div class="form-group">
+            <label for="otherDeductions">Other Post-Tax Deductions (per pay period):</label>
+            <input type="number" id="otherDeductions" min="0" value="50">
+        </div>
+
+        <button id="calculateBtn">Calculate Net Pay</button>
+
+        <div class="result-section">
+            <h2>Result:</h2>
+            <p>Taxable Income: $<span id="taxableIncome">0.00</span></p>
+            <p>Total Taxes: $<span id="totalTaxes">0.00</span></p>
+            <p>Net Pay: $<span id="netPay">0.00</span></p>
+        </div>
+
+        <div class="lead-capture-section">
+            <h2>Get more HR insights!</h2>
+            <p>Enter your email to receive exclusive HR tools and tips directly in your inbox.</p>
+            <input type="email" id="leadEmail" placeholder="your.email@example.com">
+            <button id="subscribeBtn">Subscribe</button>
+            <p id="leadMessage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

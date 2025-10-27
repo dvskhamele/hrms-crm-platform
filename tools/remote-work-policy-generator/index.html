@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Work Policy Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Remote Work Policy Generator</h1>
+        <p>Create a clear and comprehensive Remote Work Policy for your organization.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="policy-date">Effective Date:</label>
+                <input type="date" id="policy-date">
+            </div>
+            <div class="input-group">
+                <label for="eligibility">Eligibility for Remote Work:</label>
+                <input type="text" id="eligibility" placeholder="e.g., All full-time employees after 90 days.">
+            </div>
+            <div class="input-group">
+                <label for="communication-tools">Communication Tools:</label>
+                <input type="text" id="communication-tools" placeholder="e.g., Slack, Google Meet, Email">
+            </div>
+            <div class="input-group full-width">
+                <label for="expectations">Performance & Availability Expectations:</label>
+                <textarea id="expectations" rows="3" placeholder="e.g., Employees are expected to maintain productivity and be available during core business hours."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="equipment">Equipment & Workspace:</label>
+                <textarea id="equipment" rows="3" placeholder="e.g., Company provides laptop; employee is responsible for internet and suitable workspace."></textarea>
+            </div>
+            <button id="generate-policy-btn">Generate Remote Work Policy</button>
+        </div>
+
+        <div id="policy-output" class="hidden">
+            <h2>Generated Remote Work Policy</h2>
+            <div id="policy-content"></div>
+            <button id="copy-policy-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

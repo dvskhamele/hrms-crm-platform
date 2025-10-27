@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Training Budget Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Training Budget Calculator</h1>
+        <p>Calculate the budget for employee training programs.</p>
+        <div class="form-container">
+            <label for="num-employees">Number of Employees to Train:</label>
+            <input type="number" id="num-employees" min="1">
+            <label for="avg-course-cost">Average Course/Program Cost (per employee):</label>
+            <input type="number" id="avg-course-cost" min="0">
+            <label for="travel-lodging">Travel & Lodging Costs (per employee, if applicable):</label>
+            <input type="number" id="travel-lodging" min="0">
+            <label for="lost-productivity">Lost Productivity Cost (per employee, estimated):</label>
+            <input type="number" id="lost-productivity" min="0">
+            <button id="calculate-btn">Calculate Total Training Budget</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

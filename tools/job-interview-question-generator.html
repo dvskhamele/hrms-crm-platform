@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Interview Question Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'JobInterviewQuestionGenerator' });
+
+            const form = document.getElementById('question-generator-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const questionDetails = Object.fromEntries(formData.entries());
+
+                logAnalytics('ToolSubmitted', { toolName: 'JobInterviewQuestionGenerator', formData: questionDetails });
+
+                const queryString = new URLSearchParams(questionDetails).toString();
+                window.location.href = `/tools/results/job-interview-question-generator-result.html?${queryString}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Job Interview Question Generator</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Generate relevant and insightful interview questions for any job role.</p>
+                <form id="question-generator-form">
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input type="text" class="form-control" id="jobTitle" name="jobTitle" placeholder="e.g., Software Engineer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="keySkills">Key Skills (one per line)</label>
+                        <textarea class="form-control" id="keySkills" name="keySkills" rows="3" placeholder="e.g.,&#10;JavaScript&#10;React&#10;Problem Solving" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="experienceLevel">Experience Level</label>
+                        <select class="form-control" id="experienceLevel" name="experienceLevel">
+                            <option>Entry-Level</option>
+                            <option>Mid-Level</option>
+                            <option>Senior-Level</option>
+                            <option>Manager</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="questionType">Question Type</label>
+                        <select class="form-control" id="questionType" name="questionType">
+                            <option value="Behavioral">Behavioral</option>
+                            <option value="Situational">Situational</option>
+                            <option value="Technical">Technical</option>
+                            <option value="General">General</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Generate Questions</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Onboarding Checklist</title>
+    <meta name="description" content="Review and use your generated new hire onboarding checklist.">
+    <meta property="og:title" content="New Hire Onboarding Checklist Generator Result">
+    <meta property="og:description" content="A tool to help HR and managers create customized onboarding checklists.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function generateChecklist() {
+            const params = new URLSearchParams(window.location.search);
+            const checklistDetails = Object.fromEntries(params.entries());
+
+            if (!checklistDetails.employeeName || !checklistDetails.department || !checklistDetails.startDate || !checklistDetails.role || !checklistDetails.checklistType) {
+                document.getElementById('checklist-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'NewHireOnboardingChecklistGenerator', checklistDetails });
+
+            let checklistItems = [];
+            const employeeName = checklistDetails.employeeName;
+            const department = checklistDetails.department;
+            const startDate = new Date(checklistDetails.startDate).toLocaleDateString();
+            const role = checklistDetails.role;
+            const checklistType = checklistDetails.checklistType;
+
+            checklistItems.push(`<h2>Onboarding Checklist for ${employeeName} (${role})</h2>`);
+            checklistItems.push(`<p><strong>Department:</strong> ${department}</p>`);
+            checklistItems.push(`<p><strong>Start Date:</strong> ${startDate}</p>`);
+            checklistItems.push(`<h3>${checklistType} Checklist:</h3>`);
+            checklistItems.push(`<ul>`);
+
+            if (checklistType === 'IT Setup') {
+                checklistItems.push(`<li>[ ] Order and set up laptop/desktop</li>`);
+                checklistItems.push(`<li>[ ] Create email account and network access</li>`);
+                checklistItems.push(`<li>[ ] Provide necessary software licenses</li>`);
+                checklistItems.push(`<li>[ ] Set up desk phone/voicemail</li>`);
+                checklistItems.push(`<li>[ ] Grant access to internal systems (e.g., CRM, HRIS)</li>`);
+            } else if (checklistType === 'HR Paperwork') {
+                checklistItems.push(`<li>[ ] Complete I-9 and W-4 forms</li>`);
+                checklistItems.push(`<li>[ ] Review employee handbook</li>`);
+                checklistItems.push(`<li>[ ] Enroll in benefits (health, dental, vision)</li>`);
+                checklistItems.push(`<li>[ ] Sign confidentiality agreement</li>`);
+                checklistItems.push(`<li>[ ] Provide emergency contact information</li>`);
+            } else if (checklistType === 'First Day Activities') {
+                checklistItems.push(`<li>[ ] Welcome and introductions to team</li>`);
+                checklistItems.push(`<li>[ ] Office tour and workstation setup</li>`);
+                checklistItems.push(`<li>[ ] Review first-day schedule</li>`);
+                checklistItems.push(`<li>[ ] Lunch with team/manager</li>`);
+                checklistItems.push(`<li>[ ] Issue company badge/keys</li>`);
+            } else if (checklistType === 'First Week Activities') {
+                checklistItems.push(`<li>[ ] Schedule 1:1 meetings with key stakeholders</li>`);
+                checklistItems.push(`<li>[ ] Begin initial training modules</li>`);
+                checklistItems.push(`<li>[ ] Set up performance goals with manager</li>`);
+                checklistItems.push(`<li>[ ] Understand team projects and priorities</li>`);
+                checklistItems.push(`<li>[ ] Familiarize with company culture and values</li>`);
+            } else if (checklistType === 'General Onboarding') {
+                checklistItems.push(`<li>[ ] Complete all necessary paperwork</li>`);
+                checklistItems.push(`<li>[ ] Meet the team and key colleagues</li>`);
+                checklistItems.push(`<li>[ ] Understand role responsibilities and expectations</li>`);
+                checklistItems.push(`<li>[ ] Get familiar with company tools and systems</li>`);
+                checklistItems.push(`<li>[ ] Learn about company culture and values</li>`);
+                checklistItems.push(`<li>[ ] Set initial goals with manager</li>`);
+            }
+
+            checklistItems.push(`</ul>`);
+
+            document.getElementById('checklist-output').innerHTML = checklistItems.join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateChecklist();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'NewHireOnboardingChecklistGenerator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'NewHireOnboardingChecklistGenerator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more onboarding resources.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Your New Hire Onboarding Checklist</h1>
+            </div>
+            <div class="card-body">
+                <div id="checklist-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Generate Another Checklist</button>
+                    <button class="btn btn-success" onclick="navigator.clipboard.writeText(document.getElementById('checklist-output').innerText)">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Streamline Your Onboarding Process</h4>
+                <p>Subscribe for best practices and templates for successful new hire integration.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

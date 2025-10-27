@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COBRA Premium Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'COBRAPremiumCalculator' });
+
+            const form = document.getElementById('cobra-calculator-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const cobraDetails = Object.fromEntries(formData.entries());
+
+                logAnalytics('ToolSubmitted', { toolName: 'COBRAPremiumCalculator', formData: cobraDetails });
+
+                const queryString = new URLSearchParams(cobraDetails).toString();
+                window.location.href = `/tools/results/cobra-premium-calculator-result.html?${queryString}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">COBRA Premium Calculator</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Estimate COBRA continuation coverage premiums based on current health plan costs.</p>
+                <form id="cobra-calculator-form">
+                    <div class="form-group">
+                        <label for="healthPremium">Current Monthly Health Premium ($)</label>
+                        <input type="number" class="form-control" id="healthPremium" name="healthPremium" placeholder="e.g., 500" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dentalPremium">Current Monthly Dental Premium ($)</label>
+                        <input type="number" class="form-control" id="dentalPremium" name="dentalPremium" placeholder="e.g., 50" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="visionPremium">Current Monthly Vision Premium ($)</label>
+                        <input type="number" class="form-control" id="visionPremium" name="visionPremium" placeholder="e.g., 20" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="employerContribution">Employer Contribution to Total Premium (%)</label>
+                        <input type="number" class="form-control" id="employerContribution" name="employerContribution" min="0" max="100" placeholder="e.g., 80" value="0">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Calculate COBRA Premium</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

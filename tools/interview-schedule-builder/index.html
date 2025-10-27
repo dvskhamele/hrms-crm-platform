@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Schedule Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Interview Schedule Builder</h1>
+        <p class="intro">Create a clear and organized interview schedule for your candidates and interview panel.</p>
+        
+        <div class="builder-form">
+            <div class="input-group">
+                <label for="candidate-name">Candidate Name:</label>
+                <input type="text" id="candidate-name" placeholder="e.g., Sarah Chen">
+            </div>
+
+            <div class="input-group">
+                <label for="interview-date">Interview Date:</label>
+                <input type="date" id="interview-date">
+            </div>
+
+            <div class="input-group">
+                <label for="interviewers">Interviewers (comma-separated names):</label>
+                <input type="text" id="interviewers" placeholder="e.g., Alice, Bob, Carol">
+            </div>
+
+            <div class="input-group">
+                <label for="start-time">Interview Start Time:</label>
+                <input type="time" id="start-time" value="09:00">
+            </div>
+
+            <div class="input-group">
+                <label for="end-time">Interview End Time:</label>
+                <input type="time" id="end-time" value="17:00">
+            </div>
+
+            <div class="input-group">
+                <label for="slot-duration">Slot Duration (minutes):</label>
+                <input type="number" id="slot-duration" value="60">
+            </div>
+
+            <button id="generate-btn">Generate Schedule</button>
+        </div>
+
+        <div class="results-container">
+            <h2>Generated Interview Schedule</h2>
+            <textarea id="generated-schedule" rows="15" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

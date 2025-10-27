@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Entitlement Results | Gem HRMS</title>
+    <link rel="stylesheet" href="../leave-entitlement-calculator/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Leave Entitlement Results</h1>
+        <div id="entitlement-output">
+            <!-- Entitlement details will be inserted here -->
+        </div>
+        <div class="lead-capture">
+            <h2>Manage Employee Leave Effectively</h2>
+            <p>Enter your email to receive a detailed guide on leave management best practices and more HR tools.</p>
+            <form id="lead-form">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Get Free Resources</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytic('ToolResultViewed');
+
+            const entitlementOutput = document.getElementById('entitlement-output');
+            const resultData = JSON.parse(localStorage.getItem('leaveEntitlementResult'));
+
+            if (resultData) {
+                entitlementOutput.innerHTML = `
+                    <p><strong>Years of Service:</strong> ${resultData.yearsOfService}</p>
+                    <p><strong>Employment Type:</strong> ${resultData.employmentType}</p>
+                    <p><strong>Leave Policy:</strong> ${resultData.leavePolicy}</p>
+                    <hr>
+                    <h2>Estimated Annual Leave: <strong>${resultData.annualLeaveDays} days</strong></h2>
+                    <h2>Estimated Sick Leave: <strong>${resultData.sickLeaveDays} days</strong></h2>
+                `;
+            } else {
+                entitlementOutput.innerHTML = `<p>No leave entitlement data found. Please use the Leave Entitlement Calculator tool to generate an estimate.</p>`;
+            }
+
+            const leadForm = document.getElementById('lead-form');
+            leadForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                logAnalytic('LeadCaptured');
+                const email = document.getElementById('email').value;
+                console.log(`Email captured: ${email}`);
+                alert('Thank you! You'll receive leave management best practices shortly.');
+            });
+        });
+
+        function logAnalytic(eventName) {
+            console.log(`Analytics Event: ${eventName}`);
+        }
+    </script>
+</body>
+</html>

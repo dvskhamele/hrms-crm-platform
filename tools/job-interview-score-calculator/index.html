@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Interview Score Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Job Interview Score Calculator</h1>
+        <p>Calculate the overall score for a job interview.</p>
+        <div class="form-container">
+            <label for="technical-score">Technical Skills (1-5):</label>
+            <input type="number" id="technical-score" min="1" max="5">
+            <label for="communication-score">Communication Skills (1-5):</label>
+            <input type="number" id="communication-score" min="1" max="5">
+            <label for="problem-solving-score">Problem-Solving Skills (1-5):</label>
+            <input type="number" id="problem-solving-score" min="1" max="5">
+            <label for="cultural-fit-score">Cultural Fit (1-5):</label>
+            <input type="number" id="cultural-fit-score" min="1" max="5">
+            <button id="calculate-btn">Calculate Total Score</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

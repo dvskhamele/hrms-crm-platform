@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Feedback Tool Analytics Dashboard</title>
+    <meta name="description" content="Analytics dashboard for the hotel guest feedback analyzer tool showing usage statistics and insights.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .analytics-section {
+            margin: 30px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e6ed;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-reset {
+            background: #e74c3c;
+        }
+        
+        .btn-reset:hover {
+            background: #c0392b;
+        }
+        
+        .data-export {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guest Feedback Tool Analytics</h1>
+            <p class="subtitle">Real-time analytics and usage statistics for the hotel guest feedback analyzer tool</p>
+        </header>
+        
+        <main>
+            <div class="card">
+                <h2>Usage Statistics</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalAnalyses">0</div>
+                        <div class="stat-label">Total Analyses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="uniqueUsers">0</div>
+                        <div class="stat-label">Unique Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="subscribers">0</div>
+                        <div class="stat-label">Email Subscribers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgFeedback">0</div>
+                        <div class="stat-label">Avg. Feedback Items</div>
+                    </div>
+                </div>
+                
+                <div class="analytics-section">
+                    <h3>Recent Analysis Sessions</h3>
+                    <table id="sessionsTable">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Feedback Count</th>
+                                <th>Positive</th>
+                                <th>Negative</th>
+                                <th>Positive Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sessionsBody">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="analytics-section">
+                    <h3>Email Subscribers</h3>
+                    <table id="subscribersTable">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Subscription Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subscribersBody">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="data-export">
+                    <button id="exportDataBtn" class="btn">Export All Data (JSON)</button>
+                    <button id="resetDataBtn" class="btn btn-reset">Reset All Data</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Guest Feedback Tool Analytics Dashboard | Data updated in real-time from localStorage</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const totalAnalysesEl = document.getElementById('totalAnalyses');
+            const uniqueUsersEl = document.getElementById('uniqueUsers');
+            const subscribersEl = document.getElementById('subscribers');
+            const avgFeedbackEl = document.getElementById('avgFeedback');
+            const sessionsBody = document.getElementById('sessionsBody');
+            const subscribersBody = document.getElementById('subscribersBody');
+            const exportDataBtn = document.getElementById('exportDataBtn');
+            const resetDataBtn = document.getElementById('resetDataBtn');
+            
+            // Load and display analytics data
+            function loadAndDisplayData() {
+                // Load analytics events from localStorage
+                const events = JSON.parse(localStorage.getItem('analyticsEvents') || '[]');
+                
+                // Filter for feedback analysis events
+                const analysisEvents = events.filter(event => event.type === 'feedback_analysis');
+                
+                // Calculate statistics
+                const totalAnalyses = analysisEvents.length;
+                const uniqueUsers = new Set(events.map(event => event.tool)).size; // Simplified unique users
+                const avgFeedback = totalAnalyses > 0 
+                    ? Math.round(analysisEvents.reduce((sum, event) => sum + event.data.total_feedback, 0) / totalAnalyses) 
+                    : 0;
+                
+                // Load subscribers
+                const subscribersList = JSON.parse(localStorage.getItem('feedbackAnalyzerSubscribers') || '[]');
+                
+                // Update statistics
+                totalAnalysesEl.textContent = totalAnalyses;
+                uniqueUsersEl.textContent = uniqueUsers;
+                subscribersEl.textContent = subscribersList.length;
+                avgFeedbackEl.textContent = avgFeedback;
+                
+                // Populate sessions table
+                sessionsBody.innerHTML = '';
+                analysisEvents.slice(-10).reverse().forEach(event => {
+                    const row = document.createElement('tr');
+                    
+                    const date = new Date(event.timestamp);
+                    const positiveRate = event.data.total_feedback > 0 
+                        ? Math.round((event.data.positive / event.data.total_feedback) * 100) 
+                        : 0;
+                    
+                    row.innerHTML = `
+                        <td>${date.toLocaleString()}</td>
+                        <td>${event.data.total_feedback}</td>
+                        <td>${event.data.positive}</td>
+                        <td>${event.data.negative}</td>
+                        <td>${positiveRate}%</td>
+                    `;
+                    
+                    sessionsBody.appendChild(row);
+                });
+                
+                // Populate subscribers table
+                subscribersBody.innerHTML = '';
+                subscribersList.slice(-5).reverse().forEach(email => {
+                    const row = document.createElement('tr');
+                    const date = new Date().toLocaleDateString();
+                    
+                    row.innerHTML = `
+                        <td>${email}</td>
+                        <td>${date}</td>
+                        <td><button class="btn remove-email-btn" data-email="${email}">Remove</button></td>
+                    `;
+                    
+                    subscribersBody.appendChild(row);
+                });
+                
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-email-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const email = this.getAttribute('data-email');
+                        removeSubscriber(email);
+                    });
+                });
+            }
+            
+            function removeSubscriber(email) {
+                if (confirm(`Remove subscriber: ${email}?`)) {
+                    let subscribers = JSON.parse(localStorage.getItem('feedbackAnalyzerSubscribers') || '[]');
+                    subscribers = subscribers.filter(e => e !== email);
+                    localStorage.setItem('feedbackAnalyzerSubscribers', JSON.stringify(subscribers));
+                    loadAndDisplayData(); // Refresh the display
+                }
+            }
+            
+            function exportData() {
+                const data = {
+                    analyticsEvents: JSON.parse(localStorage.getItem('analyticsEvents') || '[]'),
+                    subscribers: JSON.parse(localStorage.getItem('feedbackAnalyzerSubscribers') || '[]'),
+                    timestamp: new Date().toISOString()
+                };
+                
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = 'guest-feedback-analyzer-analytics.json';
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+            }
+            
+            function resetData() {
+                if (confirm('Are you sure you want to reset all analytics data? This cannot be undone.')) {
+                    localStorage.removeItem('analyticsEvents');
+                    localStorage.removeItem('feedbackAnalyzerSubscribers');
+                    loadAndDisplayData();
+                    alert('All data has been reset.');
+                }
+            }
+            
+            // Event listeners
+            exportDataBtn.addEventListener('click', exportData);
+            resetDataBtn.addEventListener('click', resetData);
+            
+            // Initial load
+            loadAndDisplayData();
+            
+            // Refresh data every minute to account for updates from other tabs/windows
+            setInterval(loadAndDisplayData, 60000);
+        });
+    </script>
+</body>
+</html>

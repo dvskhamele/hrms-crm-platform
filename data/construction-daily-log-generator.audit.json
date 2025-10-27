@@ -1,0 +1,27 @@
+{
+  "toolSlug": "construction-daily-log-generator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "Construction Daily Log Generator - Gem Tools",
+    "metaDescription": "Generate comprehensive daily construction logs to track progress, resources, and site conditions efficiently.",
+    "h1": "Construction Daily Log Generator",
+    "keywords": ["construction daily report", "daily progress report", "DPR format", "construction log template", "site management tools", "construction documentation", "project tracking"],
+    "url": "/tools/construction-daily-log-generator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator", "/tools/job-description-enhancer", "/tools/new-hire-onboarding-checklist-generator", "/tools/performance-review-phrase-generator", "/tools/salary-range-estimator", "/tools/recruitment-roi-calculator", "/tools/employee-turnover-cost-calculator", "/tools/hr-policy-generator", "/tools/employee-engagement-survey-question-generator", "/tools/construction-change-order-calculator"]
+  },
+  "marketingAudit": {
+    "targetAudience": "Site engineers, small contractors, construction project managers, foremen",
+    "valueProposition": "Streamline daily reporting and improve project oversight with easy-to-generate, comprehensive construction daily logs.",
+    "callToActions": ["Generate Daily Log", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Daily Log Generation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Project Name", "Date", "Site Conditions", "Work Performed", "Equipment Used", "Personnel On-Site", "Issues/Delays", "Safety Observations"],
+    "validationRules": ["Project Name is required", "Date is required", "Site Conditions are required", "Work Performed is required", "Equipment Used is required", "Personnel On-Site is required"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, structured output"
+  }
+}

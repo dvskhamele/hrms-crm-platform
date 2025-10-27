@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Employee Offboarding Checklist</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Employee Offboarding Checklist</h1>
+        <div class="checklist">
+            <h2>Phase 1: Immediately After Resignation</h2>
+            <label><input type="checkbox"> Acknowledge resignation and confirm final day.</label>
+            <label><input type="checkbox"> Notify relevant departments (IT, HR, Payroll).</label>
+            <label><input type="checkbox"> Begin knowledge transfer process.</label>
+            <label><input type="checkbox"> Plan for backfill/recruitment.</label>
+
+            <h2>Phase 2: One Week Before Departure</h2>
+            <label><input type="checkbox"> Schedule exit interview.</label>
+            <label><input type="checkbox"> Review and finalize all pending projects.</label>
+            <label><input type="checkbox"> Collect all company-owned equipment (laptop, phone, etc.).</label>
+            <label><input type="checkbox"> Revoke access to non-essential systems.</label>
+
+            <h2>Phase 3: Final Day</h2>
+            <label><input type="checkbox"> Conduct exit interview.</label>
+            <label><input type="checkbox"> Collect final items (ID card, keys).</label>
+            <label><input type="checkbox"> Finalize and process final paycheck.</label>
+            <label><input type="checkbox"> Revoke all remaining system and physical access.</label>
+            <label><input type="checkbox"> Communicate departure to the team/company.</label>
+
+            <h2>Phase 4: Post-Departure</h2>
+            <label><input type="checkbox"> Send COBRA information (if applicable).</label>
+            <label><input type="checkbox"> Process final expense reports.</label>
+            <label><input type="checkbox"> Update company records and directories.</label>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        <p class="progress-text">0% Complete</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

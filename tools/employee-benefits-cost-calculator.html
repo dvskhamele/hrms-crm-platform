@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Benefits Cost Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'EmployeeBenefitsCostCalculator' });
+
+            const form = document.getElementById('benefits-calculator-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const benefitsDetails = Object.fromEntries(formData.entries());
+
+                logAnalytics('ToolSubmitted', { toolName: 'EmployeeBenefitsCostCalculator', formData: benefitsDetails });
+
+                const queryString = new URLSearchParams(benefitsDetails).toString();
+                window.location.href = `/tools/results/employee-benefits-cost-calculator-result.html?${queryString}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Employee Benefits Cost Calculator</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Calculate the total cost of an employee's benefits package for your organization.</p>
+                <form id="benefits-calculator-form">
+                    <div class="form-group">
+                        <label for="annualSalary">Employee Annual Salary ($)</label>
+                        <input type="number" class="form-control" id="annualSalary" name="annualSalary" placeholder="e.g., 60000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="healthContribution">Employer Monthly Health Insurance Contribution ($)</label>
+                        <input type="number" class="form-control" id="healthContribution" name="healthContribution" placeholder="e.g., 500" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="dentalContribution">Employer Monthly Dental Insurance Contribution ($)</label>
+                        <input type="number" class="form-control" id="dentalContribution" name="dentalContribution" placeholder="e.g., 50" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="visionContribution">Employer Monthly Vision Insurance Contribution ($)</label>
+                        <input type="number" class="form-control" id="visionContribution" name="visionContribution" placeholder="e.g., 20" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="retirementMatch">Employer Retirement Plan Match (as % of salary, e.g., 3 for 3%)</label>
+                        <input type="number" class="form-control" id="retirementMatch" name="retirementMatch" min="0" max="100" placeholder="e.g., 3" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="otherBenefits">Other Monthly Benefits (e.g., life insurance, gym membership) ($)</label>
+                        <input type="number" class="form-control" id="otherBenefits" name="otherBenefits" placeholder="e.g., 100" value="0">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Calculate Total Benefits Cost</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

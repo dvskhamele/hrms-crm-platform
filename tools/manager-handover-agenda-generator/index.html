@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Handover Meeting Agenda Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Manager Handover Meeting Agenda Generator</h1>
+        <p>Generate a structured agenda for a smooth transition of responsibilities when an employee departs.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="departing-employee">Departing Employee Name:</label>
+                <input type="text" id="departing-employee" placeholder="e.g., Jane Doe">
+            </div>
+            <div class="input-group">
+                <label for="new-owner">New Owner of Responsibilities (Name/Role):</label>
+                <input type="text" id="new-owner" placeholder="e.g., John Smith / Team Lead">
+            </div>
+            <div class="input-group">
+                <label for="meeting-date">Meeting Date:</label>
+                <input type="date" id="meeting-date">
+            </div>
+            <div class="input-group">
+                <label for="meeting-time">Meeting Time:</label>
+                <input type="text" id="meeting-time" placeholder="e.g., 10:00 AM PST">
+            </div>
+            <div class="input-group full-width">
+                <label for="key-topics">Key Handover Topics (one per line):</label>
+                <textarea id="key-topics" rows="5" placeholder="e.g., Current project statuses
+Client relationships and contacts
+Pending tasks and deadlines
+Access credentials and systems
+Team dynamics and ongoing issues"></textarea>
+            </div>
+            <button id="generate-agenda-btn">Generate Handover Agenda</button>
+        </div>
+
+        <div id="agenda-output" class="hidden">
+            <h2>Generated Handover Meeting Agenda</h2>
+            <div id="agenda-content"></div>
+            <button id="copy-agenda-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

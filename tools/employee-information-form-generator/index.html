@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Information Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Information Form Generator</h1>
+        <p>Generate a basic employee information form.</p>
+        <div class="form-container">
+            <label for="employee-name">Full Name:</label>
+            <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            <label for="employee-id">Employee ID:</label>
+            <input type="text" id="employee-id" placeholder="e.g., EMP001">
+            <label for="position">Position:</label>
+            <input type="text" id="position" placeholder="e.g., Marketing Manager">
+            <label for="department">Department:</label>
+            <input type="text" id="department" placeholder="e.g., Marketing">
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date">
+            <label for="contact-number">Contact Number:</label>
+            <input type="tel" id="contact-number" placeholder="e.g., 555-123-4567">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" placeholder="e.g., jane.doe@example.com">
+            <button id="generate-btn">Generate Form</button>
+        </div>
+        <div id="employee-form"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

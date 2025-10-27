@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Handbook Outline Result</title>
+    <meta name="description" content="Your generated employee handbook outline. Create a comprehensive guide for your employees.">
+    <meta property="og:title" content="Employee Handbook Outline Result">
+    <meta property="og:description" content="Your generated employee handbook outline. Create a comprehensive guide for your employees.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .handbook-outline { background-color: #f9f9f9; padding: 1.5em; border-radius: 5px; margin-top: 1.5em; text-align: left; }
+        .handbook-outline ul { list-style: disc; padding-left: 20px; margin-bottom: 1em; }
+        .handbook-outline li { margin-bottom: 0.5em; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Handbook Outline for <span id="companyNameDisplay"></span></h1>
+        <p style="text-align: center;">Use this outline as a starting point to create your comprehensive employee handbook.</p>
+        <div class="handbook-outline">
+            <h2>Introduction</h2>
+            <ul>
+                <li>Welcome Message</li>
+                <li>Company Mission, Vision, and Values</li>
+                <ul id="valuesListDisplay"></ul>
+                <li>Purpose of the Handbook</li>
+            </ul>
+            <h2>Employment Policies</h2>
+            <ul>
+                <li>Equal Employment Opportunity</li>
+                <li>Anti-Harassment and Discrimination</li>
+                <li>Code of Conduct</li>
+                <li>Confidentiality</li>
+                <li>Data Privacy</li>
+                <ul id="policiesListDisplay"></ul>
+            </ul>
+            <h2>Compensation and Benefits</h2>
+            <ul>
+                <li>Pay Practices</li>
+                <li>Benefits Overview (Health, Dental, Vision, Retirement)</li>
+                <li>Paid Time Off (PTO), Holidays, Leave of Absence</li>
+            </ul>
+            <h2>Workplace Guidelines</h2>
+            <ul>
+                <li>Work Hours and Attendance</li>
+                <li>Remote Work Policy (if applicable)</li>
+                <li>Workplace Safety</li>
+                <li>Use of Company Property</li>
+            </ul>
+            <h2>Performance and Development</h2>
+            <ul>
+                <li>Performance Management</li>
+                <li>Training and Development</li>
+                <li>Disciplinary Action</li>
+            </ul>
+            <h2>Separation of Employment</h2>
+            <ul>
+                <li>Resignation Procedures</li>
+                <li>Termination</li>
+            </ul>
+            <h2>Acknowledgement</h2>
+            <ul>
+                <li>Employee Acknowledgment Form</li>
+            </ul>
+        </div>
+        <hr>
+        <h2>Save Your Outline</h2>
+        <p>Enter your email to save this handbook outline and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const companyName = decodeURIComponent(urlParams.get('companyName'));
+        const policies = JSON.parse(decodeURIComponent(urlParams.get('policies')));
+        const values = JSON.parse(decodeURIComponent(urlParams.get('values')));
+
+        document.getElementById('companyNameDisplay').textContent = companyName;
+
+        const policiesListDisplay = document.getElementById('policiesListDisplay');
+        policies.forEach(pol => {
+            const li = document.createElement('li');
+            li.textContent = pol;
+            policiesListDisplay.appendChild(li);
+        });
+
+        const valuesListDisplay = document.getElementById('valuesListDisplay');
+        values.forEach(val => {
+            const li = document.createElement('li');
+            li.textContent = val;
+            valuesListDisplay.appendChild(li);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Employee Handbook Generator',
+                companyName: companyName,
+                policiesCount: policies.length,
+                valuesCount: values.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Employee Handbook Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

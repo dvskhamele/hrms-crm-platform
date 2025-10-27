@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Training Plan Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Training Plan Generator</h1>
+        <p>Generate a customized training plan for your employees.</p>
+        <div class="form-container">
+            <label for="employee-name">Employee Name:</label>
+            <input type="text" id="employee-name" placeholder="e.g., John Doe">
+            <label for="role">Role:</label>
+            <input type="text" id="role" placeholder="e.g., Marketing Specialist">
+            <label for="training-needs">Identified Training Needs (comma-separated):</label>
+            <input type="text" id="training-needs" placeholder="e.g., Digital Marketing, Data Analysis">
+            <label for="timeline">Timeline (e.g., 3 months, 6 months):</label>
+            <input type="text" id="timeline" placeholder="e.g., 3 months">
+            <button id="generate-btn">Generate Training Plan</button>
+        </div>
+        <div id="training-plan"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

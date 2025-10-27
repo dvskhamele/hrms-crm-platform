@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Performance Review Template Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Performance Review Template Generator</h1>
+        <p>Generate a template for employee performance reviews.</p>
+        <div class="form-container">
+            <label for="review-type">Review Type:</label>
+            <select id="review-type">
+                <option value="annual">Annual Review</option>
+                <option value="mid-year">Mid-Year Review</option>
+                <option value="probationary">Probationary Review</option>
+            </select>
+            <label for="employee-name">Employee Name:</label>
+            <input type="text" id="employee-name">
+            <label for="reviewer-name">Reviewer Name:</label>
+            <input type="text" id="reviewer-name">
+            <button id="generate-btn">Generate Template</button>
+        </div>
+        <div id="review-template"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

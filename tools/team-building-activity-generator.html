@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Building Activity Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Team Building Activity Generator</h1>
+        <p>Generate fun and effective team building activity ideas tailored to your team's size, budget, location, and goals.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="teamSize">Team Size</label>
+                <select id="teamSize" required>
+                    <option value="small">Small (2-10 people)</option>
+                    <option value="medium">Medium (11-30 people)</option>
+                    <option value="large">Large (30+ people)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget Level</label>
+                <select id="budget" required>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <select id="location" required>
+                    <option value="office">In-Office</option>
+                    <option value="remote">Remote/Virtual</option>
+                    <option value="offsite">Offsite/Outdoor</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="goal">Main Goal</label>
+                <select id="goal" required>
+                    <option value="communication">Improve Communication</option>
+                    <option value="problem_solving">Enhance Problem-Solving</option>
+                    <option value="fun">Just for Fun/Morale Boost</option>
+                    <option value="collaboration">Foster Collaboration</option>
+                </select>
+            </div>
+            <button type="submit">Generate Activities</button>
+        </form>
+    </div>
+    <script>
+        const activities = {
+            small: {
+                low: {
+                    office: [
+                        "Two Truths and a Lie: Each person shares two true statements and one false one, others guess the lie.",
+                        "Desert Island: Team decides 5 items to survive on a desert island, fostering discussion and prioritization."
+                    ],
+                    remote: [
+                        "Virtual Scavenger Hunt: Find items around your home based on clues.",
+                        "Online Pictionary or Charades."
+                    ],
+                    offsite: [
+                        "Local park picnic with casual games.",
+                        "Coffee shop brainstorming session."
+                    ],
+                    communication: [
+                        "Blind Drawing: One person describes an image, another draws it without seeing it.",
+                        "Storytelling Circle: Each person adds a sentence to a collaborative story."
+                    ],
+                    problem_solving: [
+                        "Escape Room (virtual or physical): Work together to solve puzzles.",
+                        "Logic Puzzles: Solve a series of brain teasers as a team."
+                    ],
+                    fun: [
+                        "Team Lunch/Dinner: Casual meal to socialize.",
+                        "Board Game Cafe visit."
+                    ],
+                    collaboration: [
+                        "Build a Tower: Using limited materials, build the tallest freestanding structure.",
+                        "Human Knot: Untangle yourselves without letting go of hands."
+                    ]
+                },
+                medium: {
+                    office: [
+                        "Office Trivia: Questions about company history, inside jokes, and general knowledge.",
+                        "Team Bake-Off or Cook-Off: Employees bring in dishes for judging."
+                    ],
+                    remote: [
+                        "Virtual Escape Room or Murder Mystery Game.",
+                        "Online Gaming Session (e.g., Jackbox Games, Among Us)."
+                    ],
+                    offsite: [
+                        "Bowling or Mini Golf outing.",
+                        "Volunteer at a local charity together."
+                    ],
+                    communication: [
+                        "Communication Maze: Guide a blindfolded team member through an obstacle course using only verbal instructions.",
+                        "Debate Club: Assign teams to debate fun or relevant topics."
+                    ],
+                    problem_solving: [
+                        "Case Study Challenge: Present a business problem for teams to solve and present solutions.",
+                        "Bridge Building Challenge: Construct a bridge with limited materials to hold weight."
+                    ],
+                    fun: [
+                        "Karaoke Night.",
+                        "Company-sponsored happy hour with themed drinks."
+                    ],
+                    collaboration: [
+                        "Giant Jenga or other oversized lawn games.",
+                        "Community Service Project: Work together for a cause."
+                    ]
+                },
+                high: {
+                    office: [
+                        "Professional Workshop: Bring in an expert for a skill-building session.",
+                        "Company-wide Hackathon or Innovation Challenge."
+                    ],
+                    remote: [
+                        "Virtual Mixology Class or Cooking Class.",
+                        "Online Talent Show or Open Mic Night."
+                    ],
+                    offsite: [
+                        "Go-Karting or Laser Tag.",
+                        "Cooking Class or Wine Tasting Experience."
+                    ],
+                    communication: [
+                        "Public Speaking Workshop: Improve presentation and articulation skills.",
+                        "Role-Playing Scenarios: Practice difficult conversations or client interactions."
+                    ],
+                    problem_solving: [
+                        "Strategic Board Game Tournament (e.g., Catan, Ticket to Ride).",
+                        "Complex Puzzle Challenge: Teams race to complete a large puzzle."
+                    ],
+                    fun: [
+                        "Company Retreat with entertainment and activities.",
+                        "Theme Park or Adventure Park visit."
+                    ],
+                    collaboration: [
+                        "Outdoor Adventure Course (e.g., ropes course, rafting).",
+                        "Large-scale simulation game requiring team coordination."
+                    ]
+                }
+            },
+            medium: {
+                low: {
+                    office: [
+                        "Team Lunch & Learn: Employees present on topics of interest.",
+                        "Office Olympics: Fun, low-cost competitive games."
+                    ],
+                    remote: [
+                        "Virtual Coffee Breaks: Scheduled informal chats.",
+                        "Online Quiz or Trivia Games."
+                    ],
+                    offsite: [
+                        "Local park scavenger hunt.",
+                        "Visit a local museum or gallery together."
+                    ],
+                    communication: [
+                        "Active Listening Exercises: Pair up and practice listening skills.",
+                        "Feedback Exchange Session: Structured activity for giving and receiving feedback."
+                    ],
+                    problem_solving: [
+                        "'Whodunit' Mystery Game: Solve a fictional crime as a team.",
+                        "Strategic Board Game Session."
+                    ],
+                    fun: [
+                        "Team Potluck or BBQ.",
+                        "Movie Matinee in the office."
+                    ],
+                    collaboration: [
+                        "Group Volunteering: Work together on a community project.",
+                        "Creative Project: Collaborate on a team art piece or short video."
+                    ]
+                },
+                medium: {
+                    office: [
+                        "Escape Room (physical).",
+                        "Team Cooking Challenge."
+                    ],
+                    remote: [
+                        "Virtual Escape Room or Murder Mystery.",
+                        "Online Team Gaming Tournament."
+                    ],
+                    offsite: [
+                        "Paintball or Laser Tag.",
+                        "Local Brewery/Winery Tour."
+                    ],
+                    communication: [
+                        "Improv Workshop: Enhance spontaneous communication and listening.",
+                        "Presentation Skills Training."
+                    ],
+                    problem_solving: [
+                        "Outdoor Adventure Course with problem-solving elements.",
+                        "Complex Strategy Game Tournament."
+                    ],
+                    fun: [
+                        "Company Picnic with games and food.",
+                        "Team Building Retreat (local)."
+                    ],
+                    collaboration: [
+                        "Charity Build Project (e.g., building bikes for kids).",
+                        "Innovation Workshop: Collaborate on new ideas for the company."
+                    ]
+                },
+                high: {
+                    office: [
+                        "Professional Development Workshop Series.",
+                        "On-site Wellness Day with various activities and speakers."
+                    ],
+                    remote: [
+                        "Virtual Reality (VR) Team Experiences.",
+                        "High-end online cooking or mixology classes."
+                    ],
+                    offsite: [
+                        "Weekend Retreat at a resort.",
+                        "Adventure Sports (e.g., white-water rafting, rock climbing)."
+                    ],
+                    communication: [
+                        "Executive Coaching for communication skills.",
+                        "Advanced Negotiation Skills Workshop."
+                    ],
+                    problem_solving: [
+                        "Business Simulation Game: Teams compete to solve complex business challenges.",
+                        "Hackathon with significant prizes."
+                    ],
+                    fun: [
+                        "Company Gala or Awards Dinner.",
+                        "Concert or Major Sporting Event Tickets."
+                    ],
+                    collaboration: [
+                        "International Team Exchange Program.",
+                        "Large-scale community impact project."
+                    ]
+                }
+            },
+            large: {
+                low: {
+                    office: [
+                        "Departmental Potlucks.",
+                        "Internal Skill-Share Sessions: Employees teach each other new skills."
+                    ],
+                    remote: [
+                        "Company-wide Virtual Bingo or Trivia.",
+                        "'Water Cooler' Channels on internal communication platforms."
+                    ],
+                    offsite: [
+                        "Organized walks or runs in local parks.",
+                        "Group discounts for local attractions."
+                    ],
+                    communication: [
+                        "Internal Newsletter Contributions: Encourage employees to share updates.",
+                        "'Ask Me Anything' (AMA) sessions with leadership."
+                    ],
+                    problem_solving: [
+                        "Suggestion Box for company improvements.",
+                        "Cross-departmental brainstorming sessions for minor issues."
+                    ],
+                    fun: [
+                        "Casual Dress Days.",
+                        "Birthday/Work Anniversary Celebrations."
+                    ],
+                    collaboration: [
+                        "Cross-functional project teams for small initiatives.",
+                        "Mentorship program for new employees."
+                    ]
+                },
+                medium: {
+                    office: [
+                        "Company-wide Volunteer Day.",
+                        "On-site Fitness Classes or Wellness Challenges."
+                    ],
+                    remote: [
+                        "Virtual Team Building Platforms (e.g., Gather.town, Kumospace).",
+                        "Online Workshops on various topics (e.g., mindfulness, productivity)."
+                    ],
+                    offsite: [
+                        "Company Picnic or Family Day at a park.",
+                        "Organized Sports Tournaments (e.g., softball, volleyball)."
+                    ],
+                    communication: [
+                        "Communication Skills Training for all employees.",
+                        "Cross-departmental Shadowing Programs."
+                    ],
+                    problem_solving: [
+                        "Innovation Challenges with departmental teams.",
+                        "Design Thinking Workshops."
+                    ],
+                    fun: [
+                        "Company-sponsored Holiday Party.",
+                        "Team outings to local events (e.g., concerts, sports games)."
+                    ],
+                    collaboration: [
+                        "Large-scale cross-functional projects with clear team goals.",
+                        "Employee Resource Groups (ERGs) with dedicated budgets."
+                    ]
+                },
+                high: {
+                    office: [
+                        "Dedicated on-site recreation facilities (e.g., game rooms, lounges).",
+                        "Regular company-wide social events with catering and entertainment."
+                    ],
+                    remote: [
+                        "Annual Virtual Company Retreat with interactive sessions and entertainment.",
+                        "Personalized wellness and professional development stipends."
+                    ],
+                    offsite: [
+                        "International Company Retreats.",
+                        "Adventure-based team building experiences (e.g., sailing, multi-day hikes)."
+                    ],
+                    communication: [
+                        "Executive-led communication workshops and media training.",
+                        "Advanced Interpersonal Skills Training."
+                    ],
+                    problem_solving: [
+                        "Company-wide 'Grand Challenge' with significant rewards for innovative solutions.",
+                        "Partnerships with external consultants for complex problem-solving workshops."
+                    ],
+                    fun: [
+                        "Company-sponsored travel incentives for top-performing teams.",
+                        "Exclusive access to major events or experiences."
+                    ],
+                    collaboration: [
+                        "Global cross-functional innovation labs.",
+                        "Employee stock ownership plans or significant profit-sharing."
+                    ]
+                }
+            }
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const teamSize = document.getElementById('teamSize').value;
+            const budget = document.getElementById('budget').value;
+            const location = document.getElementById('location').value;
+            const goal = document.getElementById('goal').value;
+
+            const generatedActivities = activities[teamSize][budget][goal] || activities[teamSize][budget][location] || [];
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Team Building Activity Generator',
+                    teamSize: teamSize,
+                    budget: budget,
+                    location: location,
+                    goal: goal,
+                    generatedActivitiesCount: generatedActivities.length
+                });
+            }
+
+            window.location.href = `/tools/results/team-building-activity-generator-result.html?teamSize=${encodeURIComponent(teamSize)}&budget=${encodeURIComponent(budget)}&location=${encodeURIComponent(location)}&goal=${encodeURIComponent(goal)}&activities=${encodeURIComponent(JSON.stringify(generatedActivities))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Team Building Activity Generator'
+            });
+        }
+    </script>
+</body>
+</html>

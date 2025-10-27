@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start, Stop, Continue Feedback Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Start, Stop, Continue Feedback Generator</h1>
+        <p>Generate a simple form for actionable feedback using the Start, Stop, Continue model.</p>
+
+        <div class="generator-controls">
+            <div class="input-group">
+                <label for="feedback-for">Feedback For:</label>
+                <input type="text" id="feedback-for" placeholder="e.g., John Doe / Project X">
+            </div>
+            <div class="input-group">
+                <label for="feedback-from">Feedback From (Optional):</label>
+                <input type="text" id="feedback-from" placeholder="e.g., Jane Smith">
+            </div>
+            <button id="generate-form-btn">Generate Feedback Form</button>
+        </div>
+
+        <div id="form-output" class="hidden">
+            <h2>Your Feedback Form:</h2>
+            <textarea id="generated-form" rows="15"></textarea>
+            <button id="copy-form-btn">Copy Form Text</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

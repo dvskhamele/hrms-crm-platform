@@ -1,0 +1,27 @@
+{
+  "toolSlug": "hr-policy-generator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "HR Policy Generator - Gem Tools",
+    "metaDescription": "Quickly generate customizable HR policy templates for common workplace scenarios to ensure compliance and consistency.",
+    "h1": "HR Policy Generator",
+    "keywords": ["HR policy template", "workplace policy", "compliance tools", "HR forms", "employee handbook", "HR best practices", "policy management"],
+    "url": "/tools/hr-policy-generator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator", "/tools/job-description-enhancer", "/tools/new-hire-onboarding-checklist-generator", "/tools/performance-review-phrase-generator", "/tools/salary-range-estimator", "/tools/recruitment-roi-calculator", "/tools/employee-turnover-cost-calculator"]
+  },
+  "marketingAudit": {
+    "targetAudience": "HR professionals, small business owners, compliance officers",
+    "valueProposition": "Streamline policy creation and ensure compliance with easy-to-use, customizable HR policy templates.",
+    "callToActions": ["Generate Policy", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Policy Generation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Company Name", "Policy Type", "Key Details/Custom Clauses"],
+    "validationRules": ["Company Name is required"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, quick policy generation"
+  }
+}

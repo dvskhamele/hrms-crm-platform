@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Onboarding Checklist Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Remote Onboarding Checklist Generator</h1>
+        <p>Create a comprehensive and customized onboarding checklist specifically for your remote new hires.</p>
+
+        <div class="generator-controls">
+            <div class="input-group">
+                <label for="employee-name">New Hire Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            </div>
+            <div class="input-group">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date">
+            </div>
+            <button id="generate-checklist-btn">Generate Remote Onboarding Checklist</button>
+        </div>
+
+        <div id="checklist-output" class="hidden">
+            <h2>Generated Remote Onboarding Checklist</h2>
+            <div id="checklist-content"></div>
+            <button id="copy-checklist-btn">Copy Checklist</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

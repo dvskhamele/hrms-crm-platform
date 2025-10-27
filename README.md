@@ -1,119 +1,120 @@
-# HR Management System & CRM Recruitment Platform (Gem)
+# HRMS/CRM Platform (Gem)
 
-Welcome to Gem - the AI-first all-in-one recruiting software that helps teams hire 5x faster!
+AI-first HRMS/CRM Recruiting Platform with Action-Triggered Automation, featuring integrated hotel operations management.
 
-## System Architecture
+## Project Overview
 
-This project consists of two main components:
-1. **Frontend**: Next.js 14+ application (HR Management & CRM Recruitment Platform)
-2. **Backend**: Node.js/Express API server
+This is a comprehensive HR recruitment platform called "Gem" that includes:
+- HR management and recruitment features
+- Hotel operations management (rooms, staff, requests, inventory)
+- Dashboard with analytics
+- Role-based access control
+- Action-triggered automation
 
-## Prerequisites
+## Architecture
 
-- Node.js v18+ installed
-- npm or yarn package manager
+- **Frontend**: Next.js application with React
+- **Backend**: Node.js/Express API server
+- **Database**: Local storage (for prototype, with integration capabilities for production)
 
-## Running the Application
+## Setup and Development
 
-### Method 1: Manual Start
-
-1. **Start the Backend Server**:
+1. **Install dependencies**:
 ```bash
-# Navigate to project root
-cd /Users/test/startups/hrmscrm
-
-# Important: Unset PORT environment variable to avoid conflicts
-unset PORT
-
-# Start backend server on port 3001
-node server.js
+npm install
+cd frontend && npm install && cd ..
+cd backend && npm install && cd ..
 ```
 
-2. **Start the Frontend Server** (in a new terminal):
+2. **Start development servers**:
 ```bash
-# Navigate to frontend directory
-cd /Users/test/startups/hrmscrm/frontend
+# Start frontend (runs on http://localhost:3000)
+cd frontend
+npm run dev
 
-# Start frontend server on port 3006
+# In another terminal, start backend (runs on http://localhost:3001)
+cd backend
 npm run dev
 ```
 
-### Method 2: Using the Startup Script
-
+Or use the auto-start script:
 ```bash
-# Make the startup script executable
-chmod +x /Users/test/startups/hrmscrm/auto-start.sh
-
-# Run the startup script
-/Users/test/startups/hrmscrm/auto-start.sh
+./auto-start.sh
 ```
 
-## Access Points
+## Default Credentials
 
-- **Frontend (Website)**: http://localhost:3006
-- **Backend (API)**: http://localhost:3001
-
-## Default Login Credentials
-
-- **Email**: admin@gem.com
-- **Password**: password123
+- **Admin**: admin@gem.com / password123
+- **HR Manager**: david.wilson@gem.com / password123
+- **Recruiter**: alice.johnson@gem.com / password123
+- **Candidate**: john.doe@example.com / password123
 
 ## Key Features
 
-1. **AI-Powered Dashboard**: Real-time analytics and insights
-2. **Agentic AI**: Autonomous agents for candidate outreach and screening
-3. **ATS Integration**: Seamlessly connect with existing applicant tracking systems
-4. **CRM**: Centralized candidate relationship management
-5. **Sourcing**: Access to 650M+ candidate profiles with intelligent matching
-6. **Scheduling**: Automated interview scheduling
-7. **Analytics**: Advanced reporting and ROI measurement
-8. **Talent Marketing**: Campaign management and landing pages
+- Role-based authentication and access
+- Dashboard with real-time stats
+- Position and application management
+- Room and guest management
+- Request handling system
+- Inventory tracking
+- Notification system
+- Performance analytics
 
-## Troubleshooting
+## Deployment
 
-### Port Conflicts
+The application is ready for deployment. See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 
-If you encounter "address already in use" errors:
-
-1. Kill existing processes:
+To deploy automatically:
 ```bash
-pkill -f "node.*server.js"
-pkill -f "next dev"
+./deploy.sh
 ```
 
-2. Ensure PORT environment variable is not set:
-```bash
-unset PORT
+## API Documentation
+
+### Authentication
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register` - User registration
+
+### HR Operations
+- `GET /api/positions` - Get all positions
+- `POST /api/positions` - Create a new position
+- `PUT /api/positions/:id/status` - Update position status
+- `GET /api/applications` - Get all applications
+- `POST /api/applications` - Create a new application
+- `PUT /api/applications/:id/status` - Update application status
+- `GET /api/recruiters` - Get all recruiters
+- `PUT /api/recruiters/:id/status` - Update recruiter status
+- `GET /api/departments` - Get all departments
+
+### Hotel Operations
+- `GET /api/rooms` - Get all rooms
+- `PUT /api/rooms/:id/status` - Update room status
+- `GET /api/requests` - Get all requests
+- `POST /api/requests` - Create a new request
+- `PUT /api/requests/:id/status` - Update request status
+- `GET /api/inventory` - Get inventory items
+- `PUT /api/inventory/:id/quantity` - Update inventory quantity
+
+### Dashboard
+- `GET /api/dashboard/stats` - Get dashboard statistics
+- `GET /api/dashboard/activity` - Get recent activity
+- `GET /api/dashboard/positions` - Get positions for dashboard
+- `GET /api/dashboard/applications` - Get applications for dashboard
+- `GET /api/dashboard/performance` - Get performance metrics
+
+## Environment Variables
+
+For production deployment, configure the following environment variables:
+
+Backend (.env):
 ```
-
-### Common Issues
-
-1. **Blank Page Loading**: Check browser console for JavaScript errors
-2. **API Connection Issues**: Ensure backend is running on port 3001
-3. **Authentication Problems**: Clear browser cookies and localStorage
-
-## Technology Stack
-
-### Frontend
-- Next.js 14+
-- React 18+
-- TypeScript
-- Tailwind CSS
-- Recharts (Data Visualization)
-
-### Backend
-- Node.js
-- Express.js
-- JSON File Storage (Development Mode)
-
-## Development Notes
-
-This is a demonstration version with simulated data. In a production environment:
-- Real databases (MongoDB/PostgreSQL) would be used
-- Actual integration with third-party services would be implemented
-- Proper authentication and authorization would be in place
-- Advanced security measures would be implemented
+NODE_ENV=production
+PORT=3001
+PMS_API_URL=your_pms_api_url
+PMS_API_KEY=your_pms_api_key
+JWT_SECRET=your_jwt_secret
+```
 
 ## Support
 
-For issues or questions, please contact the development team.
+For support with this application, please contact the development team or create an issue in the repository.

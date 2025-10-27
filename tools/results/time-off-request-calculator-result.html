@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Off Request Calculation Result</title>
+    <meta name="description" content="Your calculated working days for a time off request. Use our free tool to estimate leave.">
+    <meta property="og:title" content="Time Off Request Calculation Result">
+    <meta property="og:description" content="Your calculated working days for a time off request. Use our free tool to estimate leave.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 600px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; text-align: center; }
+        .result { font-size: 2em; font-weight: bold; margin: 1em 0; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time Off Request Result</h1>
+        <p>For the period from <span id="startDate"></span> to <span id="endDate"></span>, excluding weekends and specified holidays:</p>
+        <div class="result" id="result"></div>
+        <p>working days.</p>
+        <hr>
+        <h2>Save Your Result</h2>
+        <p>Enter your email to save this calculation and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const startDate = urlParams.get('startDate');
+        const endDate = urlParams.get('endDate');
+        const holidays = urlParams.get('holidays');
+        const workingDays = urlParams.get('workingDays');
+
+        document.getElementById('startDate').textContent = startDate;
+        document.getElementById('endDate').textContent = endDate;
+        document.getElementById('result').textContent = workingDays;
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Time Off Request Calculator',
+                startDate: startDate,
+                endDate: endDate,
+                holidays: holidays,
+                calculatedWorkingDays: workingDays
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Time Off Request Calculator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

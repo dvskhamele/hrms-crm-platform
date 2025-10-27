@@ -1,0 +1,27 @@
+{
+  "toolSlug": "performance-review-phrase-generator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "Performance Review Phrase Generator - Gem Tools",
+    "metaDescription": "Generate effective and constructive performance review phrases for various categories to streamline your feedback process.",
+    "h1": "Performance Review Phrase Generator",
+    "keywords": ["performance review phrases", "employee feedback", "performance management", "HR tools", "review templates", "constructive criticism", "leadership development"],
+    "url": "/tools/performance-review-phrase-generator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator", "/tools/job-description-enhancer", "/tools/new-hire-onboarding-checklist-generator"]
+  },
+  "marketingAudit": {
+    "targetAudience": "HR professionals, managers, team leads",
+    "valueProposition": "Streamline feedback with effective, constructive, and category-specific performance review phrases.",
+    "callToActions": ["Generate Phrases", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Phrase Generation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Employee Name", "Review Category", "Performance Level", "Specific Achievement/Area for Improvement"],
+    "validationRules": ["Employee Name is required"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, intuitive phrase generation"
+  }
+}

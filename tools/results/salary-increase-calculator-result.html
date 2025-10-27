@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Increase Calculation Result</title>
+    <meta name="description" content="Review the new salary and increase details.">
+    <meta property="og:title" content="Salary Increase Calculator Result">
+    <meta property="og:description" content="A tool to help HR and employees calculate salary increases.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function calculateIncrease() {
+            const params = new URLSearchParams(window.location.search);
+            const calcDetails = Object.fromEntries(params.entries());
+
+            if (!calcDetails.currentSalary || !calcDetails.increaseType || !calcDetails.increaseValue) {
+                document.getElementById('result-output').innerHTML = '<p class="text-danger">Error: Missing calculation details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'SalaryIncreaseCalculator', calcDetails });
+
+            const currentSalary = parseFloat(calcDetails.currentSalary);
+            const increaseType = calcDetails.increaseType;
+            const increaseValue = parseFloat(calcDetails.increaseValue);
+
+            let newSalary = 0;
+            let increaseAmount = 0;
+            let percentageIncrease = 0;
+
+            if (increaseType === 'percentage') {
+                increaseAmount = currentSalary * (increaseValue / 100);
+                newSalary = currentSalary + increaseAmount;
+                percentageIncrease = increaseValue;
+            } else { // fixed amount
+                increaseAmount = increaseValue;
+                newSalary = currentSalary + increaseAmount;
+                percentageIncrease = (increaseAmount / currentSalary) * 100;
+            }
+
+            const output = `
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Calculation Details</h4>
+                    <p>Current Annual Salary: <strong>$${currentSalary.toLocaleString()}</strong></p>
+                    <p>Increase Type: <strong>${increaseType === 'percentage' ? 'Percentage' : 'Fixed Amount'}</strong></p>
+                    <p>Increase Value: <strong>${increaseType === 'percentage' ? increaseValue + '%' : '$' + increaseValue.toLocaleString()}</strong></p>
+                </div>
+                <hr>
+                <h3>New Annual Salary:</h3>
+                <h2 class="text-success">$${newSalary.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h2>
+                <p>Increase Amount: <strong>$${increaseAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong></p>
+                <p>Percentage Increase: <strong>${percentageIncrease.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}%</strong></p>
+            `;
+
+            document.getElementById('result-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateIncrease();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'SalaryIncreaseCalculator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'SalaryIncreaseCalculator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more compensation insights.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Salary Increase Calculation</h1>
+            </div>
+            <div class="card-body">
+                <div id="result-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Recalculate</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Optimize Your Compensation Strategy</h4>
+                <p>Subscribe for expert insights on salary planning and employee retention.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

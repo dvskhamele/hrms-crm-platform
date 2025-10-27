@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Improvement Plan Results | Gem HRMS</title>
+    <link rel="stylesheet" href="../performance-improvement-plan-generator/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Performance Improvement Plan</h1>
+        <div id="pip-output">
+            <!-- Generated PIP will be inserted here -->
+        </div>
+        <div class="lead-capture">
+            <h2>Manage Performance Effectively</h2>
+            <p>Enter your email to receive a detailed guide on performance management best practices and more HR tools.</p>
+            <form id="lead-form">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Get Free Resources</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytic('ToolResultViewed');
+
+            const pipOutput = document.getElementById('pip-output');
+            const generatedPipHtml = localStorage.getItem('generatedPip');
+
+            if (generatedPipHtml) {
+                pipOutput.innerHTML = generatedPipHtml;
+            } else {
+                pipOutput.innerHTML = `<p>No Performance Improvement Plan found. Please use the Performance Improvement Plan Generator tool to create one.</p>`;
+            }
+
+            const leadForm = document.getElementById('lead-form');
+            leadForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                logAnalytic('LeadCaptured');
+                const email = document.getElementById('email').value;
+                console.log(`Email captured: ${email}`);
+                alert('Thank you! You'll receive performance management best practices shortly.');
+            });
+        });
+
+        function logAnalytic(eventName) {
+            console.log(`Analytics Event: ${eventName}`);
+        }
+    </script>
+</body>
+</html>

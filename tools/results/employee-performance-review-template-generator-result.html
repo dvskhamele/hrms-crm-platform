@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Review Template Results | Gem HRMS</title>
+    <link rel="stylesheet" href="../employee-performance-review-template-generator/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Performance Review Template</h1>
+        <div id="template-output">
+            <!-- Generated template will be inserted here -->
+        </div>
+        <div class="lead-capture">
+            <h2>Get More HR Templates & Tools</h2>
+            <p>Enter your email to receive more free HR templates, tools, and insights directly to your inbox.</p>
+            <form id="lead-form">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Get Free Resources</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytic('ToolResultViewed');
+
+            const templateOutput = document.getElementById('template-output');
+            const generatedTemplateHtml = localStorage.getItem('generatedPerformanceReviewTemplate');
+
+            if (generatedTemplateHtml) {
+                templateOutput.innerHTML = generatedTemplateHtml;
+            } else {
+                templateOutput.innerHTML = `<p>No performance review template found. Please use the Employee Performance Review Template Generator tool to create one.</p>`;
+            }
+
+            const leadForm = document.getElementById('lead-form');
+            leadForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                logAnalytic('LeadCaptured');
+                const email = document.getElementById('email').value;
+                console.log(`Email captured: ${email}`);
+                alert('Thank you! You'll receive free HR resources shortly.');
+            });
+        });
+
+        function logAnalytic(eventName) {
+            console.log(`Analytics Event: ${eventName}`);
+        }
+    </script>
+</body>
+</html>

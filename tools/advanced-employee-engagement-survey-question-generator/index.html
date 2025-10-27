@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Employee Engagement Survey Question Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced Employee Engagement Survey Question Generator</h1>
+        <p class="intro">Generate tailored employee engagement survey questions based on key focus areas and question types.</p>
+        
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="focus-areas">Select Focus Areas (select all that apply):</label>
+                <label><input type="checkbox" class="focus-area" value="leadership"> Leadership & Management</label>
+                <label><input type="checkbox" class="focus-area" value="work-life-balance"> Work-Life Balance</label>
+                <label><input type="checkbox" class="focus-area" value="compensation"> Compensation & Benefits</label>
+                <label><input type="checkbox" class="focus-area" value="career-development"> Career Development</label>
+                <label><input type="checkbox" class="focus-area" value="culture"> Company Culture</label>
+            </div>
+
+            <div class="input-group">
+                <label for="question-types">Select Question Types (select all that apply):</label>
+                <label><input type="checkbox" class="question-type" value="likert"> Likert Scale (e.g., Strongly Agree to Strongly Disagree)</label>
+                <label><input type="checkbox" class="question-type" value="open-ended"> Open-Ended</label>
+                <label><input type="checkbox" class="question-type" value="yes-no"> Yes/No</label>
+            </div>
+
+            <button id="generate-btn">Generate Questions</button>
+        </div>
+
+        <div class="results-container">
+            <h2>Generated Survey Questions</h2>
+            <textarea id="generated-questions" rows="15" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

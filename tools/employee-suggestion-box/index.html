@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Suggestion Box</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Suggestion Box</h1>
+        <p class="intro">Your feedback is valuable! Please share your suggestions to help us improve our workplace.</p>
+        
+        <form id="suggestion-form">
+            <div class="input-group">
+                <label for="suggestion-category">Category (Optional):</label>
+                <select id="suggestion-category">
+                    <option value="general">General</option>
+                    <option value="operations">Operations</option>
+                    <option value="culture">Company Culture</option>
+                    <option value="benefits">Benefits & Perks</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="suggestion-text">Your Suggestion:</label>
+                <textarea id="suggestion-text" rows="8" placeholder="Type your suggestion here..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="anonymous">Submit Anonymously?</label>
+                <input type="checkbox" id="anonymous">
+            </div>
+
+            <button type="submit">Submit Suggestion</button>
+        </form>
+
+        <div id="thank-you-message" style="display: none;">
+            <h2>Thank You!</h2>
+            <p>Your suggestion has been received. We appreciate your input!</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost Per Hire Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cost Per Hire Calculator</h1>
+        <p>Calculate your cost per hire.</p>
+        <div class="form-container">
+            <label for="internal-costs">Internal Costs:</label>
+            <input type="number" id="internal-costs" placeholder="e.g., recruiter salaries, referral bonuses">
+            <label for="external-costs">External Costs:</label>
+            <input type="number" id="external-costs" placeholder="e.g., advertising, agency fees">
+            <label for="hires">Number of Hires:</label>
+            <input type="number" id="hires" min="1">
+            <button id="calculate-btn">Calculate Cost Per Hire</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

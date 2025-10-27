@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTE Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'FTECalculator' });
+
+            const form = document.getElementById('fte-calculator-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const fteDetails = Object.fromEntries(formData.entries());
+
+                logAnalytics('ToolSubmitted', { toolName: 'FTECalculator', formData: fteDetails });
+
+                const queryString = new URLSearchParams(fteDetails).toString();
+                window.location.href = `/tools/results/fte-calculator-result.html?${queryString}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Full-Time Equivalent (FTE) Calculator</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Calculate the total Full-Time Equivalent (FTE) for your workforce.</p>
+                <form id="fte-calculator-form">
+                    <div class="form-group">
+                        <label for="fullTimeEmployees">Number of Full-Time Employees</label>
+                        <input type="number" class="form-control" id="fullTimeEmployees" name="fullTimeEmployees" placeholder="e.g., 10" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="partTimeEmployees">Number of Part-Time Employees</label>
+                        <input type="number" class="form-control" id="partTimeEmployees" name="partTimeEmployees" placeholder="e.g., 5" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="avgPartTimeHours">Average Weekly Hours for Part-Time Employees</label>
+                        <input type="number" class="form-control" id="avgPartTimeHours" name="avgPartTimeHours" placeholder="e.g., 20" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="standardFullTimeHours">Standard Full-Time Weekly Hours</label>
+                        <input type="number" class="form-control" id="standardFullTimeHours" name="standardFullTimeHours" placeholder="e.g., 40" value="40" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Calculate FTE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

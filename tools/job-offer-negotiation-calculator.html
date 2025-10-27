@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Offer Negotiation Calculator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 600px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Job Offer Negotiation Calculator</h1>
+        <p>Evaluate the total value of a job offer and compare it against your desired compensation.</p>
+        <form id="calculatorForm">
+            <div class="form-group">
+                <label for="baseSalaryOffered">Base Salary Offered ($)</label>
+                <input type="number" id="baseSalaryOffered" placeholder="e.g., 100000" required>
+            </div>
+            <div class="form-group">
+                <label for="signingBonus">Signing Bonus ($)</label>
+                <input type="number" id="signingBonus" value="0">
+            </div>
+            <div class="form-group">
+                <label for="equityValue">Estimated Annual Equity Value ($)</label>
+                <input type="number" id="equityValue" value="0">
+            </div>
+            <div class="form-group">
+                <label for="benefitsValue">Estimated Annual Benefits Value ($)</label>
+                <input type="number" id="benefitsValue" value="0">
+            </div>
+            <div class="form-group">
+                <label for="desiredBaseSalary">Desired Base Salary ($)</label>
+                <input type="number" id="desiredBaseSalary" placeholder="e.g., 110000" required>
+            </div>
+            <button type="submit">Calculate Offer Value</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('calculatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const baseSalaryOffered = parseFloat(document.getElementById('baseSalaryOffered').value) || 0;
+            const signingBonus = parseFloat(document.getElementById('signingBonus').value) || 0;
+            const equityValue = parseFloat(document.getElementById('equityValue').value) || 0;
+            const benefitsValue = parseFloat(document.getElementById('benefitsValue').value) || 0;
+            const desiredBaseSalary = parseFloat(document.getElementById('desiredBaseSalary').value) || 0;
+
+            const totalOfferValue = baseSalaryOffered + signingBonus + equityValue + benefitsValue;
+            const salaryGap = desiredBaseSalary - baseSalaryOffered;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Job Offer Negotiation Calculator',
+                    baseSalaryOffered: baseSalaryOffered,
+                    signingBonus: signingBonus,
+                    equityValue: equityValue,
+                    benefitsValue: benefitsValue,
+                    desiredBaseSalary: desiredBaseSalary,
+                    totalOfferValue: totalOfferValue,
+                    salaryGap: salaryGap
+                });
+            }
+
+            window.location.href = `/tools/results/job-offer-negotiation-calculator-result.html?offered=${baseSalaryOffered}&bonus=${signingBonus}&equity=${equityValue}&benefits=${benefitsValue}&desired=${desiredBaseSalary}&total=${totalOfferValue}&gap=${salaryGap}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Job Offer Negotiation Calculator'
+            });
+        }
+    </script>
+</body>
+</html>

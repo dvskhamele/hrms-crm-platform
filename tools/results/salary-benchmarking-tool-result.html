@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Benchmark Result</title>
+    <meta name="description" content="Review the estimated salary range for your specified job and location.">
+    <meta property="og:title" content="Salary Benchmarking Tool Result">
+    <meta property="og:description" content="A tool to help HR professionals and job seekers understand competitive salary ranges.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function displaySalaryBenchmark() {
+            const params = new URLSearchParams(window.location.search);
+            const benchmarkDetails = Object.fromEntries(params.entries());
+
+            if (!benchmarkDetails.jobTitle || !benchmarkDetails.location || !benchmarkDetails.experienceLevel) {
+                document.getElementById('benchmark-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'SalaryBenchmarkingTool', benchmarkDetails });
+
+            const jobTitle = benchmarkDetails.jobTitle;
+            const location = benchmarkDetails.location;
+            const experienceLevel = benchmarkDetails.experienceLevel;
+
+            // Simple mock data for salary ranges based on inputs
+            let minSalary = 50000;
+            let maxSalary = 80000;
+
+            if (experienceLevel === 'Mid-Level') {
+                minSalary = 70000;
+                maxSalary = 110000;
+            } else if (experienceLevel === 'Senior-Level') {
+                minSalary = 100000;
+                maxSalary = 150000;
+            } else if (experienceLevel === 'Manager') {
+                minSalary = 120000;
+                maxSalary = 180000;
+            } else if (experienceLevel === 'Director') {
+                minSalary = 150000;
+                maxSalary = 250000;
+            }
+
+            // Adjust for location (very basic adjustment)
+            if (location.toLowerCase().includes('new york') || location.toLowerCase().includes('san francisco')) {
+                minSalary *= 1.2;
+                maxSalary *= 1.2;
+            } else if (location.toLowerCase().includes('london')) {
+                minSalary *= 1.1;
+                maxSalary *= 1.1;
+            }
+
+            const output = `
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Search Criteria</h4>
+                    <p><strong>Job Title:</strong> ${jobTitle}</p>
+                    <p><strong>Location:</strong> ${location}</p>
+                    <p><strong>Experience Level:</strong> ${experienceLevel}</p>
+                </div>
+                <hr>
+                <h3>Estimated Salary Range:</h3>
+                <h2 class="text-primary">$${minSalary.toLocaleString()} - $${maxSalary.toLocaleString()} (USD)</h2>
+                <p class="text-muted"><em>This is an estimate based on general market data. Actual salaries may vary based on company size, specific skills, and other factors.</em></p>
+            `;
+
+            document.getElementById('benchmark-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displaySalaryBenchmark();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'SalaryBenchmarkingTool', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'SalaryBenchmarkingTool', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more compensation insights.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Salary Benchmark Result</h1>
+            </div>
+            <div class="card-body">
+                <div id="benchmark-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">New Search</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Stay Ahead in Compensation</h4>
+                <p>Subscribe for the latest salary trends and compensation best practices.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

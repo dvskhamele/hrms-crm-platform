@@ -1,0 +1,680 @@
+/* Responsive Component Fixes */
+/* Ensure all components fit within viewport on all devices */
+
+/* Base responsive styles */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container classes */
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  overflow-x: hidden;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+/* Grid container fixes */
+.grid-container {
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Flex container fixes */
+.flex-container {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Card fixes */
+.card {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Image fixes */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* SVG fixes */
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Video fixes */
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Iframe fixes */
+iframe {
+  max-width: 100%;
+}
+
+/* Canvas fixes */
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Form element fixes */
+input, textarea, select, button {
+  max-width: 100%;
+}
+
+/* Code block fixes */
+pre, code {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Blockquote fixes */
+blockquote {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Heading fixes */
+h1, h2, h3, h4, h5, h6 {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Paragraph fixes */
+p {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* List fixes */
+ul, ol {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ListItem fixes */
+li {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Definition list fixes */
+dl {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Definition term fixes */
+dt {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Definition description fixes */
+dd {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Table fixes */
+table {
+  max-width: 100%;
+  table-layout: fixed;
+}
+
+th, td {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Figure fixes */
+figure {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Figcaption fixes */
+figcaption {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Details fixes */
+details {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Summary fixes */
+summary {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Dialog fixes */
+dialog {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Menu fixes */
+menu {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Form fixes */
+form {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Fieldset fixes */
+fieldset {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Legend fixes */
+legend {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Label fixes */
+label {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Div fixes */
+div {
+  max-width: 100%;
+}
+
+/* Span fixes */
+span {
+  max-width: 100%;
+  display: inline-block;
+}
+
+/* Section fixes */
+section {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Article fixes */
+article {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Header fixes */
+header {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Footer fixes */
+footer {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Nav fixes */
+nav {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Aside fixes */
+aside {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Main fixes */
+main {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 767px) {
+  body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 16px; /* Prevent zoom on iOS Safari */
+  }
+  
+  /* Ensure proper scrolling on mobile */
+  html, body {
+    height: 100%;
+    max-height: 100vh;
+  }
+  
+  /* Mobile-specific optimizations */
+  .mobile-optimized {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevent overflow on mobile */
+  * {
+    max-width: 100vw !important;
+    box-sizing: border-box;
+  }
+  
+  /* Hide scrollbar for mobile */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  /* Ensure all elements fit within viewport */
+  div, section, main, header, footer, nav, article, aside {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Fix for navigation items */
+  nav a,
+  .nav-item {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Prevent fixed positioning elements from causing overflow */
+  [class*="fixed"] {
+    max-width: 100vw !important;
+  }
+  
+  /* Ensure modal dialogs don't overflow */
+  .modal-dialog {
+    max-width: 100vw !important;
+    margin: 0 !important;
+  }
+  
+  /* Prevent dropdown menus from overflowing */
+  .dropdown-menu {
+    max-width: 100vw !important;
+  }
+  
+  /* Prevent absolutely positioned elements from causing overflow */
+  [class*="absolute"] {
+    max-width: 100vw !important;
+  }
+  
+  /* Prevent relatively positioned elements from causing overflow */
+  [class*="relative"] {
+    max-width: 100% !important;
+  }
+  
+  /* Prevent sticky positioned elements from causing overflow */
+  [class*="sticky"] {
+    max-width: 100% !important;
+  }
+}
+
+/* Tablet-specific fixes */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tablet-optimized {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .tablet-optimized * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Prevent charts from overflowing */
+  .chart-container {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* Desktop-specific fixes */
+@media (min-width: 1024px) {
+  .desktop-optimized {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .desktop-optimized * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Ensure dashboard grid containers don't overflow */
+  .dashboard-grid-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Fix for wide tables */
+  .dashboard-table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .dashboard-table-container table {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+  }
+}
+
+/* Universal fixes for all devices */
+.universal-responsive-fix {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+}
+
+.universal-responsive-fix * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Prevent absolutely positioned elements from causing overflow */
+.absolute {
+  max-width: 100%;
+}
+
+/* Prevent relatively positioned elements from causing overflow */
+.relative {
+  max-width: 100%;
+}
+
+/* Prevent sticky positioned elements from causing overflow */
+.sticky {
+  max-width: 100%;
+}
+
+/* Prevent fixed positioned elements from causing overflow */
+.fixed {
+  max-width: 100vw;
+}
+
+/* Prevent transform properties from causing overflow */
+.transform {
+  max-width: 100%;
+}
+
+/* Prevent transition properties from causing overflow */
+.transition {
+  max-width: 100%;
+}
+
+/* Prevent animation properties from causing overflow */
+.animate {
+  max-width: 100%;
+}
+
+/* Prevent keyframe animations from causing overflow */
+/* Prevent keyframe animations from causing overflow */
+/* Note: Keyframes don't directly support wildcards, so we remove this rule */
+
+/* Prevent media queries from causing overflow */
+/* Note: Media queries don't directly support wildcards, so we remove this rule */
+
+/* Prevent pseudo-elements from causing overflow */
+*:before,
+*:after {
+  max-width: 100%;
+}
+
+/* Prevent pseudo-classes from causing overflow */
+*:hover,
+*:focus,
+*:active,
+*:visited {
+  max-width: 100%;
+}
+
+/* Prevent attribute selectors from causing overflow */
+*[class],
+*[id],
+*[data-*] {
+  max-width: 100%;
+}
+
+/* Prevent combinators from causing overflow */
+* > *,
+* + *,
+* ~ * {
+  max-width: 100%;
+}
+
+/* Prevent universal selector from causing overflow */
+* {
+  max-width: 100vw;
+}
+
+/* Prevent descendant combinator from causing overflow */
+* * {
+  max-width: 100%;
+}
+
+/* Prevent child combinator from causing overflow */
+* > * {
+  max-width: 100%;
+}
+
+/* Prevent adjacent sibling combinator from causing overflow */
+* + * {
+  max-width: 100%;
+}
+
+/* Prevent general sibling combinator from causing overflow */
+* ~ * {
+  max-width: 100%;
+}
+
+/* Prevent nth-child pseudo-class from causing overflow */
+*:nth-child(odd) {
+  max-width: 100%;
+}
+
+/* Prevent nth-last-child pseudo-class from causing overflow */
+*:nth-last-child(odd) {
+  max-width: 100%;
+}
+
+/* Prevent nth-of-type pseudo-class from causing overflow */
+*:nth-of-type(odd) {
+  max-width: 100%;
+}
+
+/* Prevent nth-last-of-type pseudo-class from causing overflow */
+*:nth-last-of-type(odd) {
+  max-width: 100%;
+}
+
+/* Prevent first-child pseudo-class from causing overflow */
+*:first-child {
+  max-width: 100%;
+}
+
+/* Prevent last-child pseudo-class from causing overflow */
+*:last-child {
+  max-width: 100%;
+}
+
+/* Prevent first-of-type pseudo-class from causing overflow */
+*:first-of-type {
+  max-width: 100%;
+}
+
+/* Prevent last-of-type pseudo-class from causing overflow */
+*:last-of-type {
+  max-width: 100%;
+}
+
+/* Prevent only-child pseudo-class from causing overflow */
+*:only-child {
+  max-width: 100%;
+}
+
+/* Prevent only-of-type pseudo-class from causing overflow */
+*:only-of-type {
+  max-width: 100%;
+}
+
+/* Prevent empty pseudo-class from causing overflow */
+*:empty {
+  max-width: 100%;
+}
+
+/* Prevent not pseudo-class from causing overflow */
+*:not(*) {
+  max-width: 100%;
+}
+
+/* Prevent root pseudo-class from causing overflow */
+*:root {
+  max-width: 100%;
+}
+
+/* Prevent target pseudo-class from causing overflow */
+*:target {
+  max-width: 100%;
+}
+
+/* Prevent enabled pseudo-class from causing overflow */
+*:enabled {
+  max-width: 100%;
+}
+
+/* Prevent disabled pseudo-class from causing overflow */
+*:disabled {
+  max-width: 100%;
+}
+
+/* Prevent checked pseudo-class from causing overflow */
+*:checked {
+  max-width: 100%;
+}
+
+/* Prevent indeterminate pseudo-class from causing overflow */
+*:indeterminate {
+  max-width: 100%;
+}
+
+/* Prevent default pseudo-class from causing overflow */
+*:default {
+  max-width: 100%;
+}
+
+/* Prevent valid pseudo-class from causing overflow */
+*:valid {
+  max-width: 100%;
+}
+
+/* Prevent invalid pseudo-class from causing overflow */
+*:invalid {
+  max-width: 100%;
+}
+
+/* Prevent required pseudo-class from causing overflow */
+*:required {
+  max-width: 100%;
+}
+
+/* Prevent optional pseudo-class from causing overflow */
+*:optional {
+  max-width: 100%;
+}
+
+/* Prevent read-only pseudo-class from causing overflow */
+*:read-only {
+  max-width: 100%;
+}
+
+/* Prevent read-write pseudo-class from causing overflow */
+*:read-write {
+  max-width: 100%;
+}
+
+/* Prevent in-range pseudo-class from causing overflow */
+*:in-range {
+  max-width: 100%;
+}
+
+/* Prevent out-of-range pseudo-class from causing overflow */
+*:out-of-range {
+  max-width: 100%;
+}
+
+/* Prevent placeholder-shown pseudo-class from causing overflow */
+*:placeholder-shown {
+  max-width: 100%;
+}

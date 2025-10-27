@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Description Grader</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: 0.5em; }
+        textarea { width: 100%; padding: 0.5em; height: 200px; }
+        button { padding: 0.75em 1.5em; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        #grade-output { margin-top: 2em; padding: 1em; border: 1px solid #ccc; }
+        .email-capture { margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Job Description Grader</h1>
+        <p>Evaluate the quality and effectiveness of your job descriptions.</p>
+
+        <div id="grader-form">
+            <div class="form-group">
+                <label for="job-description">Paste Your Job Description</label>
+                <textarea id="job-description" placeholder="Paste your job description here..."></textarea>
+            </div>
+            <button type="button" id="grade-description">Grade Description</button>
+        </div>
+
+        <div id="grade-output" style="display: none;">
+            <!-- Grade will be displayed here -->
+        </div>
+
+        <div class="email-capture" id="email-capture" style="display: none;">
+            <h2>Get Your Grade Report</h2>
+            <p>Enter your email to receive a detailed report of your job description's grade.</p>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@yourcompany.com">
+            </div>
+            <button type="button" id="submit-email">Download Report</button>
+            <p id="email-message"></p>
+        </div>
+    </div>
+
+    <script src="job-description-grader.js"></script>
+</body>
+</html>

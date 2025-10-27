@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Review Rating Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Performance Review Rating Calculator</h1>
+        <p>Calculate the overall rating for a performance review.</p>
+        <div class="form-container">
+            <label for="goal-achievement">Goal Achievement (1-5):</label>
+            <input type="number" id="goal-achievement" min="1" max="5">
+            <label for="competency-score">Competency Score (1-5):</label>
+            <input type="number" id="competency-score" min="1" max="5">
+            <label for="overall-contribution">Overall Contribution (1-5):</label>
+            <input type="number" id="overall-contribution" min="1" max="5">
+            <button id="calculate-btn">Calculate Overall Rating</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

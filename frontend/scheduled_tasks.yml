@@ -1,0 +1,18 @@
+
+# This file defines the cron-like jobs for the autonomous agent.
+
+schedulers:
+  - name: ToolScheduler
+    description: "Generates a new complete tool daily (UI + JS logic + result pages + audits + analytics)."
+    schedule: "0 0 * * *"  # Runs every day at midnight
+    script: "/schedulers/tool_scheduler.js"
+
+  - name: PageScheduler
+    description: "Generates new landing/content pages from SEO & keyword research."
+    schedule: "0 1 * * *"  # Runs every day at 1 AM
+    script: "/schedulers/page_scheduler.js"
+
+  - name: AutoReport
+    description: "Generates a weekly report of all activities."
+    schedule: "0 0 * * 0"  # Runs every Sunday at midnight
+    script: "/schedulers/auto_report.js"

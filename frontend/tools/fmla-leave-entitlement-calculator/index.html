@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMLA Leave Entitlement Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Determine FMLA eligibility and calculate leave entitlement for employees. Essential for HR compliance and leave management.">
+    <meta property="og:title" content="FMLA Leave Entitlement Calculator">
+    <meta property="og:description" content="Determine FMLA eligibility and calculate leave entitlement for employees. Essential for HR compliance and leave management.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="YOUR_SHAREABLE_URL_HERE">
+</head>
+<body>
+    <div class="container">
+        <h1>FMLA Leave Entitlement Calculator</h1>
+        <p>Determine employee eligibility and calculate leave entitlement under FMLA.</p>
+
+        <div class="form-group">
+            <label for="employeeWorkHours">Employee Hours Worked in Last 12 Months:</label>
+            <input type="number" id="employeeWorkHours" min="0" value="1250">
+            <small>FMLA requires at least 1,250 hours.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="weeksWorked">Weeks Worked for Employer in Last 12 Months:</label>
+            <input type="number" id="weeksWorked" min="0" value="52">
+            <small>FMLA requires at least 12 months of employment (52 weeks).</small>
+        </div>
+
+        <div class="form-group">
+            <label for="companySize">Number of Employees within 75 miles:</label>
+            <input type="number" id="companySize" min="0" value="50">
+            <small>FMLA applies to employers with 50+ employees within 75 miles.</small>
+        </div>
+
+        <button id="calculateBtn">Check FMLA Eligibility & Entitlement</button>
+
+        <div class="result-section">
+            <h2>Result:</h2>
+            <p>FMLA Eligibility: <span id="fmlaEligibility">Not Checked</span></p>
+            <p>FMLA Leave Entitlement: <span id="fmlaEntitlement">0</span> weeks</p>
+            <p id="fmlaInterpretation"></p>
+        </div>
+
+        <div class="lead-capture-section">
+            <h2>Get more HR insights!</h2>
+            <p>Enter your email to receive exclusive HR tools and tips directly in your inbox.</p>
+            <input type="email" id="leadEmail" placeholder="your.email@example.com">
+            <button id="subscribeBtn">Subscribe</button>
+            <p id="leadMessage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Compliance Checklist Result</title>
+    <meta name="description" content="Your customized HR compliance checklist. Ensure your business meets all regulatory requirements.">
+    <meta property="og:title" content="HR Compliance Checklist Result">
+    <meta property="og:description" content="Your customized HR compliance checklist. Ensure your business meets all regulatory requirements.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .checklist-items { list-style: disc; padding-left: 20px; margin-top: 1.5em; text-align: left; }
+        .checklist-items li { margin-bottom: 0.8em; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your HR Compliance Checklist</h1>
+        <p style="text-align: center;">Based on your selections, here is a general HR compliance checklist:</p>
+        <ul class="checklist-items" id="checklistItems"></ul>
+        <hr>
+        <h2>Save Your Checklist</h2>
+        <p>Enter your email to save this checklist and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const companySize = decodeURIComponent(urlParams.get('companySize'));
+        const industry = decodeURIComponent(urlParams.get('industry'));
+        const location = decodeURIComponent(urlParams.get('location'));
+        const checklist = JSON.parse(decodeURIComponent(urlParams.get('checklist')));
+
+        const checklistItems = document.getElementById('checklistItems');
+        checklist.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            checklistItems.appendChild(li);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'HR Compliance Checklist Generator',
+                companySize: companySize,
+                industry: industry,
+                location: location,
+                generatedChecklistCount: checklist.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'HR Compliance Checklist Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Onboarding Checklist Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>IT Onboarding Checklist Generator</h1>
+        <p>Create a comprehensive IT onboarding checklist to ensure new hires have all necessary tech setup from day one.</p>
+
+        <div class="generator-controls">
+            <div class="input-group">
+                <label for="employee-name">New Hire Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Alex Smith">
+            </div>
+            <div class="input-group">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date">
+            </div>
+            <button id="generate-checklist-btn">Generate IT Onboarding Checklist</button>
+        </div>
+
+        <div id="checklist-output" class="hidden">
+            <h2>Generated IT Onboarding Checklist</h2>
+            <div id="checklist-content"></div>
+            <button id="copy-checklist-btn">Copy Checklist</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Cost Per Hire Results | Gem HRMS</title>
+    <link rel="stylesheet" href="../recruitment-cost-per-hire-calculator/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Recruitment Cost Per Hire Results</h1>
+        <div id="cph-output">
+            <!-- Cost Per Hire details will be inserted here -->
+        </div>
+        <div class="lead-capture">
+            <h2>Optimize Your Recruitment Spending</h2>
+            <p>Enter your email to receive a detailed guide on reducing cost per hire and more HR tools.</p>
+            <form id="lead-form">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Get Free Resources</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytic('ToolResultViewed');
+
+            const cphOutput = document.getElementById('cph-output');
+            const resultData = JSON.parse(localStorage.getItem('recruitmentCphResult'));
+
+            if (resultData) {
+                cphOutput.innerHTML = `
+                    <p><strong>Total Internal Recruitment Costs:</strong> $${resultData.internalCosts.toLocaleString()}</p>
+                    <p><strong>Total External Recruitment Costs:</strong> $${resultData.externalCosts.toLocaleString()}</p>
+                    <p><strong>Number of Hires:</strong> ${resultData.numHires}</p>
+                    <hr>
+                    <h2>Estimated Cost Per Hire: <strong>$${resultData.costPerHire.toLocaleString()}</strong></h2>
+                `;
+            } else {
+                cphOutput.innerHTML = `<p>No Cost Per Hire data found. Please use the Recruitment Cost Per Hire Calculator tool to generate an estimate.</p>`;
+            }
+
+            const leadForm = document.getElementById('lead-form');
+            leadForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                logAnalytic('LeadCaptured');
+                const email = document.getElementById('email').value;
+                console.log(`Email captured: ${email}`);
+                alert('Thank you! You'll receive strategies to reduce cost per hire shortly.');
+            });
+        });
+
+        function logAnalytic(eventName) {
+            console.log(`Analytics Event: ${eventName}`);
+        }
+    </script>
+</body>
+</html>

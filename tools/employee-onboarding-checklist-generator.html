@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Onboarding Checklist Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: 0.5em; }
+        input[type="text"], input[type="number"] { width: 100%; padding: 0.5em; }
+        button { padding: 0.75em 1.5em; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        #checklist-output { margin-top: 2em; padding: 1em; border: 1px solid #ccc; }
+        .email-capture { margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Onboarding Checklist Generator</h1>
+        <p>Create a customized onboarding checklist for new employees.</p>
+
+        <div id="checklist-form">
+            <div class="form-group">
+                <label for="employee-name">Employee Name</label>
+                <input type="text" id="employee-name" placeholder="e.g., John Doe">
+            </div>
+            <div class="form-group">
+                <label for="start-date">Start Date</label>
+                <input type="date" id="start-date">
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" placeholder="e.g., Marketing">
+            </div>
+            <div id="tasks-container">
+                <!-- Tasks will be added here -->
+            </div>
+            <button type="button" id="add-task">Add Task</button>
+            <hr>
+            <button type="button" id="generate-checklist">Generate Checklist</button>
+        </div>
+
+        <div id="checklist-output" style="display: none;">
+            <!-- Checklist will be displayed here -->
+        </div>
+
+        <div class="email-capture" id="email-capture" style="display: none;">
+            <h2>Get Your Checklist</h2>
+            <p>Enter your email to receive a downloadable version of your onboarding checklist.</p>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@yourcompany.com">
+            </div>
+            <button type="button" id="submit-email">Download Checklist</button>
+            <p id="email-message"></p>
+        </div>
+    </div>
+
+    <script src="employee-onboarding-checklist-generator.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Glossary Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 600px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"] { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HR Glossary Generator</h1>
+        <p>Quickly find definitions for common HR terms and concepts.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="searchTerm">Enter HR Term</label>
+                <input type="text" id="searchTerm" placeholder="e.g., FMLA, PTO, Onboarding" required>
+            </div>
+            <button type="submit">Search Term</button>
+        </form>
+    </div>
+    <script>
+        const glossary = {
+            fmla: {
+                definition: "Family and Medical Leave Act: A federal law that provides eligible employees with up to 12 workweeks of unpaid, job-protected leave a year for family and medical reasons.",
+                related: ["PTO", "Leave of Absence", "ADA"]
+            },
+            pto: {
+                definition: "Paid Time Off: A policy that combines vacation, sick leave, and personal days into a single bank of days for employees to use.",
+                related: ["Leave of Absence", "FMLA", "Sick Leave"]
+            },
+            onboarding: {
+                definition: "The process of integrating a new employee into an organization and its culture, as well as providing them with the tools and information needed to become a productive member of the team.",
+                related: ["New Hire", "Orientation", "Training"]
+            },
+            ada: {
+                definition: "Americans with Disabilities Act: A civil rights law that prohibits discrimination against individuals with disabilities in all areas of public life, including jobs, schools, transportation, and all public and private places that are open to the general public.",
+                related: ["EEO", "Reasonable Accommodation", "FMLA"]
+            },
+            eeo: {
+                definition: "Equal Employment Opportunity: Laws and policies that prohibit discrimination against job applicants and employees based on race, color, religion, sex, national origin, age, disability, or genetic information.",
+                related: ["Discrimination", "Harassment", "ADA"]
+            },
+            hris: {
+                definition: "Human Resources Information System: A software solution used for managing and automating core HR processes, such as payroll, benefits administration, and talent management.",
+                related: ["HRMS", "Payroll", "ATS"]
+            },
+            ats: {
+                definition: "Applicant Tracking System: A software application that enables the electronic handling of recruitment and hiring needs.",
+                related: ["Recruitment", "HRIS", "Talent Acquisition"]
+            }
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const searchTerm = document.getElementById('searchTerm').value.toLowerCase();
+            const termData = glossary[searchTerm];
+
+            let definition = "Term not found. Please try another term.";
+            let relatedTerms = [];
+
+            if (termData) {
+                definition = termData.definition;
+                relatedTerms = termData.related;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'HR Glossary Generator',
+                    searchTerm: searchTerm,
+                    termFound: !!termData
+                });
+            }
+
+            window.location.href = `/tools/results/hr-glossary-generator-result.html?term=${encodeURIComponent(searchTerm)}&definition=${encodeURIComponent(definition)}&related=${encodeURIComponent(JSON.stringify(relatedTerms))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'HR Glossary Generator'
+            });
+        }
+    </script>
+</body>
+</html>

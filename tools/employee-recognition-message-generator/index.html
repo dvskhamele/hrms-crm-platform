@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Recognition Message Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Recognition Message Generator</h1>
+        <p>Generate personalized recognition messages for your employees.</p>
+        <div class="form-container">
+            <label for="employee-name">Employee Name:</label>
+            <input type="text" id="employee-name" placeholder="e.g., Sarah Johnson">
+            <label for="achievement">Specific Achievement/Contribution:</label>
+            <input type="text" id="achievement" placeholder="e.g., Successfully launched Project X">
+            <label for="impact">Impact of Achievement:</label>
+            <input type="text" id="impact" placeholder="e.g., Increased team efficiency by 15%">
+            <label for="tone">Tone:</label>
+            <select id="tone">
+                <option value="formal">Formal</option>
+                <option value="informal">Informal</option>
+                <option value="enthusiastic">Enthusiastic</option>
+            </select>
+            <button id="generate-btn">Generate Message</button>
+        </div>
+        <div id="message"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

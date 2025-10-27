@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Budget Results | Gem HRMS</title>
+    <link rel="stylesheet" href="../recruitment-budget-calculator/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Estimated Recruitment Budget</h1>
+        <div id="budget-output">
+            <!-- Budget details will be inserted here -->
+        </div>
+        <div class="lead-capture">
+            <h2>Optimize Your Recruitment Spending</h2>
+            <p>Enter your email to receive a detailed report on recruitment cost optimization strategies and more HR tools.</p>
+            <form id="lead-form">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Get Free Resources</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytic('ToolResultViewed');
+
+            const budgetOutput = document.getElementById('budget-output');
+            const resultData = JSON.parse(localStorage.getItem('recruitmentBudgetResult'));
+
+            if (resultData) {
+                budgetOutput.innerHTML = `
+                    <p><strong>Number of Hires Expected:</strong> ${resultData.numHires}</p>
+                    <p><strong>Average Salary per Hire:</strong> $${resultData.avgSalary.toLocaleString()}</p>
+                    <p><strong>Recruitment Marketing Spend:</strong> $${resultData.marketingSpend.toLocaleString()}</p>
+                    <p><strong>ATS/CRM Software Costs:</strong> $${resultData.atsCrmCost.toLocaleString()}</p>
+                    <p><strong>Interviewing Costs per Hire:</strong> $${resultData.interviewingCostPerHire.toLocaleString()}</p>
+                    <p><strong>Onboarding Costs per Hire:</strong> $${resultData.onboardingCostPerHire.toLocaleString()}</p>
+                    <hr>
+                    <h2>Total Estimated Recruitment Budget: <strong>$${resultData.totalBudget.toLocaleString()}</strong></h2>
+                `;
+            } else {
+                budgetOutput.innerHTML = `<p>No budget data found. Please use the Recruitment Budget Calculator tool to generate an estimate.</p>`;
+            }
+
+            const leadForm = document.getElementById('lead-form');
+            leadForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                logAnalytic('LeadCaptured');
+                const email = document.getElementById('email').value;
+                console.log(`Email captured: ${email}`);
+                alert('Thank you! You'll receive recruitment cost optimization strategies shortly.');
+            });
+        });
+
+        function logAnalytic(eventName) {
+            console.log(`Analytics Event: ${eventName}`);
+        }
+    </script>
+</body>
+</html>

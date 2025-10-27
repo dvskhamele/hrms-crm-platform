@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360 Feedback Question Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>360 Feedback Question Generator</h1>
+        <p>Generate comprehensive 360-degree feedback questions to gather insights from peers, subordinates, and superiors.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="category">Select Feedback Category</label>
+                <select id="category" required>
+                    <option value="leadership">Leadership</option>
+                    <option value="communication">Communication</option>
+                    <option value="teamwork">Teamwork & Collaboration</option>
+                    <option value="problem_solving">Problem-Solving & Decision-Making</option>
+                    <option value="adaptability">Adaptability & Flexibility</option>
+                    <option value="results_orientation">Results Orientation</option>
+                    <option value="development">Development & Coaching</option>
+                </select>
+            </div>
+            <button type="submit">Generate Questions</button>
+        </form>
+    </div>
+    <script>
+        const questions = {
+            leadership: [
+                "How effectively does this person inspire and motivate others?",
+                "Describe a time when this person demonstrated strong leadership. What was the impact?",
+                "What could this person do to further develop their leadership capabilities?"
+            ],
+            communication: [
+                "How clear and concise is this person's communication, both written and verbal?",
+                "Describe a situation where this person communicated effectively under pressure. What was the outcome?",
+                "What suggestions do you have for this person to improve their communication skills?"
+            ],
+            teamwork: [
+                "How well does this person collaborate with team members to achieve shared goals?",
+                "Describe a time when this person was an exceptional team player. What did they do?",
+                "What could this person do to enhance their teamwork and collaboration?"
+            ],
+            problem_solving: [
+                "How effectively does this person identify and solve problems?",
+                "Describe a complex problem this person successfully resolved. What was their approach?",
+                "What opportunities exist for this person to improve their problem-solving and decision-making skills?"
+            ],
+            adaptability: [
+                "How well does this person adapt to change and new situations?",
+                "Describe a time when this person demonstrated flexibility in response to a new challenge. What was the result?",
+                "What could this person do to become more adaptable and resilient?"
+            ],
+            results_orientation: [
+                "How consistently does this person achieve their goals and deliver results?",
+                "Describe a time when this person went above and beyond to ensure a project's success. What was the impact?",
+                "What suggestions do you have for this person to improve their focus on results and accountability?"
+            ],
+            development: [
+                "How effectively does this person provide constructive feedback and coaching to others?",
+                "Describe a time when this person helped a colleague develop a new skill. What was their approach?",
+                "What could this person do to further develop their coaching and mentoring abilities?"
+            ]
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const selectedCategory = document.getElementById('category').value;
+            const generatedQuestions = questions[selectedCategory] || [];
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: '360 Feedback Question Generator',
+                    selectedCategory: selectedCategory,
+                    generatedQuestionsCount: generatedQuestions.length
+                });
+            }
+
+            window.location.href = `/tools/results/360-feedback-question-generator-result.html?category=${encodeURIComponent(selectedCategory)}&questions=${encodeURIComponent(JSON.stringify(generatedQuestions))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: '360 Feedback Question Generator'
+            });
+        }
+    </script>
+</body>
+</html>

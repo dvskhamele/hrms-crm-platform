@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Onboarding Plan Result</title>
+    <meta name="description" content="Your generated employee onboarding plan. Ensure a smooth and successful start for new hires.">
+    <meta property="og:title" content="Employee Onboarding Plan Result">
+    <meta property="og:description" content="Your generated employee onboarding plan. Ensure a smooth and successful start for new hires.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .onboarding-plan-content { background-color: #f9f9f9; padding: 1.5em; border-radius: 5px; margin-top: 1.5em; text-align: left; }
+        .onboarding-plan-content ul { list-style: disc; padding-left: 20px; margin-bottom: 1em; }
+        .onboarding-plan-content li { margin-bottom: 0.5em; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Onboarding Plan for <span id="newHireNameDisplay"></span></h1>
+        <p style="text-align: center;">Ensure a smooth and successful start for your new hire.</p>
+        <div class="onboarding-plan-content">
+            <p><strong>New Hire Name:</strong> <span id="newHireNameDetails"></span></p>
+            <p><strong>Job Title:</strong> <span id="jobTitleDisplay"></span></p>
+            <p><strong>Start Date:</strong> <span id="startDateDisplay"></span></p>
+            <p><strong>Department:</strong> <span id="departmentDisplay"></span></p>
+            <hr>
+            <h2>Onboarding Tasks:</h2>
+            <ul id="tasksListDisplay"></ul>
+            <hr>
+            <p><strong>Manager:</strong> _________________________</p>
+            <p><strong>HR Representative:</strong> _________________________</p>
+            <p><strong>Date Completed:</strong> _________________________</p>
+        </div>
+        <hr>
+        <h2>Save Your Onboarding Plan</h2>
+        <p>Enter your email to save this plan and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const newHireName = decodeURIComponent(urlParams.get('newHireName'));
+        const jobTitle = decodeURIComponent(urlParams.get('jobTitle'));
+        const startDate = decodeURIComponent(urlParams.get('startDate'));
+        const department = decodeURIComponent(urlParams.get('department'));
+        const tasks = JSON.parse(decodeURIComponent(urlParams.get('tasks')));
+
+        document.getElementById('newHireNameDisplay').textContent = newHireName;
+        document.getElementById('newHireNameDetails').textContent = newHireName;
+        document.getElementById('jobTitleDisplay').textContent = jobTitle;
+        document.getElementById('startDateDisplay').textContent = startDate;
+        document.getElementById('departmentDisplay').textContent = department;
+
+        const tasksListDisplay = document.getElementById('tasksListDisplay');
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.textContent = task;
+            tasksListDisplay.appendChild(li);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Employee Onboarding Plan Generator',
+                newHireName: newHireName,
+                jobTitle: jobTitle,
+                startDate: startDate,
+                department: department,
+                tasksCount: tasks.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Employee Onboarding Plan Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

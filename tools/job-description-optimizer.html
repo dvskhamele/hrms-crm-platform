@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Description Optimizer</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        textarea { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Job Description Optimizer</h1>
+        <p>Improve your job descriptions for better candidate attraction, clarity, and SEO.</p>
+        <form id="optimizerForm">
+            <div class="form-group">
+                <label for="jobDescription">Paste Your Job Description Here</label>
+                <textarea id="jobDescription" rows="10" placeholder="e.g., We are looking for a highly motivated Software Engineer..." required></textarea>
+            </div>
+            <button type="submit">Optimize Job Description</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('optimizerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const jobDescription = document.getElementById('jobDescription').value;
+
+            let suggestions = [];
+
+            // Example optimization logic (simplified)
+            if (jobDescription.toLowerCase().includes('rockstar') || jobDescription.toLowerCase().includes('ninja')) {
+                suggestions.push("Consider replacing 'rockstar' or 'ninja' with more inclusive and professional language.");
+            }
+            if (!jobDescription.toLowerCase().includes('diversity') && !jobDescription.toLowerCase().includes('inclusion')) {
+                suggestions.push("Add language about diversity and inclusion to attract a broader range of candidates.");
+            }
+            if (jobDescription.split(' ').length < 150) {
+                suggestions.push("Consider adding more detail about the role, responsibilities, and company culture.");
+            }
+            if (!jobDescription.toLowerCase().includes('benefits') && !jobDescription.toLowerCase().includes('perks')) {
+                suggestions.push("Highlight company benefits and perks to make the role more attractive.");
+            }
+            if (!jobDescription.toLowerCase().includes('salary') && !jobDescription.toLowerCase().includes('compensation')) {
+                suggestions.push("Consider including a salary range or compensation details for transparency.");
+            }
+            if (suggestions.length === 0) {
+                suggestions.push("Your job description looks great! Keep up the good work.");
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Job Description Optimizer',
+                    jobDescriptionLength: jobDescription.length,
+                    suggestionsCount: suggestions.length
+                });
+            }
+
+            window.location.href = `/tools/results/job-description-optimizer-result.html?suggestions=${encodeURIComponent(JSON.stringify(suggestions))}&originalDescription=${encodeURIComponent(jobDescription)}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Job Description Optimizer'
+            });
+        }
+    </script>
+</body>
+</html>

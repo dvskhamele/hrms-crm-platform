@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Recognition Program Idea Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Recognition Program Idea Generator</h1>
+        <p>Generate ideas for employee recognition programs.</p>
+        <div class="form-container">
+            <label for="recognition-goal">Recognition Goal:</label>
+            <input type="text" id="recognition-goal" placeholder="e.g., Boost morale, Improve retention">
+            <label for="budget">Budget (per employee):</label>
+            <input type="text" id="budget" placeholder="e.g., Low, Medium, High">
+            <label for="frequency">Frequency:</label>
+            <select id="frequency">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="annually">Annually</option>
+            </select>
+            <button id="generate-btn">Generate Ideas</button>
+        </div>
+        <div id="ideas"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

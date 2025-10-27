@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Entitlement Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Leave Entitlement Calculator</h1>
+        <p>Calculate employee leave entitlements based on years of service and company policy.</p>
+        <div class="input-group">
+            <label for="years-of-service">Years of Service:</label>
+            <input type="number" id="years-of-service" value="0" min="0">
+        </div>
+        <div class="input-group">
+            <label for="annual-leave-days">Annual Leave Days (per year):</label>
+            <input type="number" id="annual-leave-days" value="20" min="0">
+        </div>
+        <button id="calculate-btn">Calculate Entitlement</button>
+        <div id="entitlement-container">
+            <h2>Total Leave Entitlement: <span id="total-entitlement">0</span> days</h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

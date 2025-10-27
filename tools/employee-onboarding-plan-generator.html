@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Onboarding Plan Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], input[type="date"], textarea { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        #tasksList { list-style: none; padding: 0; margin-top: 1em; }
+        #tasksList li { background-color: #f0f0f0; padding: .5em; margin-bottom: .5em; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; }
+        #tasksList li button { background-color: #dc3545; padding: .3em .6em; font-size: .8em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Onboarding Plan Generator</h1>
+        <p>Create a structured and comprehensive onboarding plan to ensure a smooth and successful start for new hires.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="newHireName">New Hire Name</label>
+                <input type="text" id="newHireName" placeholder="e.g., Sarah Chen" required>
+            </div>
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" placeholder="e.g., Marketing Specialist" required>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" placeholder="e.g., Marketing" required>
+            </div>
+            <div class="form-group">
+                <label for="task">Add Onboarding Task</label>
+                <input type="text" id="task" placeholder="e.g., IT Setup, HR Paperwork, Team Introductions, Training Session">
+                <button type="button" id="addTask">Add Task</button>
+            </div>
+            <ul id="tasksList"></ul>
+            <button type="submit">Generate Onboarding Plan</button>
+        </form>
+    </div>
+    <script>
+        const tasks = [];
+
+        document.getElementById('addTask').addEventListener('click', function() {
+            const taskInput = document.getElementById('task');
+            const taskText = taskInput.value.trim();
+            if (taskText) {
+                tasks.push(taskText);
+                renderTasks();
+                taskInput.value = '';
+            }
+        });
+
+        function renderTasks() {
+            const list = document.getElementById('tasksList');
+            list.innerHTML = '';
+            tasks.forEach((t, index) => {
+                const li = document.createElement('li');
+                li.textContent = t;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    tasks.splice(index, 1);
+                    renderTasks();
+                });
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newHireName = document.getElementById('newHireName').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+            const startDate = document.getElementById('startDate').value;
+            const department = document.getElementById('department').value;
+
+            if (tasks.length === 0) {
+                alert('Please add at least one onboarding task.');
+                return;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Employee Onboarding Plan Generator',
+                    newHireName: newHireName,
+                    jobTitle: jobTitle,
+                    startDate: startDate,
+                    department: department,
+                    tasksCount: tasks.length
+                });
+            }
+
+            window.location.href = `/tools/results/employee-onboarding-plan-generator-result.html?newHireName=${encodeURIComponent(newHireName)}&jobTitle=${encodeURIComponent(jobTitle)}&startDate=${encodeURIComponent(startDate)}&department=${encodeURIComponent(department)}&tasks=${encodeURIComponent(JSON.stringify(tasks))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Employee Onboarding Plan Generator'
+            });
+        }
+    </script>
+</body>
+</html>

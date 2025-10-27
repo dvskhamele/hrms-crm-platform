@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Skills Matrix Result</title>
+    <meta name="description" content="Your generated employee skills matrix template. Track competencies and identify training needs.">
+    <meta property="og:title" content="Employee Skills Matrix Result">
+    <meta property="og:description" content="Your generated employee skills matrix template. Track competencies and identify training needs.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .skills-matrix-table { width: 100%; border-collapse: collapse; margin-top: 1.5em; }
+        .skills-matrix-table th, .skills-matrix-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .skills-matrix-table th { background-color: #f2f2f2; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="matrixTitle"></h1>
+        <p style="text-align: center;">Use this template to track employee skills and identify development opportunities.</p>
+        <table class="skills-matrix-table">
+            <thead>
+                <tr>
+                    <th>Employee Name</th>
+                    <th id="skillsHeader"></th>
+                    <th>Overall Rating</th>
+                </tr>
+            </thead>
+            <tbody id="matrixBody"></tbody>
+        </table>
+        <hr>
+        <h2>Save Your Skills Matrix</h2>
+        <p>Enter your email to save this skills matrix and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const department = decodeURIComponent(urlParams.get('department'));
+        const jobRole = decodeURIComponent(urlParams.get('jobRole'));
+        const skills = JSON.parse(decodeURIComponent(urlParams.get('skills')));
+
+        document.getElementById('matrixTitle').textContent = `Skills Matrix for ${jobRole} in ${department}`;
+        document.getElementById('skillsHeader').colSpan = skills.length; // Adjust colspan for skills
+        document.getElementById('skillsHeader').textContent = skills.join(' | ');
+
+        const matrixBody = document.getElementById('matrixBody');
+        // Add a placeholder row for demonstration
+        const tr = document.createElement('tr');
+        let skillRatings = '';
+        skills.forEach(() => {
+            skillRatings += `<td>(1-5)</td>`;
+        });
+        tr.innerHTML = `<td>[Employee Name]</td>${skillRatings}<td></td>`;
+        matrixBody.appendChild(tr);
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Employee Skills Matrix Generator',
+                department: department,
+                jobRole: jobRole,
+                skillsCount: skills.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Employee Skills Matrix Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

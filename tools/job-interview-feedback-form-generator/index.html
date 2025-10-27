@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Interview Feedback Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Job Interview Feedback Form Generator</h1>
+        <p>Generate a customizable feedback form for your job interviews.</p>
+        <div class="form-container">
+            <label for="candidate-name">Candidate Name:</label>
+            <input type="text" id="candidate-name" placeholder="e.g., Jane Doe">
+            <label for="job-title">Job Title:</label>
+            <input type="text" id="job-title" placeholder="e.g., Software Engineer">
+            <label for="interviewer-name">Interviewer Name:</label>
+            <input type="text" id="interviewer-name" placeholder="e.g., John Smith">
+            <label for="feedback-criteria">Feedback Criteria (comma-separated):</label>
+            <input type="text" id="feedback-criteria" placeholder="e.g., Technical Skills, Communication, Cultural Fit">
+            <button id="generate-btn">Generate Feedback Form</button>
+        </div>
+        <div id="feedback-form"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

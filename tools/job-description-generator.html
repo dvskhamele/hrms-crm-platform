@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Description Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            // In a real scenario, this would send data to an analytics server.
+            // For this prototype, we will log to a local file.
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'JobDescriptionGenerator' });
+
+            const form = document.getElementById('job-description-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const jobDetails = Object.fromEntries(formData.entries());
+
+                logAnalytics('ToolSubmitted', { toolName: 'JobDescriptionGenerator', formData: jobDetails });
+
+                const queryString = new URLSearchParams(jobDetails).toString();
+                window.location.href = `/tools/results/job-description-generator-result.html?${queryString}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Job Description Generator</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Create professional job descriptions in seconds. Fill out the form below to get started.</p>
+                <form id="job-description-form">
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input type="text" class="form-control" id="jobTitle" name="jobTitle" placeholder="e.g., Software Engineer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" class="form-control" id="department" name="department" placeholder="e.g., Technology" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="experienceLevel">Experience Level</label>
+                        <select class="form-control" id="experienceLevel" name="experienceLevel">
+                            <option>Entry-Level</option>
+                            <option>Mid-Level</option>
+                            <option>Senior-Level</option>
+                            <option>Manager</option>
+                            <option>Director</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="keyResponsibilities">Key Responsibilities</label>
+                        <textarea class="form-control" id="keyResponsibilities" name="keyResponsibilities" rows="5" placeholder="Enter one responsibility per line. e.g.,&#10;- Develop and maintain web applications&#10;- Collaborate with cross-functional teams" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="skills">Skills & Qualifications</label>
+                        <textarea class="form-control" id="skills" name="skills" rows="5" placeholder="Enter one skill per line. e.g.,&#10;- Proficient in JavaScript&#10;- Experience with React" required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Generate Job Description</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

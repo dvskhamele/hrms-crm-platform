@@ -1,0 +1,53 @@
+
+# This file defines the analytics events that are tracked throughout the application.
+
+events:
+  - name: ToolOpened
+    description: "Fired when a user visits a tool's page."
+    parameters:
+      - name: tool_slug
+        type: string
+        description: "The unique identifier for the tool."
+
+  - name: ToolSubmitted
+    description: "Fired when a user submits a tool's form."
+    parameters:
+      - name: tool_slug
+        type: string
+        description: "The unique identifier for the tool."
+      - name: inputs
+        type: object
+        description: "The data submitted by the user."
+
+  - name: ToolResultViewed
+    description: "Fired when a user views the results of a tool."
+    parameters:
+      - name: tool_slug
+        type: string
+        description: "The unique identifier for the tool."
+      - name: result_id
+        type: string
+        description: "The unique ID for the generated result."
+
+  - name: LeadCaptured
+    description: "Fired when a user submits their email for an enhanced report or to save their results."
+    parameters:
+      - name: tool_slug
+        type: string
+        description: "The unique identifier for the tool."
+      - name: email
+        type: string
+        description: "The user's email address."
+
+  - name: ErrorEvent
+    description: "Fired when an unexpected error occurs."
+    parameters:
+      - name: source
+        type: string
+        description: "Where the error occurred (e.g., tool_slug, scheduler_name)."
+      - name: error_message
+        type: string
+        description: "The error message."
+      - name: stack_trace
+        type: string
+        description: "The stack trace of the error."

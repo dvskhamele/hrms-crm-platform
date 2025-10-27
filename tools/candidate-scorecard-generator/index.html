@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Scorecard Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Scorecard Generator</h1>
+        <p>Create standardized scorecards for evaluating candidates during interviews, ensuring objectivity and consistency.</p>
+        <div id="scorecard-inputs">
+            <label for="job-role">Job Role:</label>
+            <input type="text" id="job-role" placeholder="e.g., Software Engineer">
+
+            <label for="key-competencies">Key Competencies (comma-separated):</label>
+            <input type="text" id="key-competencies" placeholder="e.g., Problem Solving, Communication, Technical Skills">
+
+            <button id="generate-btn">Generate Scorecard</button>
+        </div>
+        <div id="generated-scorecard-container">
+            <h2>Generated Candidate Scorecard:</h2>
+            <pre id="generated-scorecard"></pre>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

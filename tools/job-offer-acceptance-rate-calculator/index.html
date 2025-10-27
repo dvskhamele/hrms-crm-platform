@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Offer Acceptance Rate Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Job Offer Acceptance Rate Calculator</h1>
+        <p>Calculate the acceptance rate of your job offers to measure recruitment success.</p>
+        <div class="calculator">
+            <div class="input-group">
+                <label for="offers-extended">Number of Offers Extended</label>
+                <input type="number" id="offers-extended" placeholder="e.g., 50">
+            </div>
+            <div class="input-group">
+                <label for="offers-accepted">Number of Offers Accepted</label>
+                <input type="number" id="offers-accepted" placeholder="e.g., 45">
+            </div>
+            <button id="calculate-btn">Calculate</button>
+            <div class="result">
+                <h2>Your Job Offer Acceptance Rate is:</h2>
+                <p id="acceptance-rate">-</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

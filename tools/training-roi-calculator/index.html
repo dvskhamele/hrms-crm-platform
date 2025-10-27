@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training ROI Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Training ROI Calculator</h1>
+        <p>Calculate the return on investment for your training programs.</p>
+        <div class="form-container">
+            <label for="total-training-costs">Total Training Costs:</label>
+            <input type="number" id="total-training-costs" min="0">
+            <label for="monetary-benefits">Monetary Benefits from Training (e.g., increased productivity, reduced errors):</label>
+            <input type="number" id="monetary-benefits" min="0">
+            <button id="calculate-btn">Calculate ROI</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

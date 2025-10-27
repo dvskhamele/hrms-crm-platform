@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost Per Hire Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Calculate your cost per hire quickly and accurately with our free online tool. Optimize your recruitment budget.">
+    <meta property="og:title" content="Cost Per Hire Calculator">
+    <meta property="og:description" content="Calculate your cost per hire quickly and accurately with our free online tool. Optimize your recruitment budget.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="YOUR_SHAREABLE_URL_HERE">
+</head>
+<body>
+    <div class="container">
+        <h1>Cost Per Hire Calculator</h1>
+        <p>Optimize your recruitment budget by calculating your cost per hire.</p>
+
+        <div class="input-section">
+            <h2>Recruitment Costs</h2>
+            <div id="costInputs">
+                <div class="form-group cost-item">
+                    <label>Cost Item:</label>
+                    <input type="text" class="cost-description" value="Advertising">
+                    <label>Amount ($):</label>
+                    <input type="number" class="cost-amount" min="0" value="1000">
+                    <button class="remove-cost-item">Remove</button>
+                </div>
+                <div class="form-group cost-item">
+                    <label>Cost Item:</label>
+                    <input type="text" class="cost-description" value="Agency Fees">
+                    <label>Amount ($):</label>
+                    <input type="number" class="cost-amount" min="0" value="2500">
+                    <button class="remove-cost-item">Remove</button>
+                </div>
+            </div>
+            <button id="addCostItem">Add Another Cost Item</button>
+        </div>
+
+        <div class="form-group">
+            <label for="numberOfHires">Number of Hires during the period:</label>
+            <input type="number" id="numberOfHires" min="1" value="5">
+        </div>
+
+        <button id="calculateBtn">Calculate Cost Per Hire</button>
+
+        <div class="result-section">
+            <h2>Result:</h2>
+            <p>Total Recruitment Cost: $<span id="totalCost">0.00</span></p>
+            <p>Cost Per Hire: $<span id="costPerHire">0.00</span></p>
+        </div>
+
+        <div class="lead-capture-section">
+            <h2>Get more HR insights!</h2>
+            <p>Enter your email to receive exclusive HR tools and tips directly in your inbox.</p>
+            <input type="email" id="leadEmail" placeholder="your.email@example.com">
+            <button id="subscribeBtn">Subscribe</button>
+            <p id="leadMessage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

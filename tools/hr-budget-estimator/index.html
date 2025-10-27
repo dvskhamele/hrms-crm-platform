@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Budget Estimator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>HR Budget Estimator</h1>
+        <p>Estimate your annual HR budget across key categories.</p>
+
+        <div class="estimator-form">
+            <div class="input-group">
+                <label for="num-employees">Number of Employees:</label>
+                <input type="number" id="num-employees" value="10" min="1">
+            </div>
+            <div class="input-group">
+                <label for="avg-salary">Average Annual Salary ($):</label>
+                <input type="number" id="avg-salary" value="60000" min="10000">
+            </div>
+            <button id="estimate-btn">Estimate Budget</button>
+        </div>
+
+        <div id="budget-output" class="hidden">
+            <h2>Estimated Annual HR Budget</h2>
+            <div id="budget-content"></div>
+            <button id="copy-budget-btn">Copy Budget Details</button>
+        </div>
+
+        <small class="disclaimer">This is an estimate for illustrative purposes only. Actual costs may vary significantly.</small>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

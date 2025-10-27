@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Specifications Roadmap</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #0056b3; }
+        ul { list-style-type: disc; margin-left: 20px; }
+        ul ul { list-style-type: circle; margin-left: 20px; }
+        b { font-weight: bold; }
+        code { background-color: #eef; padding: 2px 4px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tool Specifications Roadmap</h1>
+
+        <h2>Candidate Interview Scorecard Generator</h2>
+        <ul>
+            <li><b>Tool Name:</b> Candidate Interview Scorecard Generator</li>
+            <li><b>Slug:</b> <code>candidate-interview-scorecard-generator</code></li>
+            <li><b>Description:</b> Generate customizable interview scorecards to standardize candidate evaluation, reduce bias, and improve hiring consistency.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Job Title (text input)</li>
+                    <li>Key Skills/Competencies (multi-line text area, comma-separated or one per line)</li>
+                    <li>Evaluation Criteria (multi-line text area, one per line, e.g., "Communication Skills", "Problem-Solving", "Teamwork")</li>
+                    <li>Rating Scale (dropdown: e.g., "1-5 (Poor to Excellent)", "1-3 (Needs Improvement to Exceeds Expectations)")</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Parse skills and criteria.</li>
+                    <li>Generate a printable HTML scorecard based on inputs.</li>
+                    <li>Calculate a total score based on selected ratings (mock calculation for now).</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>A generated HTML scorecard with input details and a section for interviewer ratings/notes.</li>
+                    <li>A summary of the scorecard (e.g., number of criteria, selected rating scale).</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "interview scorecard," "candidate evaluation," "hiring consistency," "reduce bias," "recruitment tool," "HR template," "interview template."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>Job Description Enhancer</h2>
+        <ul>
+            <li><b>Tool Name:</b> Job Description Enhancer</li>
+            <li><b>Slug:</b> <code>job-description-enhancer</code></li>
+            <li><b>Description:</b> Improve your job descriptions for clarity, SEO, and inclusivity to attract top talent.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Raw Job Description (multi-line text area)</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Analyze the input text for common issues (e.g., jargon, lack of keywords, non-inclusive language).</li>
+                    <li>Suggest improvements (e.g., add keywords, rephrase sentences for clarity, suggest inclusive alternatives).</li>
+                    <li>Provide a "readability score" (mock calculation).</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>Original Job Description.</li>
+                    <li>Enhanced Job Description with suggestions highlighted or applied.</li>
+                    <li>Summary of improvements and a readability score.</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "job description optimization," "inclusive job descriptions," "job ad writing," "recruitment marketing," "talent attraction."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>New Hire Onboarding Checklist Generator</h2>
+        <ul>
+            <li><b>Tool Name:</b> New Hire Onboarding Checklist Generator</li>
+            <li><b>Slug:</b> <code>new-hire-onboarding-checklist-generator</code></li>
+            <li><b>Description:</b> Generate a customized onboarding checklist for new hires to ensure a smooth and comprehensive integration into your company.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Employee Role (text input)</li>
+                    <li>Department (text input)</li>
+                    <li>Start Date (date input - for display purposes)</li>
+                    <li>Pre-boarding Tasks (multi-line text area, one per line, e.g., "Send welcome email", "Setup IT accounts")</li>
+                    <li>First Day Tasks (multi-line text area, one per line, e.g., "Office tour", "Meet team")</li>
+                    <li>First Week Tasks (multi-line text area, one per line, e.g., "HR orientation", "Training sessions")</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Parse tasks for each phase.</li>
+                    <li>Generate a printable HTML checklist based on inputs.</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>A generated HTML checklist with employee details and categorized tasks.</li>
+                    <li>A summary of the checklist (e.g., number of tasks per phase).</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "new hire checklist," "employee onboarding," "onboarding process," "HR forms," "new employee orientation," "HR tools," "onboarding template."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>Performance Review Phrase Generator</h2>
+        <ul>
+            <li><b>Tool Name:</b> Performance Review Phrase Generator</li>
+            <li><b>Slug:</b> <code>performance-review-phrase-generator</code></li>
+            <li><b>Description:</b> Generate effective and constructive performance review phrases for various categories to streamline your feedback process.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Employee Name (text input)</li>
+                    <li>Review Category (dropdown: e.g., "Communication", "Teamwork", "Problem Solving", "Leadership", "Initiative")</li>
+                    <li>Performance Level (dropdown: e.g., "Exceeds Expectations", "Meets Expectations", "Needs Improvement")</li>
+                    <li>Specific Achievement/Area for Improvement (multi-line text area)</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Combine inputs to generate relevant performance review phrases.</li>
+                    <li>Provide a few variations for each generated phrase.</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>A list of generated performance review phrases based on the selected category and performance level.</li>
+                    <li>Tips for delivering effective feedback.</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "performance review phrases," "employee feedback," "performance management," "review templates," "constructive criticism."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>Salary Range Estimator</h2>
+        <ul>
+            <li><b>Tool Name:</b> Salary Range Estimator</li>
+            <li><b>Slug:</b> <code>salary-range-estimator</code></li>
+            <li><b>Description:</b> Estimate a competitive salary range for various roles, locations, and experience levels to inform your compensation strategies.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Job Title (text input)</li>
+                    <li>Location (text input, e.g., "New York, NY", "Remote")</li>
+                    <li>Experience Level (dropdown: "Entry-Level", "Mid-Level", "Senior", "Lead/Manager")</li>
+                    <li>Industry (dropdown: "Technology", "Healthcare", "Finance", "Marketing", "Other")</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Based on predefined (mock) data for job titles, locations, experience levels, and industries, provide an estimated salary range.</li>
+                    <li>The logic will be simplified for this autonomous agent, using hardcoded ranges based on input combinations.</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>An estimated salary range (e.g., "$80,000 - 20,000").</li>
+                    <li>Factors influencing the estimate.</li>
+                    <li>Disclaimer about the estimate being a guide.</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "salary estimator," "salary calculator," "compensation benchmark," "HR compensation tools," "job salary," "fair pay."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>Recruitment ROI Calculator</h2>
+        <ul>
+            <li><b>Tool Name:</b> Recruitment ROI Calculator</li>
+            <li><b>Slug:</b> <code>recruitment-roi-calculator</code></li>
+            <li><b>Description:</b> Calculate the return on investment for your recruitment efforts to optimize spending and demonstrate value.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Total Recruitment Costs (number input, e.g., advertising, agency fees, recruiter salaries)</li>
+                    <li>Total Revenue Generated by New Hires (number input, estimated or actual)</li>
+                    <li>Average Time to Fill (number input, in days)</li>
+                    <li>Average Employee Lifetime Value (number input, estimated)</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Calculate ROI based on the formula: <code>((Revenue Generated by New Hires - Recruitment Costs) / Recruitment Costs) * 100</code>.</li>
+                    <li>Provide insights based on Time to Fill and Employee Lifetime Value.</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>Calculated Recruitment ROI (percentage).</li>
+                    <li>Interpretation of the ROI.</li>
+                    <li>Suggestions for improving ROI.</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "recruitment ROI," "HR metrics," "talent acquisition analytics," "hiring cost calculator," "recruitment budget," "HR strategy," "talent management."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>Employee Turnover Cost Calculator</h2>
+        <ul>
+            <li><b>Tool Name:</b> Employee Turnover Cost Calculator</li>
+            <li><b>Slug:</b> <code>employee-turnover-cost-calculator</code></li>
+            <li><b>Description:</b> Calculate the hidden and direct costs associated with employee turnover to understand its financial impact on your organization.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Employee's Annual Salary (number input)</li>
+                    <li>Benefits Cost (percentage of salary, e.g., 25%)</li>
+                    <li>Recruitment Costs (number input, e.g., advertising, agency fees)</li>
+                    <li>Onboarding & Training Costs (number input)</li>
+                    <li>Lost Productivity (percentage of salary, estimated)</li>
+                    <li>Manager's Time (percentage of manager's salary, estimated)</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Calculate direct costs (recruitment, onboarding, training).</li>
+                    <li>Calculate indirect costs (lost productivity, manager's time).</li>
+                    <li>Sum direct and indirect costs to get total turnover cost.</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>Total Estimated Turnover Cost.</li>
+                    <li>Breakdown of direct and indirect costs.</li>
+                    <li>Suggestions for reducing turnover costs.</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "employee turnover cost," "retention strategies," "cost of turnover," "employee retention."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>HR Policy Generator</h2>
+        <ul>
+            <li><b>Tool Name:</b> HR Policy Generator</li>
+            <li><b>Slug:</b> <code>hr-policy-generator</code></li>
+            <li><b>Description:</b> Quickly generate customizable HR policy templates for common workplace scenarios to ensure compliance and consistency.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Company Name (text input)</li>
+                    <li>Policy Type (dropdown: "Remote Work Policy", "Leave of Absence Policy", "Code of Conduct", "Harassment Policy", "Data Privacy Policy")</li>
+                    <li>Key Details/Custom Clauses (multi-line text area, optional)</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Based on the selected policy type, generate a basic policy template.</li>
+                    <li>Incorporate company name and custom clauses.</li>
+                    <li>Include placeholders for sections requiring further customization.</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>A generated HTML policy document.</li>
+                    <li>Guidance on customizing and implementing the policy.</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "HR policy template," "workplace policy," "compliance tools," "HR forms," "employee handbook," "HR best practices," "policy management."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>Construction Daily Log Generator</h2>
+        <ul>
+            <li><b>Tool Name:</b> Construction Daily Log Generator</li>
+            <li><b>Slug:</b> <code>construction-daily-log-generator</code></li>
+            <li><b>Description:</b> Generate comprehensive daily construction logs to track progress, resources, and site conditions efficiently.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Project Name (text input)</li>
+                    <li>Date (date input)</li>
+                    <li>Site Conditions (multi-line text area, e.g., "Weather: Sunny, Temp: 75F", "Ground: Dry")</li>
+                    <li>Work Performed (multi-line text area, one per line, e.g., "Foundation excavation", "Steel rebar installation")</li>
+                    <li>Equipment Used (multi-line text area, one per line, e.g., "Excavator (John Doe)", "Crane (Jane Smith)")</li>
+                    <li>Personnel On-Site (multi-line text area, one per line, e.g., "5 Laborers", "2 Supervisors")</li>
+                    <li>Issues/Delays (multi-line text area, optional, one per line)</li>
+                    <li>Safety Observations (multi-line text area, optional, one per line)</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Compile all inputs into a structured daily log format.</li>
+                    <li>Generate a printable HTML daily log.</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>A generated HTML daily log document.</li>
+                    <li>Summary of the day's activities.</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "construction daily report," "daily progress report," "DPR format," "construction log template," "site management tools," "construction documentation," "project tracking."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>Construction Project Cost Estimator</h2>
+        <ul>
+            <li><b>Tool Name:</b> Construction Project Cost Estimator</li>
+            <li><b>Slug:</b> <code>construction-project-cost-estimator</code></li>
+            <li><b>Description:</b> Estimate the total cost of a construction project by breaking down expenses for materials, labor, equipment, and overhead.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Project Type (dropdown: "Residential", "Commercial", "Industrial", "Infrastructure")</li>
+                    <li>Project Size (number input, e.g., square footage or units)</li>
+                    <li>Material Cost per Unit (number input, e.g., $/sq ft)</li>
+                    <li>Labor Cost per Hour (number input)</li>
+                    <li>Estimated Labor Hours (number input)</li>
+                    <li>Equipment Rental Cost per Day (number input)</li>
+                    <li>Estimated Equipment Days (number input)</li>
+                    <li>Overhead Percentage (number input, e.g., 15%)</li>
+                    <li>Profit Margin Percentage (number input, e.g., 10%)</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Calculate total material cost: <code>Project Size * Material Cost per Unit</code>.</li>
+                    <li>Calculate total labor cost: <code>Labor Cost per Hour * Estimated Labor Hours</code>.</li>
+                    <li>Calculate total equipment cost: <code>Equipment Rental Cost per Day * Estimated Equipment Days</code>.</li>
+                    <li>Calculate subtotal: <code>Total Material Cost + Total Labor Cost + Total Equipment Cost</code>.</li>
+                    <li>Calculate overhead: <code>Subtotal * (Overhead Percentage / 100)</code>.</li>
+                    <li>Calculate total cost before profit: <code>Subtotal + Overhead</code>.</li>
+                    <li>Calculate profit: <code>Total Cost Before Profit * (Profit Margin Percentage / 100)</code>.</li>
+                    <li>Calculate total estimated project cost: <code>Total Cost Before Profit + Profit</code>.</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>Total Estimated Project Cost.</li>
+                    <li>Breakdown of costs (materials, labor, equipment, overhead, profit).</li>
+                    <li>Summary of the estimate.</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "construction cost estimate," "project cost calculator," "building cost estimator," "construction budget," "contractor estimating software," "construction finance," "project planning tools."</li>
+            <li><b>Status:</b> Implemented</li>
+        </ul>
+
+        <h2>Employee Engagement Survey Question Generator</h2>
+        <ul>
+            <li><b>Tool Name:</b> Employee Engagement Survey Question Generator</li>
+            <li><b>Slug:</b> <code>employee-engagement-survey-question-generator</code></li>
+            <li><b>Description:</b> Generate a list of customizable questions for employee engagement surveys to gather valuable feedback and improve workplace culture.</li>
+            <li><b>Inputs:</b>
+                <ul>
+                    <li>Survey Focus (dropdown: "Overall Engagement", "Leadership Effectiveness", "Work-Life Balance", "Career Development", "Compensation & Benefits", "Company Culture")</li>
+                    <li>Number of Questions (number input, e.g., 5, 10, 15)</li>
+                    <li>Include Open-Ended Questions (checkbox)</li>
+                </ul>
+            </li>
+            <li><b>Logic:</b>
+                <ul>
+                    <li>Based on the selected survey focus, generate a set of relevant questions.</li>
+                    <li>If "Include Open-Ended Questions" is checked, add a few open-ended questions.</li>
+                    <li>Ensure the number of questions matches the user's input (or is close to it, if exact matching is difficult with predefined sets).</li>
+                </ul>
+            </li>
+            <li><b>Output:</b>
+                <ul>
+                    <li>A list of generated survey questions.</li>
+                    <li>Tips for conducting an effective employee engagement survey.</li>
+                </ul>
+            </li>
+            <li><b>SEO/Marketing Keywords:</b> "employee engagement survey," "HR survey questions," "employee satisfaction," "feedback tools," "workplace culture," "HR analytics," "employee feedback."</li>
+            <li><b>Status:</b> Planned</li>
+        </ul>
+    </div>
+</body>
+</html>

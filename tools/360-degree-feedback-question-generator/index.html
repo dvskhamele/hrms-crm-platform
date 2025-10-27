@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360-Degree Feedback Question Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>360-Degree Feedback Question Generator</h1>
+        <p>Generate customized question sets for comprehensive 360-degree feedback assessments.</p>
+
+        <div class="input-section">
+            <label for="feedback-category">Select Feedback Category:</label>
+            <select id="feedback-category">
+                <option value="leadership">Leadership</option>
+                <option value="communication">Communication</option>
+                <option value="teamwork">Teamwork & Collaboration</option>
+                <option value="problem-solving">Problem-Solving & Decision-Making</option>
+                <option value="adaptability">Adaptability & Innovation</option>
+                <option value="interpersonal">Interpersonal Skills</option>
+            </select>
+            <button id="generate-btn">Generate Questions</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Generated Feedback Questions:</h2>
+            <ul id="questions-list">
+                <!-- Questions will be inserted here by JavaScript -->
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

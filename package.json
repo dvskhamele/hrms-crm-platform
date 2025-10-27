@@ -33,5 +33,12 @@
   "bugs": {
     "url": "https://github.com/your-username/hrmscrm-platform/issues"
   },
-  "homepage": "https://github.com/your-username/hrmscrm-platform#readme"
+  "homepage": "https://github.com/your-username/hrmscrm-platform#readme",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "5.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
 }

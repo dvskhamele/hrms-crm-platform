@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Feedback Analysis Results | Gem HRMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Employee Feedback Analysis Results</h1>
+            <div id="results" class="prose max-w-none">
+                <!-- Analysis results will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logAnalyticsEvent(eventName, data = {}) {
+            console.log(`Analytics Event: ${eventName}`, data);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const data = urlParams.get('data');
+
+            if (data) {
+                try {
+                    const decodedData = JSON.parse(atob(data));
+                    logAnalyticsEvent('ToolResultViewed', { tool: 'EmployeeFeedbackAnalyzer', results: decodedData });
+
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = `
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Original Feedback</h2>
+                        <blockquote class="bg-gray-50 p-4 rounded-md border-l-4 border-gray-300 text-gray-700 mb-6">
+                            <p class="italic">"${decodedData.inputs.feedbackText}"</p>
+                        </blockquote>
+
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Analysis Summary</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-blue-50 p-4 rounded-md">
+                                <p class="font-semibold text-blue-800">Detected Sentiment:</p>
+                                <p class="text-blue-700 text-lg">${decodedData.results.sentiment}</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-md">
+                                <p class="font-semibold text-green-800">Identified Themes:</p>
+                                <p class="text-green-700 text-lg">${decodedData.results.themes.join(', ')}</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-yellow-50 p-4 rounded-md">
+                                <p class="font-semibold text-yellow-800">Word Count:</p>
+                                <p class="text-yellow-700 text-lg">${decodedData.results.wordCount}</p>
+                            </div>
+                            <div class="bg-red-50 p-4 rounded-md">
+                                <p class="font-semibold text-red-800">Character Count:</p>
+                                <p class="text-red-700 text-lg">${decodedData.results.characterCount}</p>
+                            </div>
+                        </div>
+                    `;
+                } catch (error) {
+                    console.error('Error decoding results data:', error);
+                    document.getElementById('results').innerHTML = '<p class="text-red-500 text-center">Could not display analysis. The data may be corrupted.</p>';
+                }
+            } else {
+                document.getElementById('results').innerHTML = '<p class="text-red-500 text-center">No feedback data found.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

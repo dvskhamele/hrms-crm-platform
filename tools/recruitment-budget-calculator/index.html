@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Budget Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Recruitment Budget Calculator</h1>
+        <p>Estimate and manage your recruitment budget effectively.</p>
+        <div id="cost-inputs">
+            <div class="input-group">
+                <label for="advertising-cost">Advertising Costs ($):</label>
+                <input type="number" id="advertising-cost" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="agency-fees">Agency Fees ($):</label>
+                <input type="number" id="agency-fees" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="assessment-tools">Assessment Tools ($):</label>
+                <input type="number" id="assessment-tools" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="background-checks">Background Checks ($):</label>
+                <input type="number" id="background-checks" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="onboarding-costs">Onboarding Costs ($):</label>
+                <input type="number" id="onboarding-costs" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label for="miscellaneous-costs">Miscellaneous Costs ($):</label>
+                <input type="number" id="miscellaneous-costs" value="0" min="0">
+            </div>
+        </div>
+        <button id="calculate-btn">Calculate Total Budget</button>
+        <div id="total-budget-container">
+            <h2>Total Recruitment Budget: <span id="total-budget">$0</span></h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

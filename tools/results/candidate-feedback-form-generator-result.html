@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Feedback Form Result</title>
+    <meta name="description" content="Your customized candidate feedback form template. Collect structured interview feedback.">
+    <meta property="og:title" content="Candidate Feedback Form Result">
+    <meta property="og:description" content="Your customized candidate feedback form template. Collect structured interview feedback.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .feedback-form-template { background-color: #f9f9f9; padding: 1.5em; border-radius: 5px; margin-top: 1.5em; text-align: left; }
+        .feedback-form-template h3 { margin-top: 1em; margin-bottom: 0.5em; }
+        .feedback-form-template p { margin-bottom: 0.2em; }
+        .feedback-form-template .rating-scale { margin-left: 1em; font-size: 0.9em; color: #555; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="formTitle"></h1>
+        <p style="text-align: center;">Use this template to gather structured feedback after candidate interviews.</p>
+        <div class="feedback-form-template">
+            <p><strong>Interviewer Name:</strong> _________________________</p>
+            <p><strong>Date:</strong> _________________________</p>
+            <p><strong>Job Title:</strong> <span id="jobTitleDisplay"></span></p>
+            <p><strong>Candidate Name:</strong> <span id="candidateNameDisplay"></span></p>
+            <hr>
+            <h2>Evaluation Criteria:</h2>
+            <div id="criteriaSection"></div>
+            <hr>
+            <h3>Overall Recommendation:</h3>
+            <p>____________________________________________________________________________________________________</p>
+            <h3>Additional Comments:</h3>
+            <p>____________________________________________________________________________________________________</p>
+            <p>____________________________________________________________________________________________________</p>
+        </div>
+        <hr>
+        <h2>Save Your Form</h2>
+        <p>Enter your email to save this form and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const jobTitle = decodeURIComponent(urlParams.get('jobTitle'));
+        const candidateName = decodeURIComponent(urlParams.get('candidateName'));
+        const criteria = JSON.parse(decodeURIComponent(urlParams.get('criteria')));
+
+        document.getElementById('formTitle').textContent = `Feedback Form for ${jobTitle}`;
+        document.getElementById('jobTitleDisplay').textContent = jobTitle;
+        document.getElementById('candidateNameDisplay').textContent = candidateName;
+
+        const criteriaSection = document.getElementById('criteriaSection');
+        criteria.forEach(crit => {
+            const div = document.createElement('div');
+            div.innerHTML = `<h3>${crit}:</h3><p>Rating (1-5): _____ <span class="rating-scale">(1=Poor, 5=Excellent)</span></p><p>Comments: ____________________________________________________________________________________________________</p>`;
+            criteriaSection.appendChild(div);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Candidate Feedback Form Generator',
+                jobTitle: jobTitle,
+                candidateName: candidateName,
+                criteria: criteria.join(', ')
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Candidate Feedback Form Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

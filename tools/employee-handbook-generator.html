@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Handbook Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], textarea { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        #policiesList, #valuesList { list-style: none; padding: 0; margin-top: 1em; }
+        #policiesList li, #valuesList li { background-color: #f0f0f0; padding: .5em; margin-bottom: .5em; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; }
+        #policiesList li button, #valuesList li button { background-color: #dc3545; padding: .3em .6em; font-size: .8em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Handbook Generator</h1>
+        <p>Generate a basic outline for your company's employee handbook, covering key policies and values.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" placeholder="e.g., Innovate Corp" required>
+            </div>
+            <div class="form-group">
+                <label for="policy">Add Key Policy (e.g., PTO, Code of Conduct, Remote Work)</label>
+                <input type="text" id="policy" placeholder="e.g., Paid Time Off, Anti-Harassment Policy">
+                <button type="button" id="addPolicy">Add Policy</button>
+            </div>
+            <ul id="policiesList"></ul>
+            <div class="form-group">
+                <label for="value">Add Company Value (e.g., Integrity, Innovation, Customer Focus)</label>
+                <input type="text" id="value" placeholder="e.g., Respect, Collaboration">
+                <button type="button" id="addValue">Add Value</button>
+            </div>
+            <ul id="valuesList"></ul>
+            <button type="submit">Generate Handbook Outline</button>
+        </form>
+    </div>
+    <script>
+        const policies = [];
+        const values = [];
+
+        document.getElementById('addPolicy').addEventListener('click', function() {
+            const policyInput = document.getElementById('policy');
+            const policyText = policyInput.value.trim();
+            if (policyText) {
+                policies.push(policyText);
+                renderPolicies();
+                policyInput.value = '';
+            }
+        });
+
+        document.getElementById('addValue').addEventListener('click', function() {
+            const valueInput = document.getElementById('value');
+            const valueText = valueInput.value.trim();
+            if (valueText) {
+                values.push(valueText);
+                renderValues();
+                valueInput.value = '';
+            }
+        });
+
+        function renderPolicies() {
+            const list = document.getElementById('policiesList');
+            list.innerHTML = '';
+            policies.forEach((pol, index) => {
+                const li = document.createElement('li');
+                li.textContent = pol;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    policies.splice(index, 1);
+                    renderPolicies();
+                });
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        function renderValues() {
+            const list = document.getElementById('valuesList');
+            list.innerHTML = '';
+            values.forEach((val, index) => {
+                const li = document.createElement('li');
+                li.textContent = val;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    values.splice(index, 1);
+                    renderValues();
+                });
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const companyName = document.getElementById('companyName').value;
+
+            if (policies.length === 0 && values.length === 0) {
+                alert('Please add at least one policy or company value.');
+                return;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Employee Handbook Generator',
+                    companyName: companyName,
+                    policiesCount: policies.length,
+                    valuesCount: values.length
+                });
+            }
+
+            window.location.href = `/tools/results/employee-handbook-generator-result.html?companyName=${encodeURIComponent(companyName)}&policies=${encodeURIComponent(JSON.stringify(policies))}&values=${encodeURIComponent(JSON.stringify(values))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Employee Handbook Generator'
+            });
+        }
+    </script>
+</body>
+</html>

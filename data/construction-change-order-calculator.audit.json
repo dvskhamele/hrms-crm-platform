@@ -1,0 +1,27 @@
+{
+  "toolSlug": "construction-change-order-calculator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "Construction Change Order Calculator - Gem Tools",
+    "metaDescription": "Quickly calculate the cost and time impact of construction change orders to maintain project budget and schedule.",
+    "h1": "Construction Change Order Calculator",
+    "keywords": ["construction change order", "change order management", "construction cost calculator", "project cost control", "construction project management", "site engineer tools", "contractor tools"],
+    "url": "/tools/construction-change-order-calculator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator", "/tools/job-description-enhancer", "/tools/new-hire-onboarding-checklist-generator", "/tools/performance-review-phrase-generator", "/tools/salary-range-estimator", "/tools/recruitment-roi-calculator", "/tools/employee-turnover-cost-calculator", "/tools/hr-policy-generator", "/tools/employee-engagement-survey-question-generator"]
+  },
+  "marketingAudit": {
+    "targetAudience": "Site engineers, small contractors, construction project managers",
+    "valueProposition": "Accurately assess the financial and schedule impact of change orders to keep construction projects on track.",
+    "callToActions": ["Calculate Change Order", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Change Order Calculation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Original Contract Value", "Original Project Duration", "Change Order Description", "Material Cost Increase", "Labor Cost Increase", "Equipment Cost Increase", "Additional Days Required"],
+    "validationRules": ["All required fields", "Valid numbers"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, straightforward calculation"
+  }
+}

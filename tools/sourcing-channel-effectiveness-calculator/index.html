@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sourcing Channel Effectiveness Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sourcing Channel Effectiveness Calculator</h1>
+        <p>Calculate the effectiveness of your sourcing channels.</p>
+        <div class="form-container">
+            <label for="channel-name">Sourcing Channel:</label>
+            <input type="text" id="channel-name" placeholder="e.g., LinkedIn, Indeed, Referrals">
+            <label for="applications">Number of Applications:</label>
+            <input type="number" id="applications" min="0">
+            <label for="interviews">Number of Interviews:</label>
+            <input type="number" id="interviews" min="0">
+            <label for="hires">Number of Hires:</label>
+            <input type="number" id="hires" min="0">
+            <button id="calculate-btn">Calculate Effectiveness</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

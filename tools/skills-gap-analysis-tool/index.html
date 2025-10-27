@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Gap Analysis Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Skills Gap Analysis Tool</h1>
+        <p>Identify skills gaps within your team or organization.</p>
+        <div class="form-container">
+            <label for="required-skills">Required Skills (comma-separated):</label>
+            <input type="text" id="required-skills" placeholder="e.g., Python, SQL, Project Management">
+            <label for="employee-skills">Employee Skills (comma-separated):</label>
+            <input type="text" id="employee-skills" placeholder="e.g., Python, Excel, Communication">
+            <button id="analyze-btn">Analyze Skills Gap</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

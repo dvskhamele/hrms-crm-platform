@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Remote Work Policy Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Comprehensive Remote Work Policy Generator</h1>
+        <p class="intro">Create a tailored remote work policy for your organization, covering various models and key considerations.</p>
+        
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Global Innovations Inc.">
+            </div>
+
+            <div class="input-group">
+                <label for="remote-model">Remote Work Model:</label>
+                <select id="remote-model">
+                    <option value="fully-remote">Fully Remote (All employees work remotely)</option>
+                    <option value="hybrid">Hybrid (Mix of office and remote work)</option>
+                    <option value="remote-first">Remote-First (Remote is default, office for collaboration)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Policy Sections to Include (select all that apply):</label>
+                <label><input type="checkbox" class="policy-section" value="eligibility"> Eligibility & Approval</label>
+                <label><input type="checkbox" class="policy-section" value="expectations"> Performance & Expectations</label>
+                <label><input type="checkbox" class="policy-section" value="communication"> Communication & Collaboration</label>
+                <label><input type="checkbox" class="policy-section" value="equipment"> Equipment & Technology</label>
+                <label><input type="checkbox" class="policy-section" value="security"> Data Security & Confidentiality</label>
+                <label><input type="checkbox" class="policy-section" value="health-safety"> Health & Safety (Remote Workspace)</label>
+            </div>
+
+            <button id="generate-btn">Generate Policy</button>
+        </div>
+
+        <div class="results-container">
+            <h2>Generated Remote Work Policy</h2>
+            <textarea id="generated-policy" rows="20" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

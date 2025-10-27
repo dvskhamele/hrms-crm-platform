@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTE Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>FTE Calculator</h1>
+        <p>Calculate Full-Time Equivalents (FTEs) for your workforce, essential for budgeting, staffing, and compliance.</p>
+        <div class="input-group">
+            <label for="full-time-employees">Number of Full-Time Employees:</label>
+            <input type="number" id="full-time-employees" value="0" min="0">
+        </div>
+        <div class="input-group">
+            <label for="part-time-employees">Number of Part-Time Employees:</label>
+            <input type="number" id="part-time-employees" value="0" min="0">
+        </div>
+        <div class="input-group">
+            <label for="average-part-time-hours">Average Weekly Hours for Part-Time Employees:</label>
+            <input type="number" id="average-part-time-hours" value="20" min="0" max="40">
+        </div>
+        <button id="calculate-btn">Calculate FTE</button>
+        <div id="result-container">
+            <h2>Total FTE: <span id="total-fte">0</span></h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

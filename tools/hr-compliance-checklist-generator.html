@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Compliance Checklist Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HR Compliance Checklist Generator</h1>
+        <p>Generate a basic HR compliance checklist tailored to your company's size, industry, and location.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="companySize">Company Size</label>
+                <select id="companySize" required>
+                    <option value="small">Small (1-50 employees)</option>
+                    <option value="medium">Medium (51-500 employees)</option>
+                    <option value="large">Large (500+ employees)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="industry">Industry</label>
+                <select id="industry" required>
+                    <option value="general">General</option>
+                    <option value="tech">Technology</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="retail">Retail</option>
+                    <option value="finance">Finance</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <select id="location" required>
+                    <option value="us">United States</option>
+                    <option value="eu">European Union</option>
+                    <option value="canada">Canada</option>
+                </select>
+            </div>
+            <button type="submit">Generate Checklist</button>
+        </form>
+    </div>
+    <script>
+        const checklists = {
+            us: {
+                small: {
+                    general: [
+                        "Federal minimum wage compliance",
+                        "OSHA workplace safety standards",
+                        "I-9 employment eligibility verification",
+                        "EEO-1 reporting (if applicable)",
+                        "State-specific labor laws (e.g., paid sick leave)"
+                    ],
+                    tech: [
+                        "Data privacy policies (e.g., CCPA if applicable)",
+                        "Non-compete and NDA agreements",
+                        "Intellectual property agreements"
+                    ],
+                    healthcare: [
+                        "HIPAA compliance",
+                        "Medical leave policies (FMLA)",
+                        "Background checks for patient-facing roles"
+                    ],
+                    retail: [
+                        "Wage and hour laws for hourly employees",
+                        "Child labor laws",
+                        "Break and meal period compliance"
+                    ],
+                    finance: [
+                        "FINRA/SEC regulations (if applicable)",
+                        "Background checks for financial roles",
+                        "Data security and privacy policies"
+                    ]
+                },
+                medium: {
+                    general: [
+                        "All small company general compliance",
+                        "ACA compliance (health insurance mandates)",
+                        "FMLA administration",
+                        "COBRA administration",
+                        "Annual EEO-1 reporting"
+                    ],
+                    tech: [
+                        "All small company tech compliance",
+                        "Advanced data privacy regulations",
+                        "Global mobility policies (if international employees)"
+                    ],
+                    healthcare: [
+                        "All small company healthcare compliance",
+                        "Advanced HIPAA training and audits",
+                        "Specific state healthcare regulations"
+                    ],
+                    retail: [
+                        "All small company retail compliance",
+                        "Advanced wage and hour audits",
+                        "Union relations (if applicable)"
+                    ],
+                    finance: [
+                        "All small company finance compliance",
+                        "Enhanced regulatory reporting",
+                        "Whistleblower protection policies"
+                    ]
+                },
+                large: {
+                    general: [
+                        "All medium company general compliance",
+                        "Affirmative Action Plans (AAP)",
+                        "OFCCP compliance (federal contractors)",
+                        "Global HR compliance (if international operations)"
+                    ],
+                    tech: [
+                        "All medium company tech compliance",
+                        "International data transfer agreements",
+                        "Compliance with global tech regulations"
+                    ],
+                    healthcare: [
+                        "All medium company healthcare compliance",
+                        "Complex regulatory reporting to federal and state agencies",
+                        "Patient safety and quality compliance"
+                    ],
+                    retail: [
+                        "All medium company retail compliance",
+                        "Large-scale workforce management compliance",
+                        "Supply chain labor compliance"
+                    ],
+                    finance: [
+                        "All medium company finance compliance",
+                        "International financial regulations compliance",
+                        "Anti-money laundering (AML) compliance"
+                    ]
+                }
+            },
+            eu: {
+                small: {
+                    general: [
+                        "GDPR compliance (data protection)",
+                        "Working time regulations",
+                        "Health and safety at work regulations",
+                        "Equal treatment and non-discrimination laws",
+                        "National labor laws (e.g., notice periods, contracts)"
+                    ],
+                    tech: [
+                        "GDPR compliance for personal data processing",
+                        "ePrivacy Directive compliance (cookies)",
+                        "Intellectual property rights"
+                    ],
+                    healthcare: [
+                        "GDPR for sensitive health data",
+                        "Patient rights and data security",
+                        "National healthcare regulations"
+                    ],
+                    retail: [
+                        "Consumer protection laws",
+                        "Working time regulations for retail staff",
+                        "Health and safety in retail environments"
+                    ],
+                    finance: [
+                        "GDPR for financial data",
+                        "MiFID II (if applicable)",
+                        "Anti-money laundering (AML) directives"
+                    ]
+                },
+                medium: {
+                    general: [
+                        "All small company general compliance",
+                        "Collective bargaining agreements (if applicable)",
+                        "Works council obligations (if applicable)",
+                        "Cross-border employment regulations"
+                    ],
+                    tech: [
+                        "All small company tech compliance",
+                        "Advanced data protection impact assessments",
+                        "Compliance with EU-specific tech regulations"
+                    ],
+                    healthcare: [
+                        "All small company healthcare compliance",
+                        "Advanced medical device regulations (MDR/IVDR)",
+                        "Clinical trial regulations"
+                    ],
+                    retail: [
+                        "All small company retail compliance",
+                        "Supply chain due diligence laws",
+                        "Consumer contract laws"
+                    ],
+                    finance: [
+                        "All small company finance compliance",
+                        "PSD2 (if applicable)",
+                        "Enhanced financial reporting standards"
+                    ]
+                },
+                large: {
+                    general: [
+                        "All medium company general compliance",
+                        "Pan-European HR policies and procedures",
+                        "Compliance with international labor standards",
+                        "Complex cross-border tax and social security regulations"
+                    ],
+                    tech: [
+                        "All medium company tech compliance",
+                        "AI Act compliance (if applicable)",
+                        "Digital Services Act (DSA) compliance"
+                    ],
+                    healthcare: [
+                        "All medium company healthcare compliance",
+                        "European Medicines Agency (EMA) regulations",
+                        "International patient data transfer compliance"
+                    ],
+                    retail: [
+                        "All medium company retail compliance",
+                        "International trade and customs compliance",
+                        "Ethical sourcing and sustainability regulations"
+                    ],
+                    finance: [
+                        "All medium company finance compliance",
+                        "Basel III/IV (if applicable)",
+                        "International tax compliance (e.g., DAC6)"
+                    ]
+                }
+            },
+            canada: {
+                small: {
+                    general: [
+                        "Provincial/territorial employment standards acts",
+                        "Federal/provincial human rights legislation",
+                        "Privacy legislation (PIPEDA or provincial equivalents)",
+                        "Workplace health and safety regulations",
+                        "Payroll deductions and remittances (CPP, EI, income tax)"
+                    ],
+                    tech: [
+                        "Data privacy and cybersecurity policies",
+                        "Intellectual property protection",
+                        "Employee monitoring policies"
+                    ],
+                    healthcare: [
+                        "Provincial healthcare regulations",
+                        "Patient privacy (e.g., PHIPA in Ontario)",
+                        "Professional licensing requirements"
+                    ],
+                    retail: [
+                        "Provincial retail business holidays acts",
+                        "Wage and hour laws for retail workers",
+                        "Consumer protection laws"
+                    ],
+                    finance: [
+                        "OSFI regulations (if federally regulated)",
+                        "Provincial securities legislation",
+                        "Anti-money laundering (AML) regulations (FINTRAC)"
+                    ]
+                },
+                medium: {
+                    general: [
+                        "All small company general compliance",
+                        "Employment equity reporting (if applicable)",
+                        "Pay equity legislation (if applicable)",
+                        "Workplace harassment and violence prevention policies"
+                    ],
+                    tech: [
+                        "All small company tech compliance",
+                        "Cross-border data transfer agreements",
+                        "Compliance with emerging tech regulations"
+                    ],
+                    healthcare: [
+                        "All small company healthcare compliance",
+                        "Advanced provincial health regulations",
+                        "Medical device and drug regulations (Health Canada)"
+                    ],
+                    retail: [
+                        "All small company retail compliance",
+                        "Supply chain transparency laws",
+                        "Accessibility for Ontarians with Disabilities Act (AODA) compliance (if applicable)"
+                    ],
+                    finance: [
+                        "All small company finance compliance",
+                        "Enhanced regulatory reporting to provincial and federal bodies",
+                        "Consumer financial protection laws"
+                    ]
+                },
+                large: {
+                    general: [
+                        "All medium company general compliance",
+                        "Federal Contractors Program (if applicable)",
+                        "Complex collective bargaining agreements",
+                        "International HR compliance (if global operations)"
+                    ],
+                    tech: [
+                        "All medium company tech compliance",
+                        "Global data privacy frameworks compliance",
+                        "AI governance and ethics policies"
+                    ],
+                    healthcare: [
+                        "All medium company healthcare compliance",
+                        "Complex regulatory audits and inspections",
+                        "International health data transfer compliance"
+                    ],
+                    retail: [
+                        "All medium company retail compliance",
+                        "Large-scale workforce management and scheduling compliance",
+                        "Ethical sourcing and sustainability reporting"
+                    ],
+                    finance: [
+                        "All medium company finance compliance",
+                        "International financial regulatory compliance",
+                        "Complex tax compliance (e.g., FATCA, CRS)"
+                    ]
+                }
+            }
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const companySize = document.getElementById('companySize').value;
+            const industry = document.getElementById('industry').value;
+            const location = document.getElementById('location').value;
+
+            const generatedChecklist = checklists[location][companySize][industry] || [];
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'HR Compliance Checklist Generator',
+                    companySize: companySize,
+                    industry: industry,
+                    location: location,
+                    generatedChecklistCount: generatedChecklist.length
+                });
+            }
+
+            window.location.href = `/tools/results/hr-compliance-checklist-generator-result.html?companySize=${encodeURIComponent(companySize)}&industry=${encodeURIComponent(industry)}&location=${encodeURIComponent(location)}&checklist=${encodeURIComponent(JSON.stringify(generatedChecklist))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'HR Compliance Checklist Generator'
+            });
+        }
+    </script>
+</body>
+</html>

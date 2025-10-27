@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Non-Disclosure Agreement (NDA) Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Non-Disclosure Agreement (NDA) Generator</h1>
+        <p>Generate a basic Non-Disclosure Agreement to protect your confidential information.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Disclosing Party (Your Company Name):</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="recipient-name">Receiving Party (Individual/Company Name):</label>
+                <input type="text" id="recipient-name" placeholder="e.g., John Doe / Partner Co.">
+            </div>
+            <div class="input-group">
+                <label for="agreement-date">Agreement Date:</label>
+                <input type="date" id="agreement-date">
+            </div>
+            <div class="input-group full-width">
+                <label for="purpose">Purpose of Disclosure:</label>
+                <textarea id="purpose" rows="3" placeholder="e.g., For the purpose of evaluating a potential business partnership."></textarea>
+            </div>
+            <button id="generate-nda-btn">Generate NDA</button>
+        </div>
+
+        <div id="nda-output" class="hidden">
+            <h2>Generated Non-Disclosure Agreement</h2>
+            <div id="nda-content"></div>
+            <button id="copy-nda-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

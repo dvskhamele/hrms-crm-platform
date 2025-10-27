@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Offer Negotiation Result</title>
+    <meta name="description" content="Your job offer negotiation analysis. Understand the total value of your offer.">
+    <meta property="og:title" content="Job Offer Negotiation Result">
+    <meta property="og:description" content="Your job offer negotiation analysis. Understand the total value of your offer.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 600px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; text-align: center; }
+        .result-value { font-size: 1.8em; font-weight: bold; margin: 0.5em 0; }
+        .gap-value { font-size: 1.5em; font-weight: bold; margin: 0.5em 0; color: #dc3545; }
+        .positive-gap { color: #28a745; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Job Offer Negotiation Analysis</h1>
+        <p>Based on your inputs:</p>
+        <p>Total Offer Value: <span class="result-value" id="totalOfferValue"></span></p>
+        <p>Desired Base Salary: $<span id="desiredBaseSalary"></span></p>
+        <p>Salary Gap: <span class="gap-value" id="salaryGap"></span></p>
+        <hr>
+        <h2>Save Your Analysis</h2>
+        <p>Enter your email to save this analysis and get more career tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const offered = parseFloat(urlParams.get('offered')) || 0;
+        const bonus = parseFloat(urlParams.get('bonus')) || 0;
+        const equity = parseFloat(urlParams.get('equity')) || 0;
+        const benefits = parseFloat(urlParams.get('benefits')) || 0;
+        const desired = parseFloat(urlParams.get('desired')) || 0;
+        const total = parseFloat(urlParams.get('total')) || 0;
+        const gap = parseFloat(urlParams.get('gap')) || 0;
+
+        document.getElementById('totalOfferValue').textContent = `$${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        document.getElementById('desiredBaseSalary').textContent = desired.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        
+        const salaryGapElement = document.getElementById('salaryGap');
+        salaryGapElement.textContent = `$${Math.abs(gap).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        if (gap < 0) {
+            salaryGapElement.textContent = `-$${Math.abs(gap).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            salaryGapElement.classList.remove('positive-gap');
+        } else if (gap > 0) {
+            salaryGapElement.textContent = `+$${Math.abs(gap).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            salaryGapElement.classList.add('positive-gap');
+        } else {
+            salaryGapElement.textContent = `$0.00`;
+            salaryGapElement.classList.add('positive-gap');
+        }
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Job Offer Negotiation Calculator',
+                baseSalaryOffered: offered,
+                signingBonus: bonus,
+                equityValue: equity,
+                benefitsValue: benefits,
+                desiredBaseSalary: desired,
+                totalOfferValue: total,
+                salaryGap: gap
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Job Offer Negotiation Calculator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

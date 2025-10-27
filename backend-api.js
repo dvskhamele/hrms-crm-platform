@@ -706,6 +706,42 @@ app.get('/api/hr/operations/run-daily', (req, res) => {
   }
 });
 
+// Lead capture endpoint
+app.post('/api/leads', (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+
+  const leadsFilePath = path.join(__dirname, 'data', 'prelogin_leads', 'leads.json');
+
+  fs.readFile(leadsFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading leads file:', err);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    let leads = [];
+    try {
+      leads = JSON.parse(data);
+    } catch (parseErr) {
+      console.error('Error parsing leads file:', parseErr);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    leads.push({ email, createdAt: new Date().toISOString() });
+
+    fs.writeFile(leadsFilePath, JSON.stringify(leads, null, 2), (writeErr) => {
+      if (writeErr) {
+        console.error('Error writing leads file:', writeErr);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      res.status(200).json({ message: 'Lead captured successfully' });
+    });
+  });
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`HRMS Recruitment Management server running on http://localhost:${PORT}`);

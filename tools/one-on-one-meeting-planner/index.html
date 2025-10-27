@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-on-One Meeting Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>One-on-One Meeting Planner</h1>
+        <p class="intro">Plan effective and productive one-on-one meetings with your team members.</p>
+        
+        <div class="planner-form">
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            </div>
+
+            <div class="input-group">
+                <label for="meeting-date">Meeting Date:</label>
+                <input type="date" id="meeting-date">
+            </div>
+
+            <div class="input-group">
+                <label for="discussion-topics">Discussion Topics (pre-filled suggestions):</label>
+                <label><input type="checkbox" class="topic-checkbox" value="performance"> Performance & Goals</label>
+                <label><input type="checkbox" class="topic-checkbox" value="development"> Career Development & Growth</label>
+                <label><input type="checkbox" class="topic-checkbox" value="well-being"> Well-being & Work-Life Balance</label>
+                <label><input type="checkbox" class="topic-checkbox" value="feedback"> Feedback (Manager to Employee)</label>
+                <label><input type="checkbox" class="topic-checkbox" value="support"> Support Needed from Manager</label>
+            </div>
+
+            <div class="input-group">
+                <label for="employee-notes">Employee's Discussion Points/Questions:</label>
+                <textarea id="employee-notes" rows="5" placeholder="(To be filled by employee before meeting)"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="manager-notes">Manager's Notes/Action Items:</label>
+                <textarea id="manager-notes" rows="5" placeholder="(To be filled by manager during/after meeting)"></textarea>
+            </div>
+
+            <button id="print-plan-btn">Print Meeting Plan</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+event_definitions:
+  - name: ToolOpened
+    description: A tool page was opened by a user.
+    payload: { toolSlug: "string" }
+  - name: ToolSubmitted
+    description: A tool form was submitted by a user.
+    payload: { toolSlug: "string", inputData: "object" }
+  - name: ToolResultViewed
+    description: A tool result page was viewed by a user.
+    payload: { toolSlug: "string", resultId: "string" }
+  - name: LeadCaptured
+    description: A lead (email) was captured from a tool's result page.
+    payload: { toolSlug: "string", email: "string", resultId: "string" }
+  - name: ErrorEvent
+    description: An error occurred within a tool or scheduler.
+    payload: { toolSlug: "string", errorMessage: "string", stackTrace: "string" }

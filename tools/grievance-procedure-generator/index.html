@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grievance Procedure Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Grievance Procedure Generator</h1>
+        <p>Generate a clear and fair grievance procedure for your employees to address workplace concerns.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="policy-date">Effective Date:</label>
+                <input type="date" id="policy-date">
+            </div>
+            <div class="input-group full-width">
+                <label for="step1">Step 1: Informal Resolution (e.g., Discuss with immediate manager):</label>
+                <textarea id="step1" rows="2" placeholder="e.g., The employee should first attempt to resolve the issue informally by discussing it with their immediate manager."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="step2">Step 2: Formal Complaint (e.g., Submit written complaint to HR):</label>
+                <textarea id="step2" rows="2" placeholder="e.g., If informal resolution is not possible or satisfactory, the employee may submit a formal written complaint to Human Resources."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="step3">Step 3: Investigation & Resolution (e.g., HR investigates and provides decision):</label>
+                <textarea id="step3" rows="2" placeholder="e.g., HR will conduct a thorough investigation, which may include interviews with relevant parties, and provide a written decision within [X] business days."></textarea>
+            </div>
+            <button id="generate-procedure-btn">Generate Grievance Procedure</button>
+        </div>
+
+        <div id="procedure-output" class="hidden">
+            <h2>Generated Grievance Procedure</h2>
+            <div id="procedure-content"></div>
+            <button id="copy-procedure-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Offboarding Announcement Email Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Internal Offboarding Announcement Email Generator</h1>
+        <p>Generate a professional email to announce an employee's departure to internal teams.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="employee-name">Departing Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            </div>
+            <div class="input-group">
+                <label for="employee-role">Employee Role:</label>
+                <input type="text" id="employee-role" placeholder="e.g., Marketing Manager">
+            </div>
+            <div class="input-group">
+                <label for="last-day">Last Day of Employment:</label>
+                <input type="date" id="last-day">
+            </div>
+            <div class="input-group full-width">
+                <label for="reason">Reason for Departure (Optional, e.g., pursuing other opportunities, retirement):</label>
+                <textarea id="reason" rows="2" placeholder="e.g., Jane is pursuing other opportunities."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="transition-plan">Transition Plan/Coverage (Optional):</label>
+                <textarea id="transition-plan" rows="3" placeholder="e.g., During this transition, please direct all inquiries related to [area] to [colleague name] at [email/extension]."></textarea>
+            </div>
+            <button id="generate-email-btn">Generate Email</button>
+        </div>
+
+        <div id="email-output" class="hidden">
+            <h2>Generated Internal Offboarding Email</h2>
+            <div id="email-content"></div>
+            <button id="copy-email-btn">Copy Email</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

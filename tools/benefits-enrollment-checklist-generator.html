@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benefits Enrollment Checklist Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], input[type="date"] { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        #benefitsList { list-style: none; padding: 0; margin-top: 1em; }
+        #benefitsList li { background-color: #f0f0f0; padding: .5em; margin-bottom: .5em; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; }
+        #benefitsList li button { background-color: #dc3545; padding: .3em .6em; font-size: .8em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Benefits Enrollment Checklist Generator</h1>
+        <p>Generate a clear and comprehensive checklist to guide employees through the benefits enrollment process.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" placeholder="e.g., Innovate Corp" required>
+            </div>
+            <div class="form-group">
+                <label for="enrollmentDeadline">Enrollment Deadline</label>
+                <input type="date" id="enrollmentDeadline" required>
+            </div>
+            <div class="form-group">
+                <label for="benefit">Add Available Benefit</label>
+                <input type="text" id="benefit" placeholder="e.g., Health Insurance, Dental, Vision, 401k, Life Insurance">
+                <button type="button" id="addBenefit">Add Benefit</button>
+            </div>
+            <ul id="benefitsList"></ul>
+            <button type="submit">Generate Checklist</button>
+        </form>
+    </div>
+    <script>
+        const benefits = [];
+
+        document.getElementById('addBenefit').addEventListener('click', function() {
+            const benefitInput = document.getElementById('benefit');
+            const benefitText = benefitInput.value.trim();
+            if (benefitText) {
+                benefits.push(benefitText);
+                renderBenefits();
+                benefitInput.value = '';
+            }
+        });
+
+        function renderBenefits() {
+            const list = document.getElementById('benefitsList');
+            list.innerHTML = '';
+            benefits.forEach((ben, index) => {
+                const li = document.createElement('li');
+                li.textContent = ben;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    benefits.splice(index, 1);
+                    renderBenefits();
+                });
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const companyName = document.getElementById('companyName').value;
+            const enrollmentDeadline = document.getElementById('enrollmentDeadline').value;
+
+            if (benefits.length === 0) {
+                alert('Please add at least one benefit.');
+                return;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Benefits Enrollment Checklist Generator',
+                    companyName: companyName,
+                    enrollmentDeadline: enrollmentDeadline,
+                    benefitsCount: benefits.length
+                });
+            }
+
+            window.location.href = `/tools/results/benefits-enrollment-checklist-generator-result.html?companyName=${encodeURIComponent(companyName)}&enrollmentDeadline=${encodeURIComponent(enrollmentDeadline)}&benefits=${encodeURIComponent(JSON.stringify(benefits))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Benefits Enrollment Checklist Generator'
+            });
+        }
+    </script>
+</body>
+</html>

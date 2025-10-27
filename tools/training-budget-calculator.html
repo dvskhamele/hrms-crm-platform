@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Budget Calculator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 600px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Training Budget Calculator</h1>
+        <p>Estimate your annual training budget based on the number of employees, average cost per employee, and number of programs.</p>
+        <form id="calculatorForm">
+            <div class="form-group">
+                <label for="numEmployees">Number of Employees</label>
+                <input type="number" id="numEmployees" placeholder="e.g., 100" required>
+            </div>
+            <div class="form-group">
+                <label for="costPerEmployee">Average Training Cost per Employee ($)</label>
+                <input type="number" id="costPerEmployee" placeholder="e.g., 500" required>
+            </div>
+            <div class="form-group">
+                <label for="numPrograms">Number of Training Programs</label>
+                <input type="number" id="numPrograms" placeholder="e.g., 5" required>
+            </div>
+            <button type="submit">Calculate Budget</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('calculatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const numEmployees = document.getElementById('numEmployees').value;
+            const costPerEmployee = document.getElementById('costPerEmployee').value;
+            const numPrograms = document.getElementById('numPrograms').value;
+
+            const totalBudget = (numEmployees * costPerEmployee) + (numPrograms * 0); // Simplified, assuming program cost is part of per-employee cost or negligible
+            // A more complex calculation could involve a separate cost per program
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Training Budget Calculator',
+                    numEmployees: numEmployees,
+                    costPerEmployee: costPerEmployee,
+                    numPrograms: numPrograms,
+                    calculatedBudget: totalBudget
+                });
+            }
+
+            window.location.href = `/tools/results/training-budget-calculator-result.html?numEmployees=${numEmployees}&costPerEmployee=${costPerEmployee}&numPrograms=${numPrograms}&budget=${totalBudget}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Training Budget Calculator'
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Succession Planning Matrix</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Succession Planning Matrix</h1>
+        <p>Create a succession planning matrix for key roles.</p>
+        <div class="form-container">
+            <label for="role-name">Role Name:</label>
+            <input type="text" id="role-name" placeholder="e.g., CEO, Head of Marketing">
+            <label for="incumbent">Current Incumbent:</label>
+            <input type="text" id="incumbent" placeholder="e.g., Jane Doe">
+            <label for="readiness">Successor Readiness (1-5):</label>
+            <input type="number" id="readiness" min="1" max="5">
+            <label for="potential">Successor Potential (1-5):</label>
+            <input type="number" id="potential" min="1" max="5">
+            <button id="add-role-btn">Add Role to Matrix</button>
+        </div>
+        <div id="matrix"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

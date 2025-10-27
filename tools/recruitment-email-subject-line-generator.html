@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Email Subject Line Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recruitment Email Subject Line Generator</h1>
+        <p>Generate compelling subject lines for your recruitment outreach emails to improve open rates and attract top talent.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" placeholder="e.g., Senior Software Engineer" required>
+            </div>
+            <div class="form-group">
+                <label for="seniority">Candidate Seniority</label>
+                <select id="seniority" required>
+                    <option value="junior">Junior</option>
+                    <option value="mid">Mid-Level</option>
+                    <option value="senior">Senior</option>
+                    <option value="executive">Executive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="callToAction">Call to Action</label>
+                <select id="callToAction" required>
+                    <option value="apply">Apply Now</option>
+                    <option value="learn_more">Learn More</option>
+                    <option value="connect">Connect with Us</option>
+                    <option value="discuss">Let's Discuss</option>
+                </select>
+            </div>
+            <button type="submit">Generate Subject Lines</button>
+        </form>
+    </div>
+    <script>
+        const subjectLines = {
+            junior: {
+                apply: [
+                    `Exciting Junior ${jobTitle} Role at [Company Name] - Apply Today!`, 
+                    `Kickstart Your Career: Junior ${jobTitle} Opportunity`
+                ],
+                learn_more: [
+                    `Discover Your Next Step: Junior ${jobTitle} Position`, 
+                    `Curious about a Junior ${jobTitle} Role? Learn More!`
+                ],
+                connect: [
+                    `Junior ${jobTitle} Opportunity - Let's Connect!`, 
+                    `Networking for Junior ${jobTitle} Talent`
+                ],
+                discuss: [
+                    `Junior ${jobTitle} Role: A Quick Chat?`, 
+                    `Opportunity for Junior ${jobTitle} - Let's Discuss`
+                ]
+            },
+            mid: {
+                apply: [
+                    `Mid-Level ${jobTitle} Opening at [Company Name] - Apply Now!`, 
+                    `Advance Your Career: Mid-Level ${jobTitle} Role`
+                ],
+                learn_more: [
+                    `Explore a Challenging Mid-Level ${jobTitle} Position`, 
+                    `Your Next Challenge: Mid-Level ${jobTitle} at [Company Name]`
+                ],
+                connect: [
+                    `Mid-Level ${jobTitle} Opportunity - Connect with Our Team`, 
+                    `Seeking Mid-Level ${jobTitle} Talent - Let's Chat`
+                ],
+                discuss: [
+                    `Mid-Level ${jobTitle} Role: Opportunity to Discuss`, 
+                    `Let's Talk: Mid-Level ${jobTitle} at [Company Name]`
+                ]
+            },
+            senior: {
+                apply: [
+                    `Lead the Way: Senior ${jobTitle} Role at [Company Name] - Apply!`, 
+                    `Impactful Senior ${jobTitle} Opportunity Awaits`
+                ],
+                learn_more: [
+                    `Exclusive Senior ${jobTitle} Position - Learn How You Can Lead`, 
+                    `Shape the Future: Senior ${jobTitle} Role at [Company Name]`
+                ],
+                connect: [
+                    `Senior ${jobTitle} Leadership Opportunity - Let's Connect`, 
+                    `Strategic Senior ${jobTitle} Role - We Want to Hear From You`
+                ],
+                discuss: [
+                    `Senior ${jobTitle} Role: A Confidential Discussion?`, 
+                    `Opportunity to Lead: Senior ${jobTitle} at [Company Name]`
+                ]
+            },
+            executive: {
+                apply: [
+                    `Executive ${jobTitle} Leadership Role - Apply Confidentially`, 
+                    `Transformative Executive ${jobTitle} Opportunity`
+                ],
+                learn_more: [
+                    `Pivotal Executive ${jobTitle} Position - Discover More`, 
+                    `Strategic Leadership: Executive ${jobTitle} at [Company Name]`
+                ],
+                connect: [
+                    `Executive ${jobTitle} Role - Connect with Our Leadership`, 
+                    `Seeking Visionary Executive ${jobTitle} - Let's Talk`
+                ],
+                discuss: [
+                    `Executive ${jobTitle} Opportunity: Confidential Discussion`, 
+                    `A Conversation About the Executive ${jobTitle} Role`
+                ]
+            }
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const jobTitle = document.getElementById('jobTitle').value;
+            const seniority = document.getElementById('seniority').value;
+            const callToAction = document.getElementById('callToAction').value;
+
+            const generatedLines = subjectLines[seniority][callToAction].map(line => line.replace(/\[Company Name\]/g, 'Gem').replace(/\${jobTitle}/g, jobTitle));
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Recruitment Email Subject Line Generator',
+                    jobTitle: jobTitle,
+                    seniority: seniority,
+                    callToAction: callToAction,
+                    generatedLinesCount: generatedLines.length
+                });
+            }
+
+            window.location.href = `/tools/results/recruitment-email-subject-line-generator-result.html?jobTitle=${encodeURIComponent(jobTitle)}&seniority=${encodeURIComponent(seniority)}&callToAction=${encodeURIComponent(callToAction)}&subjectLines=${encodeURIComponent(JSON.stringify(generatedLines))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Recruitment Email Subject Line Generator'
+            });
+        }
+    </script>
+</body>
+</html>

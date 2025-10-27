@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTO Accrual Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>PTO Accrual Calculator</h1>
+        <p>Calculate employee Paid Time Off (PTO) accrual.</p>
+        <div class="form-container">
+            <label for="hours-per-pay-period">Hours Worked Per Pay Period:</label>
+            <input type="number" id="hours-per-pay-period" min="0">
+            <label for="accrual-rate">Accrual Rate (hours per hour worked):</label>
+            <input type="number" id="accrual-rate" step="0.01" min="0">
+            <label for="max-accrual">Maximum Accrual (hours, optional):</label>
+            <input type="number" id="max-accrual" min="0">
+            <button id="calculate-btn">Calculate Accrual</button>
+        </div>
+        <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

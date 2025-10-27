@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Email Subject Line Results</title>
+    <meta name="description" content="Your generated recruitment email subject lines. Improve open rates and attract top talent.">
+    <meta property="og:title" content="Recruitment Email Subject Line Results">
+    <meta property="og:description" content="Your generated recruitment email subject lines. Improve open rates and attract top talent.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .subject-line-list { list-style: disc; padding-left: 20px; margin-top: 1.5em; text-align: left; }
+        .subject-line-list li { margin-bottom: 0.8em; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Recruitment Email Subject Lines</h1>
+        <p style="text-align: center;">Use these subject lines to capture attention and boost your email open rates.</p>
+        <ul class="subject-line-list" id="subjectLinesList"></ul>
+        <hr>
+        <h2>Save Your Subject Lines</h2>
+        <p>Enter your email to save these subject lines and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const jobTitle = decodeURIComponent(urlParams.get('jobTitle'));
+        const seniority = decodeURIComponent(urlParams.get('seniority'));
+        const callToAction = decodeURIComponent(urlParams.get('callToAction'));
+        const subjectLines = JSON.parse(decodeURIComponent(urlParams.get('subjectLines')));
+
+        const subjectLinesList = document.getElementById('subjectLinesList');
+        subjectLines.forEach(line => {
+            const li = document.createElement('li');
+            li.textContent = line;
+            subjectLinesList.appendChild(li);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Recruitment Email Subject Line Generator',
+                jobTitle: jobTitle,
+                seniority: seniority,
+                callToAction: callToAction,
+                generatedLinesCount: subjectLines.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Recruitment Email Subject Line Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

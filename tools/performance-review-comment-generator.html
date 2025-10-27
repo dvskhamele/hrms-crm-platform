@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Review Comment Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], textarea, select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Performance Review Comment Generator</h1>
+        <p>Generate professional and constructive comments for employee performance reviews.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="employeeName">Employee Name</label>
+                <input type="text" id="employeeName" placeholder="e.g., Jane Doe" required>
+            </div>
+            <div class="form-group">
+                <label for="performanceArea">Performance Area</label>
+                <input type="text" id="performanceArea" placeholder="e.g., Communication, Teamwork, Problem Solving" required>
+            </div>
+            <div class="form-group">
+                <label for="performanceLevel">Performance Level</label>
+                <select id="performanceLevel" required>
+                    <option value="exceeds">Exceeds Expectations</option>
+                    <option value="meets">Meets Expectations</option>
+                    <option value="needs_improvement">Needs Improvement</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="specificExamples">Specific Examples (optional)</label>
+                <textarea id="specificExamples" rows="4" placeholder="e.g., Consistently provides clear updates on project progress."></textarea>
+            </div>
+            <button type="submit">Generate Comment</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const employeeName = document.getElementById('employeeName').value;
+            const performanceArea = document.getElementById('performanceArea').value;
+            const performanceLevel = document.getElementById('performanceLevel').value;
+            const specificExamples = document.getElementById('specificExamples').value;
+
+            let comment = '';
+            const pronoun = 'They'; // For simplicity, using gender-neutral pronoun
+
+            switch (performanceLevel) {
+                case 'exceeds':
+                    comment = `${employeeName} consistently ${performanceArea.toLowerCase()} at an exceptional level. ${pronoun} often goes above and beyond, demonstrating strong initiative.`;
+                    break;
+                case 'meets':
+                    comment = `${employeeName} effectively ${performanceArea.toLowerCase()} and consistently meets expectations. ${pronoun} is a reliable team member.`;
+                    break;
+                case 'needs_improvement':
+                    comment = `${employeeName} needs to develop their skills in ${performanceArea.toLowerCase()}. We will work together to improve in this area.`;
+                    break;
+            }
+
+            if (specificExamples) {
+                comment += ` Specific examples include: ${specificExamples}.`;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Performance Review Comment Generator',
+                    employeeName: employeeName,
+                    performanceArea: performanceArea,
+                    performanceLevel: performanceLevel,
+                    specificExamples: specificExamples,
+                    generatedComment: comment
+                });
+            }
+
+            window.location.href = `/tools/results/performance-review-comment-generator-result.html?employeeName=${encodeURIComponent(employeeName)}&performanceArea=${encodeURIComponent(performanceArea)}&performanceLevel=${encodeURIComponent(performanceLevel)}&specificExamples=${encodeURIComponent(specificExamples)}&comment=${encodeURIComponent(comment)}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Performance Review Comment Generator'
+            });
+        }
+    </script>
+</body>
+</html>

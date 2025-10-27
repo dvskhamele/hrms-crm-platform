@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Wellness Program Idea Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Wellness Program Idea Generator</h1>
+        <p>Generate ideas for employee wellness programs.</p>
+        <div class="form-container">
+            <label for="wellness-focus">Wellness Focus:</label>
+            <select id="wellness-focus">
+                <option value="physical">Physical Health</option>
+                <option value="mental">Mental Health</option>
+                <option value="financial">Financial Wellness</option>
+                <option value="social">Social Connection</option>
+            </select>
+            <label for="budget">Budget (per employee):</label>
+            <input type="text" id="budget" placeholder="e.g., Low, Medium, High">
+            <button id="generate-btn">Generate Ideas</button>
+        </div>
+        <div id="ideas"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

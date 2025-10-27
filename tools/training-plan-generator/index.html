@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Plan Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Training Plan Generator</h1>
+        <p>Create a structured training plan for employee development and skill enhancement.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Alex Doe">
+            </div>
+            <div class="input-group">
+                <label for="employee-role">Employee Role:</label>
+                <input type="text" id="employee-role" placeholder="e.g., Marketing Specialist">
+            </div>
+            <div class="input-group full-width">
+                <label for="training-objective">Training Objective:</label>
+                <textarea id="training-objective" rows="2" placeholder="e.g., Improve digital marketing skills to increase lead generation by 15%"></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="training-activities">Training Activities (one per line):</label>
+                <textarea id="training-activities" rows="5" placeholder="e.g., Complete 'Advanced SEO' online course
+Shadow senior marketing manager for 2 weeks
+Attend 'Content Marketing Summit'"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date">
+            </div>
+            <div class="input-group">
+                <label for="end-date">Completion Date:</label>
+                <input type="date" id="end-date">
+            </div>
+            <button id="generate-plan-btn">Generate Training Plan</button>
+        </div>
+
+        <div id="plan-output" class="hidden">
+            <h2>Generated Training Plan</h2>
+            <div id="plan-content"></div>
+            <button id="copy-plan-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

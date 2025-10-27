@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Compensation Statement Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Total Compensation Statement Generator</h1>
+        <p class="intro">Understand the full value of your employment by generating a comprehensive total compensation statement.</p>
+        
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., John Doe">
+            </div>
+
+            <div class="input-group">
+                <label for="base-salary">Annual Base Salary (£):</label>
+                <input type="number" id="base-salary" value="50000">
+            </div>
+
+            <div class="input-group">
+                <label for="bonus">Annual Bonus/Commission (£, optional):</label>
+                <input type="number" id="bonus" value="0">
+            </div>
+
+            <div class="input-group">
+                <label for="health-insurance">Employer Health Insurance Contribution (£/year):</label>
+                <input type="number" id="health-insurance" value="3000">
+            </div>
+
+            <div class="input-group">
+                <label for="retirement-contribution">Employer Retirement Contribution (£/year):</label>
+                <input type="number" id="retirement-contribution" value="2500">
+            </div>
+
+            <div class="input-group">
+                <label for="pto-value">Estimated PTO Value (£/year):</label>
+                <input type="number" id="pto-value" value="2000">
+            </div>
+
+            <div class="input-group">
+                <label for="other-benefits">Other Benefits Value (£/year, e.g., training, perks):</label>
+                <input type="number" id="other-benefits" value="1000">
+            </div>
+
+            <button id="generate-btn">Generate Statement</button>
+        </div>
+
+        <div class="results-container">
+            <h2>Your Total Compensation Statement</h2>
+            <textarea id="generated-statement" rows="15" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

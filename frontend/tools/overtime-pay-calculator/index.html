@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overtime Pay Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Calculate regular and overtime pay accurately. Essential for payroll processing and ensuring fair employee compensation.">
+    <meta property="og:title" content="Overtime Pay Calculator">
+    <meta property="og:description" content="Calculate regular and overtime pay accurately. Essential for payroll processing and ensuring fair employee compensation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="YOUR_SHAREABLE_URL_HERE">
+</head>
+<body>
+    <div class="container">
+        <h1>Overtime Pay Calculator</h1>
+        <p>Accurately calculate regular, overtime, and total pay for your employees.</p>
+
+        <div class="form-group">
+            <label for="hourlyRate">Regular Hourly Rate ($):</label>
+            <input type="number" id="hourlyRate" min="0" value="20">
+        </div>
+
+        <div class="form-group">
+            <label for="regularHours">Regular Hours Worked (per week):</label>
+            <input type="number" id="regularHours" min="0" max="40" value="40">
+        </div>
+
+        <div class="form-group">
+            <label for="overtimeHours">Overtime Hours Worked (per week):</label>
+            <input type="number" id="overtimeHours" min="0" value="5">
+        </div>
+
+        <div class="form-group">
+            <label for="overtimeMultiplier">Overtime Multiplier:</label>
+            <input type="number" id="overtimeMultiplier" min="1" step="0.1" value="1.5">
+            <small>e.g., 1.5 for time and a half, 2 for double time.</small>
+        </div>
+
+        <button id="calculateBtn">Calculate Pay</button>
+
+        <div class="result-section">
+            <h2>Result:</h2>
+            <p>Regular Pay: $<span id="regularPay">0.00</span></p>
+            <p>Overtime Pay: $<span id="overtimePay">0.00</span></p>
+            <p>Total Pay: $<span id="totalPay">0.00</span></p>
+        </div>
+
+        <div class="lead-capture-section">
+            <h2>Get more HR insights!</h2>
+            <p>Enter your email to receive exclusive HR tools and tips directly in your inbox.</p>
+            <input type="email" id="leadEmail" placeholder="your.email@example.com">
+            <button id="subscribeBtn">Subscribe</button>
+            <p id="leadMessage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gross-to-Net Pay Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gross-to-Net Pay Calculator</h1>
+        <p>Estimate your take-home pay after federal and FICA taxes.</p>
+
+        <div class="calculator">
+            <div class="input-group">
+                <label for="gross-pay">Gross Pay per Period ($):</label>
+                <input type="number" id="gross-pay" placeholder="e.g., 2000">
+            </div>
+            <div class="input-group">
+                <label for="pay-frequency">Pay Frequency:</label>
+                <select id="pay-frequency">
+                    <option value="weekly">Weekly</option>
+                    <option value="bi-weekly">Bi-Weekly</option>
+                    <option value="semi-monthly">Semi-Monthly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="filing-status">Federal Filing Status:</label>
+                <select id="filing-status">
+                    <option value="single">Single</option>
+                    <option value="married">Married Filing Jointly</option>
+                </select>
+            </div>
+            <button id="calculate-btn">Estimate Net Pay</button>
+
+            <div id="result" class="hidden">
+                <h2>Estimated Net Pay:</h2>
+                <p id="net-pay">-</p>
+                <div id="deductions-breakdown"></div>
+            </div>
+        </div>
+        <small class="disclaimer">This is an estimate for illustrative purposes only. Your actual net pay may vary.</small>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Engagement Survey Questions</title>
+    <meta name="description" content="Review and use your generated employee engagement survey questions.">
+    <meta property="og:title" content="Employee Engagement Survey Question Generator Result">
+    <meta property="og:description" content="A tool to help HR professionals create effective employee engagement surveys.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function generateQuestions() {
+            const params = new URLSearchParams(window.location.search);
+            const surveyDetails = Object.fromEntries(params.entries());
+
+            if (!surveyDetails.surveyFocus || !surveyDetails.numQuestions || !surveyDetails.questionType) {
+                document.getElementById('questions-output').innerHTML = '<p class="text-danger">Error: Missing details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'EmployeeEngagementSurveyQuestionGenerator', surveyDetails });
+
+            let questions = [];
+            const surveyFocus = surveyDetails.surveyFocus;
+            const numQuestions = parseInt(surveyDetails.numQuestions);
+            const questionType = surveyDetails.questionType;
+
+            const questionBank = {
+                'Overall Engagement': {
+                    'Likert Scale': [
+                        "I feel engaged in my work.",
+                        "I am proud to work for this company.",
+                        "I would recommend this company as a great place to work.",
+                        "My work gives me a sense of personal accomplishment.",
+                        "I feel a strong sense of belonging at this company."
+                    ],
+                    'Open-ended': [
+                        "What makes you feel most engaged in your role?",
+                        "What could the company do to improve your overall engagement?",
+                        "Describe a time you felt particularly proud of your work here."
+                    ]
+                },
+                'Leadership Effectiveness': {
+                    'Likert Scale': [
+                        "My manager provides clear direction and expectations.",
+                        "I receive constructive feedback from my manager.",
+                        "My manager supports my professional development.",
+                        "I trust my manager to make fair decisions.",
+                        "My manager communicates effectively with the team."
+                    ],
+                    'Open-ended': [
+                        "What are your manager's greatest strengths?",
+                        "What could your manager do to better support you?",
+                        "How effectively does leadership communicate company vision and strategy?"
+                    ]
+                },
+                'Work-Life Balance': {
+                    'Likert Scale': [
+                        "I am able to maintain a healthy work-life balance.",
+                        "My workload is manageable.",
+                        "The company supports flexible work arrangements when needed.",
+                        "I feel refreshed and ready to work after my time off."
+                    ],
+                    'Open-ended': [
+                        "What challenges do you face in maintaining work-life balance?",
+                        "What initiatives could the company implement to improve work-life balance?"
+                    ]
+                },
+                'Career Growth': {
+                    'Likert Scale': [
+                        "I see opportunities for career growth within the company.",
+                        "I receive adequate training and development to perform my job effectively.",
+                        "My manager discusses my career aspirations with me."
+                    ],
+                    'Open-ended': [
+                        "What opportunities for growth would you like to see more of?",
+                        "How well does the company support your professional development goals?"
+                    ]
+                },
+                'Compensation & Benefits': {
+                    'Likert Scale': [
+                        "I feel my compensation is fair for my role and responsibilities.",
+                        "I am satisfied with the benefits package offered by the company.",
+                        "I understand how my compensation is determined."
+                    ],
+                    'Open-ended': [
+                        "What are your thoughts on the current compensation and benefits package?",
+                        "Are there any benefits you feel are missing or could be improved?"
+                    ]
+                },
+                'Company Culture': {
+                    'Likert Scale': [
+                        "The company culture promotes respect and inclusivity.",
+                        "I feel comfortable expressing my opinions at work.",
+                        "The company's values are reflected in its daily operations."
+                    ],
+                    'Open-ended': [
+                        "How would you describe the company culture to a new hire?",
+                        "What aspects of our culture do you value most? What could be improved?"
+                    ]
+                },
+                'Communication': {
+                    'Likert Scale': [
+                        "Communication within my team is effective.",
+                        "I feel well-informed about company news and decisions.",
+                        "My feedback is heard and considered."
+                    ],
+                    'Open-ended': [
+                        "How could internal communication be improved?",
+                        "Do you feel comfortable providing upward feedback? Why or why not?"
+                    ]
+                }
+            };
+
+            const availableQuestions = questionBank[surveyFocus]?.[questionType] || [];
+            for (let i = 0; i < numQuestions && i < availableQuestions.length; i++) {
+                questions.push(availableQuestions[i]);
+            }
+
+            if (questions.length === 0) {
+                document.getElementById('questions-output').innerHTML = '<p class="text-danger">No questions found for the selected criteria. Please try different options.</p>';
+                return;
+            }
+
+            const questionsHtml = questions.map(q => `<li>${q}</li>`).join('');
+
+            document.getElementById('questions-output').innerHTML = `
+                <p><strong>Survey Focus:</strong> ${surveyFocus}</p>
+                <p><strong>Question Type:</strong> ${questionType}</p>
+                <hr>
+                <h4>Generated Questions:</h4>
+                <ul>${questionsHtml}</ul>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateQuestions();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'EmployeeEngagementSurveyQuestionGenerator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'EmployeeEngagementSurveyQuestionGenerator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more insights on employee engagement.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Your Engagement Survey Questions</h1>
+            </div>
+            <div class="card-body">
+                <div id="questions-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Generate More Questions</button>
+                    <button class="btn btn-success" onclick="navigator.clipboard.writeText(document.getElementById('questions-output').innerText)">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Boost Employee Engagement</h4>
+                <p>Subscribe for expert strategies on measuring and improving employee satisfaction.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

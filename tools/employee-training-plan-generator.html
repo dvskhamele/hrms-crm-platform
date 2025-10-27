@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Training Plan Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input[type="text"], textarea { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        #modulesList { list-style: none; padding: 0; margin-top: 1em; }
+        #modulesList li { background-color: #f0f0f0; padding: .5em; margin-bottom: .5em; border-radius: 3px; display: flex; justify-content: space-between; align-items: center; }
+        #modulesList li button { background-color: #dc3545; padding: .3em .6em; font-size: .8em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Training Plan Generator</h1>
+        <p>Create structured and personalized training plans for your employees to foster skill development and career growth.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="employeeName">Employee Name</label>
+                <input type="text" id="employeeName" placeholder="e.g., John Smith" required>
+            </div>
+            <div class="form-group">
+                <label for="jobRole">Job Role</label>
+                <input type="text" id="jobRole" placeholder="e.g., Junior Developer" required>
+            </div>
+            <div class="form-group">
+                <label for="trainingGoal">Main Training Goal</label>
+                <input type="text" id="trainingGoal" placeholder="e.g., Master React framework" required>
+            </div>
+            <div class="form-group">
+                <label for="module">Add Training Module/Topic</label>
+                <input type="text" id="module" placeholder="e.g., React Basics, State Management, API Integration">
+                <button type="button" id="addModule">Add Module</button>
+            </div>
+            <ul id="modulesList"></ul>
+            <button type="submit">Generate Training Plan</button>
+        </form>
+    </div>
+    <script>
+        const modules = [];
+
+        document.getElementById('addModule').addEventListener('click', function() {
+            const moduleInput = document.getElementById('module');
+            const moduleText = moduleInput.value.trim();
+            if (moduleText) {
+                modules.push(moduleText);
+                renderModules();
+                moduleInput.value = '';
+            }
+        });
+
+        function renderModules() {
+            const list = document.getElementById('modulesList');
+            list.innerHTML = '';
+            modules.forEach((mod, index) => {
+                const li = document.createElement('li');
+                li.textContent = mod;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', function() {
+                    modules.splice(index, 1);
+                    renderModules();
+                });
+                li.appendChild(removeBtn);
+                list.appendChild(li);
+            });
+        }
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const employeeName = document.getElementById('employeeName').value;
+            const jobRole = document.getElementById('jobRole').value;
+            const trainingGoal = document.getElementById('trainingGoal').value;
+
+            if (modules.length === 0) {
+                alert('Please add at least one training module or topic.');
+                return;
+            }
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Employee Training Plan Generator',
+                    employeeName: employeeName,
+                    jobRole: jobRole,
+                    trainingGoal: trainingGoal,
+                    modules: modules.join(', ')
+                });
+            }
+
+            window.location.href = `/tools/results/employee-training-plan-generator-result.html?employeeName=${encodeURIComponent(employeeName)}&jobRole=${encodeURIComponent(jobRole)}&trainingGoal=${encodeURIComponent(trainingGoal)}&modules=${encodeURIComponent(JSON.stringify(modules))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Employee Training Plan Generator'
+            });
+        }
+    </script>
+</body>
+</html>

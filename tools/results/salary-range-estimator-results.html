@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Range Estimate Results | Gem HRMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Salary Range Estimate</h1>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        function logAnalyticsEvent(eventName, data = {}) {
+            console.log(`Analytics Event: ${eventName}`, data);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const data = urlParams.get('data');
+
+            if (data) {
+                try {
+                    const decodedData = JSON.parse(atob(data));
+                    logAnalyticsEvent('ToolResultViewed', { tool: 'SalaryRangeEstimator', results: decodedData });
+
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = `
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800 mb-2">Inputs</h2>
+                                <p><strong>Job Title:</strong> ${decodedData.inputs.jobTitle}</p>
+                                <p><strong>Experience Level:</strong> ${decodedData.inputs.experienceLevel}</p>
+                                <p><strong>Location:</strong> ${decodedData.inputs.location}</p>
+                                <p><strong>Industry:</strong> ${decodedData.inputs.industry}</p>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-800 mb-2">Estimated Salary Range</h2>
+                                <p class="text-2xl font-bold text-green-500">$${decodedData.results.lowerBound.toLocaleString()} - $${decodedData.results.upperBound.toLocaleString()}</p>
+                            </div>
+                        </div>
+                    `;
+                } catch (error) {
+                    console.error('Error decoding results data:', error);
+                    document.getElementById('results').innerHTML = '<p class="text-red-500 text-center">Could not display results. The data may be corrupted.</p>';
+                }
+            } else {
+                document.getElementById('results').innerHTML = '<p class="text-red-500 text-center">No results data found.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difficult Conversation Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Difficult Conversation Planner</h1>
+        <p class="intro">Use this tool to prepare for a difficult conversation with an employee. Planning helps ensure the conversation is productive, professional, and respectful.</p>
+        
+        <div class="planner-form">
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., John Doe">
+            </div>
+
+            <div class="input-group">
+                <label for="conversation-goal">1. What is the primary goal of this conversation?</label>
+                <textarea id="conversation-goal" rows="3" placeholder="e.g., To address recent tardiness and find a solution."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="specific-examples">2. What specific, observable behaviors or examples will you cite?</label>
+                <textarea id="specific-examples" rows="4" placeholder="e.g., Arrived 20 minutes late on Monday (10/20) and 15 minutes late on Wednesday (10/22)."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="desired-outcome">3. What is the ideal outcome? What specific change do you want to see?</label>
+                <textarea id="desired-outcome" rows="3" placeholder="e.g., Employee arrives on time for all scheduled shifts for the next 30 days."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="opening-statement">4. How will you open the conversation?</label>
+                <textarea id="opening-statement" rows="3" placeholder="e.g., 'Thanks for meeting with me. I want to talk about your start times this week to make sure everything is okay.'"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="potential-reactions">5. What are the potential reactions from the employee, and how will you respond?</label>
+                <textarea id="potential-reactions" rows="4" placeholder="e.g., Might be defensive - I will stay calm and focus on the facts. Might have a personal issue - I will listen and direct them to HR if needed."></textarea>
+            </div>
+
+            <button id="print-plan-btn">Print Plan</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

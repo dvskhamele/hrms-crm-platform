@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Benefits Cost Calculation Result</title>
+    <meta name="description" content="Review the total annual cost of an employee's benefits package.">
+    <meta property="og:title" content="Employee Benefits Cost Calculator Result">
+    <meta property="og:description" content="A tool to help HR professionals and employers understand the true cost of employee benefits.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function calculateBenefitsCost() {
+            const params = new URLSearchParams(window.location.search);
+            const benefitsDetails = Object.fromEntries(params.entries());
+
+            if (!benefitsDetails.annualSalary) {
+                document.getElementById('benefits-output').innerHTML = '<p class="text-danger">Error: Missing employee annual salary. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'EmployeeBenefitsCostCalculator', benefitsDetails });
+
+            const annualSalary = parseFloat(benefitsDetails.annualSalary);
+            const healthContribution = parseFloat(benefitsDetails.healthContribution || 0);
+            const dentalContribution = parseFloat(benefitsDetails.dentalContribution || 0);
+            const visionContribution = parseFloat(benefitsDetails.visionContribution || 0);
+            const retirementMatch = parseFloat(benefitsDetails.retirementMatch || 0) / 100;
+            const otherBenefits = parseFloat(benefitsDetails.otherBenefits || 0);
+
+            const totalMonthlyInsurance = healthContribution + dentalContribution + visionContribution;
+            const totalAnnualInsurance = totalMonthlyInsurance * 12;
+
+            const annualRetirementMatch = annualSalary * retirementMatch;
+
+            const totalAnnualOtherBenefits = otherBenefits * 12;
+
+            const totalAnnualBenefitsCost = totalAnnualInsurance + annualRetirementMatch + totalAnnualOtherBenefits;
+
+            const output = `
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Employee & Benefits Details</h4>
+                    <p>Employee Annual Salary: <strong>$${annualSalary.toLocaleString()}</strong></p>
+                    <p>Employer Annual Health Insurance Contribution: <strong>$${(healthContribution * 12).toLocaleString()}</strong></p>
+                    <p>Employer Annual Dental Insurance Contribution: <strong>$${(dentalContribution * 12).toLocaleString()}</strong></p>
+                    <p>Employer Annual Vision Insurance Contribution: <strong>$${(visionContribution * 12).toLocaleString()}</strong></p>
+                    <p>Employer Annual Retirement Plan Match: <strong>$${annualRetirementMatch.toLocaleString()} (${(retirementMatch * 100).toFixed(0)}% of salary)</strong></p>
+                    <p>Other Annual Benefits: <strong>$${totalAnnualOtherBenefits.toLocaleString()}</strong></p>
+                </div>
+                <hr>
+                <h3>Total Annual Benefits Cost:</h3>
+                <h2 class="text-success">$${totalAnnualBenefitsCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</h2>
+                <p class="text-muted mt-3"><em>This calculation provides an estimate of the employer's annual cost for employee benefits. Actual costs may vary.</em></p>
+            `;
+
+            document.getElementById('benefits-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateBenefitsCost();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'EmployeeBenefitsCostCalculator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'EmployeeBenefitsCostCalculator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you for subscribing! Get more insights on benefits management.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Employee Benefits Cost Calculation</h1>
+            </div>
+            <div class="card-body">
+                <div id="benefits-output" class="border p-3 mb-4"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Recalculate Costs</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Optimize Your Benefits Strategy</h4>
+                <p>Subscribe for expert strategies on designing competitive and cost-effective employee benefits packages.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

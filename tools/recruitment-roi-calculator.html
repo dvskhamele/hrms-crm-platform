@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment ROI Calculator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: 0.5em; }
+        input { width: 100%; padding: 0.5em; }
+        button { padding: 0.75em 1.5em; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        #result { margin-top: 2em; padding: 1em; border: 1px solid #ccc; }
+        .email-capture { margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recruitment ROI Calculator</h1>
+        <p>Calculate the Return on Investment for your recruitment efforts.</p>
+
+        <div id="roi-form">
+            <div class="form-group">
+                <label for="total-recruitment-cost">Total Recruitment Cost ($)</label>
+                <input type="number" id="total-recruitment-cost" value="10000">
+            </div>
+            <div class="form-group">
+                <label for="average-employee-value">Average Annual Employee Value ($)</label>
+                <input type="number" id="average-employee-value" value="50000">
+            </div>
+            <div class="form-group">
+                <label for="number-of-hires">Number of Hires</label>
+                <input type="number" id="number-of-hires" value="10">
+            </div>
+            <button type="button" id="calculate-roi">Calculate ROI</button>
+        </div>
+
+        <div id="result" style="display: none;">
+            <!-- ROI will be displayed here -->
+        </div>
+
+        <div class="email-capture" id="email-capture" style="display: none;">
+            <h2>Get Your ROI Report</h2>
+            <p>Enter your email to receive a detailed ROI report.</p>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@yourcompany.com">
+            </div>
+            <button type="button" id="submit-email">Download Report</button>
+            <p id="email-message"></p>
+        </div>
+    </div>
+
+    <script src="recruitment-roi-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Onboarding Feedback Form Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytics('ToolOpened', { toolName: 'EmployeeOnboardingFeedbackFormGenerator' });
+
+            const form = document.getElementById('feedback-form-generator');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const feedbackDetails = Object.fromEntries(formData.entries());
+
+                logAnalytics('ToolSubmitted', { toolName: 'EmployeeOnboardingFeedbackFormGenerator', formData: feedbackDetails });
+
+                const queryString = new URLSearchParams(feedbackDetails).toString();
+                window.location.href = `/tools/results/employee-onboarding-feedback-form-generator-result.html?${queryString}`;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Employee Onboarding Feedback Form Generator</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text text-center mb-4">Generate customized feedback forms to improve your new hire onboarding process.</p>
+                <form id="feedback-form-generator">
+                    <div class="form-group">
+                        <label for="employeeName">Employee Name (Optional)</label>
+                        <input type="text" class="form-control" id="employeeName" name="employeeName" placeholder="e.g., Alex Johnson">
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department (Optional)</label>
+                        <input type="text" class="form-control" id="department" name="department" placeholder="e.g., Engineering">
+                    </div>
+                    <div class="form-group">
+                        <label for="onboardingPeriod">Onboarding Period</label>
+                        <select class="form-control" id="onboardingPeriod" name="onboardingPeriod">
+                            <option value="First Week">First Week</option>
+                            <option value="First Month">First Month</option>
+                            <option value="First 90 Days">First 90 Days</option>
+                            <option value="Overall">Overall Onboarding Experience</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedbackFocus">Feedback Focus Area</label>
+                        <select class="form-control" id="feedbackFocus" name="feedbackFocus">
+                            <option value="Overall Experience">Overall Onboarding Experience</option>
+                            <option value="Training & Resources">Training & Resources Provided</option>
+                            <option value="Manager Support">Manager Support & Guidance</option>
+                            <option value="Peer Integration">Peer Integration & Team Welcome</option>
+                            <option value="Role Clarity">Role Clarity & Expectations</option>
+                            <option value="Company Culture">Company Culture & Values</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Generate Form Questions</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

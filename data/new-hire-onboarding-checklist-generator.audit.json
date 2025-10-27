@@ -1,0 +1,27 @@
+{
+  "toolSlug": "new-hire-onboarding-checklist-generator",
+  "auditDate": "2025-10-21T12:00:00Z",
+  "onPageAudit": {
+    "title": "New Hire Onboarding Checklist Generator - Gem Tools",
+    "metaDescription": "Generate a customized onboarding checklist for new hires to ensure a smooth and comprehensive integration into your company.",
+    "h1": "New Hire Onboarding Checklist Generator",
+    "keywords": ["new hire checklist", "employee onboarding", "onboarding process", "HR forms", "new employee orientation", "HR tools", "onboarding template"],
+    "url": "/tools/new-hire-onboarding-checklist-generator",
+    "contentLength": "(dynamic)",
+    "imageAltTexts": ["Gem Logo"],
+    "internalLinks": ["/", "/#features", "/#pricing", "/#benefits", "/#testimonials", "/blog", "/login", "/dashboard", "/tools/candidate-interview-scorecard-generator", "/tools/job-description-enhancer"]
+  },
+  "marketingAudit": {
+    "targetAudience": "HR professionals, hiring managers, team leads",
+    "valueProposition": "Ensure smooth new hire integration with customized, comprehensive onboarding checklists.",
+    "callToActions": ["Generate Checklist", "Send Me the Report"],
+    "socialShareOptions": ["Twitter", "LinkedIn", "Facebook"],
+    "conversionGoals": ["Checklist Generation", "Lead Capture (Email)"]
+  },
+  "uxAudit": {
+    "formFields": ["Employee Role", "Department", "Start Date", "Pre-boarding Tasks", "First Day Tasks", "First Week Tasks"],
+    "validationRules": ["All required fields", "At least one task list required"],
+    "mobileResponsiveness": "(assumed via Tailwind CSS)",
+    "easeOfUse": "High - clear inputs, intuitive flow"
+  }
+}

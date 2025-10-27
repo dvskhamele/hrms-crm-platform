@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disciplinary Action Form Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Disciplinary Action Form Generator</h1>
+        <p>Generate a structured form to document employee disciplinary actions.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., John Doe">
+            </div>
+            <div class="input-group">
+                <label for="manager-name">Manager Name:</label>
+                <input type="text" id="manager-name" placeholder="e.g., Jane Smith">
+            </div>
+            <div class="input-group">
+                <label for="action-date">Date of Action:</label>
+                <input type="date" id="action-date">
+            </div>
+            <div class="input-group full-width">
+                <label for="incident-details">Details of Incident/Performance Issue:</label>
+                <textarea id="incident-details" rows="4" placeholder="e.g., On [Date], employee was observed [describe incident]."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="policy-violation">Company Policy Violated (if applicable):</label>
+                <textarea id="policy-violation" rows="2" placeholder="e.g., Code of Conduct - Section 3.1 (Professionalism)."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="corrective-action">Corrective Action Taken:</label>
+                <textarea id="corrective-action" rows="3" placeholder="e.g., Verbal warning, written warning, suspension without pay."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="expectations">Expectations for Improvement:</label>
+                <textarea id="expectations" rows="3" placeholder="e.g., Employee must adhere to all company policies and demonstrate improved performance in [specific area]."></textarea>
+            </div>
+            <button id="generate-form-btn">Generate Disciplinary Action Form</button>
+        </div>
+
+        <div id="form-output" class="hidden">
+            <h2>Generated Disciplinary Action Form</h2>
+            <div id="form-content"></div>
+            <button id="copy-form-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

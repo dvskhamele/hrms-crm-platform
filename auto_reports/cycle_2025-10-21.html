@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Report - Cycle 2025-10-21</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: #0056b3; }
+        ul { list-style-type: disc; margin-left: 20px; }
+        ul ul { list-style-type: circle; margin-left: 20px; }
+        b { font-weight: bold; }
+        code { background-color: #eef; padding: 2px 4px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Auto Report - Cycle 2025-10-21</h1>
+
+        <h3>Tool Built: Construction Project Cost Estimator</h3>
+
+        <p><b>Description:</b> A new tool was built to help construction professionals estimate the total cost of a construction project.</p>
+
+        <p><b>Mandatory Components Implemented:</b></p>
+        <ul>
+            <li><b>A. UI Form:</b> Created at <code>frontend/src/app/tools/construction-project-cost-estimator/page.tsx</code> with input validation.</li>
+            <li><b>B. JS Logic:</b> Implemented within the UI form's <code>handleSubmit</code> function to calculate project costs.</li>
+            <li><b>C. Storage:</b> Simulated using <code>localStorage</code> for temporary client-side persistence of project cost data. Data is logged to console to represent storage in <code>/data/prelogin_results/</code>.</li>
+            <li><b>D. Result Page:</b> Created at <code>frontend/src/app/tools/results/construction-project-cost-estimator/[id]/page.tsx</code>, dynamically fetching and rendering project cost data from <code>localStorage</code>. Includes SEO and Open Graph tags.</li>
+            <li><b>E. Lead Capture:</b> Integrated a lead capture form on the results page. Submission is simulated by logging email data to console, representing storage in <code>/data/prelogin_leads/leads.json</code>.</li>
+            <li><b>F. Audit File:</b> Created at <code>/data/construction-project-cost-estimator.audit.json</code> with on-page and marketing audit details.</li>
+            <li><b>G. Analytics Log:</b> Integrated analytics logging (<code>frontend/src/utils/analytics.ts</code>) for <code>ToolOpened</code>, <code>ToolSubmitted</code>, <code>ToolResultViewed</code>, and <code>LeadCaptured</code> events into the tool pages.</li>
+            <li><b>H. Integration:</b> Tool links added to the header and footer navigation of the homepage, blog list page, and blog post detail page.</li>
+        </ul>
+
+        <p><b>Manifests & Files Updated/Created:</b></p>
+        <ul>
+            <li><code>/tool_specs.md</code>: Updated with the specification for the new tool.</li>
+            <li><code>/pseo_manifest.csv</code>: Updated with new SEO seed terms.</li>
+            <li><code>/auto_reports/cycle_2025-10-21.md</code>: This report itself.</li>
+        </ul>
+
+        <p><b>Next Steps (for next cycle):</b></p>
+        <ul>
+            <li>Generate a new tool spec based on persona analysis.</li>
+            <li>Build the new tool following the same end-to-end process.</li>
+            <li>Continue populating <code>pseo_manifest.csv</code> and <code>tool_specs.md</code>.</li>
+        </ul>
+    </div>
+</body>
+</html>

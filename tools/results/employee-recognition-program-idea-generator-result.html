@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Recognition Program Ideas Result</title>
+    <meta name="description" content="Generated ideas for your employee recognition program. Boost morale and engagement.">
+    <meta property="og:title" content="Employee Recognition Program Ideas Result">
+    <meta property="og:description" content="Generated ideas for your employee recognition program. Boost morale and engagement.">
+    <meta property="og:type" content="website">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        h1, h2 { text-align: center; color: #333; }
+        .idea-list { list-style: disc; padding-left: 20px; margin-top: 1.5em; text-align: left; }
+        .idea-list li { margin-bottom: 0.8em; }
+        .form-group { margin-top: 2em; margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        input { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="resultTitle"></h1>
+        <p style="text-align: center;">Here are some ideas for your employee recognition program:</p>
+        <ul class="idea-list" id="ideasList"></ul>
+        <hr>
+        <h2>Save Your Ideas</h2>
+        <p>Enter your email to save these ideas and get more HR tools and tips.</p>
+        <form id="leadForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@company.com" required>
+            </div>
+            <button type="submit">Save and Continue</button>
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const companySize = decodeURIComponent(urlParams.get('companySize'));
+        const budget = decodeURIComponent(urlParams.get('budget'));
+        const recognitionType = decodeURIComponent(urlParams.get('recognitionType'));
+        const ideas = JSON.parse(decodeURIComponent(urlParams.get('ideas')));
+
+        document.getElementById('resultTitle').textContent = `Employee Recognition Program Ideas`;
+
+        const ideasList = document.getElementById('ideasList');
+        ideas.forEach(idea => {
+            const li = document.createElement('li');
+            li.textContent = idea;
+            ideasList.appendChild(li);
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolResultViewed', {
+                tool: 'Employee Recognition Program Idea Generator',
+                companySize: companySize,
+                budget: budget,
+                recognitionType: recognitionType,
+                generatedIdeasCount: ideas.length
+            });
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('LeadCaptured', {
+                    tool: 'Employee Recognition Program Idea Generator',
+                    email: email
+                });
+            }
+
+            try {
+                const response = await fetch('/api/leads', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    alert(`Thank you! Your result has been saved for ${email}`);
+                    document.getElementById('leadForm').style.display = 'none';
+                } else {
+                    alert('There was an error saving your result. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error capturing lead:', error);
+                alert('There was an error saving your result. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

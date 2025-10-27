@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Interview Scorecard Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: 0.5em; }
+        input, textarea, select { width: 100%; padding: 0.5em; }
+        button { padding: 0.75em 1.5em; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        #result { margin-top: 2em; padding: 1em; border: 1px solid #ccc; }
+        .email-capture { margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Interview Scorecard Generator</h1>
+        <p>Create a standardized scorecard to evaluate candidates consistently and reduce bias.</p>
+
+        <div id="scorecard-form">
+            <div class="form-group">
+                <label for="job-title">Job Title</label>
+                <input type="text" id="job-title" placeholder="e.g., Senior Software Engineer">
+            </div>
+            <div class="form-group">
+                <label for="candidate-name">Candidate Name</label>
+                <input type="text" id="candidate-name" placeholder="e.g., Jane Doe">
+            </div>
+            <div id="criteria-container">
+                <!-- Criteria will be added here -->
+            </div>
+            <button type="button" id="add-criterion">Add Criterion</button>
+            <hr>
+            <button type="button" id="generate-scorecard">Generate Scorecard</button>
+        </div>
+
+        <div id="result" style="display: none;">
+            <!-- Scorecard will be displayed here -->
+        </div>
+
+        <div class="email-capture" id="email-capture" style="display: none;">
+            <h2>Get Your Scorecard</h2>
+            <p>Enter your email to receive a downloadable version of your scorecard.</p>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@yourcompany.com">
+            </div>
+            <button type="button" id="submit-email">Download Scorecard</button>
+            <p id="email-message"></p>
+        </div>
+    </div>
+
+    <script src="candidate-interview-scorecard-generator.js"></script>
+</body>
+</html>

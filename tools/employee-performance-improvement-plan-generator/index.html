@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Performance Improvement Plan (PIP) Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Performance Improvement Plan (PIP) Generator</h1>
+        <p>Generate customized Performance Improvement Plans (PIPs) to address performance gaps and support employee growth.</p>
+
+        <div class="input-section">
+            <label for="employee-name">Employee Name:</label>
+            <input type="text" id="employee-name" placeholder="e.g., John Doe">
+
+            <label for="employee-role">Employee Role:</label>
+            <input type="text" id="employee-role" placeholder="e.g., Sales Representative">
+
+            <label for="performance-area">Area for Improvement:</label>
+            <input type="text" id="performance-area" placeholder="e.g., Sales Quota Attainment, Communication">
+
+            <label for="improvement-goals">Specific Improvement Goals (comma-separated):</label>
+            <input type="text" id="improvement-goals" placeholder="e.g., Achieve 100% quota, Improve client communication">
+
+            <label for="pip-duration">PIP Duration (weeks):</label>
+            <input type="number" id="pip-duration" value="8" min="1">
+
+            <button id="generate-btn">Generate PIP</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Generated Performance Improvement Plan:</h2>
+            <textarea id="generated-pip" rows="20" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

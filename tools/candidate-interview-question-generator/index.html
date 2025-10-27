@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Interview Question Generator | Gem HRMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Interview Question Generator</h1>
+        <form id="iq-form">
+            <div class="form-group">
+                <label for="job-title">Job Title</label>
+                <input type="text" id="job-title" name="job-title" required>
+            </div>
+            <div class="form-group">
+                <label for="skills">Key Skills (comma-separated)</label>
+                <textarea id="skills" name="skills" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="experience-level">Experience Level</label>
+                <select id="experience-level" name="experience-level" required>
+                    <option value="junior">Junior</option>
+                    <option value="mid">Mid-Level</option>
+                    <option value="senior">Senior</option>
+                </select>
+            </div>
+            <button type="submit">Generate Questions</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

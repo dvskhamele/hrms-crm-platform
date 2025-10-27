@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Scheduling Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Interview Scheduling Tool</h1>
+        <p>Schedule interviews with candidates.</p>
+        <div class="form-container">
+            <label for="candidate-name">Candidate Name:</label>
+            <input type="text" id="candidate-name">
+            <label for="interviewer-name">Interviewer Name:</label>
+            <input type="text" id="interviewer-name">
+            <label for="interview-date">Interview Date:</label>
+            <input type="datetime-local" id="interview-date">
+            <button id="schedule-btn">Schedule Interview</button>
+        </div>
+        <div id="confirmation"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

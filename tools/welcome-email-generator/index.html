@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Hire Welcome Email Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>New Hire Welcome Email Generator</h1>
+        <p>Create a warm and informative welcome email for your new employees.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="new-hire-name">New Hire's Name:</label>
+                <input type="text" id="new-hire-name" placeholder="e.g., Alex Doe">
+            </div>
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="start-date">Start Date:</label>
+                <input type="text" id="start-date" placeholder="e.g., Monday, October 27th">
+            </div>
+            <div class="input-group">
+                <label for="first-day-arrival-time">First Day Arrival Time:</label>
+                <input type="text" id="first-day-arrival-time" placeholder="e.g., 9:30 AM">
+            </div>
+            <div class="input-group">
+                <label for="reporting-manager">Reporting Manager:</label>
+                <input type="text" id="reporting-manager" placeholder="e.g., Jane Smith">
+            </div>
+            <div class="input-group">
+                <label for="onboarding-buddy">Onboarding Buddy (Optional):</label>
+                <input type="text" id="onboarding-buddy" placeholder="e.g., John Appleseed">
+            </div>
+            <button id="generate-email-btn">Generate Email</button>
+        </div>
+
+        <div id="email-output" class="hidden">
+            <h2>Your Generated Email:</h2>
+            <textarea id="generated-email" rows="15"></textarea>
+            <button id="copy-email-btn">Copy Email</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

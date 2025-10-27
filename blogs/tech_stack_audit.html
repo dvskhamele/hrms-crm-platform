@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Stack Audit - HRMSCRM Project</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #0056b3; }
+        ul { list-style-type: disc; margin-left: 20px; }
+        ul ul { list-style-type: circle; margin-left: 20px; }
+        b { font-weight: bold; }
+        code { background-color: #eef; padding: 2px 4px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tech Stack Audit - HRMSCRM Project</h1>
+
+        <h2>Frontend</h2>
+        <ul>
+            <li><b>Framework:</b> Next.js (v13+ App Router)</li>
+            <li><b>Language:</b> TypeScript</li>
+            <li><b>Styling:</b> Tailwind CSS</li>
+            <li><b>UI Library:</b> React</li>
+            <li><b>Routing:</b> Next.js Router (<code>next/navigation</code>)</li>
+            <li><b>SEO Management:</b> <code>next/head</code> (for meta tags, structured data)</li>
+            <li><b>Data Fetching (Simulated):</b> <code>localStorage</code> for client-side tool data persistence.</li>
+        </ul>
+
+        <h2>Backend (Inferred/Placeholder - not directly modified by autonomous agent)</h2>
+        <ul>
+            <li><b>Runtime:</b> Node.js</li>
+            <li><b>Framework:</b> Express (based on <code>server.js</code> in <code>backend/</code>)</li>
+            <li><b>Database:</b> MongoDB (mentioned in <code>frontend/src/app/home/page.tsx</code> as a technology)</li>
+            <li><b>Authentication:</b> JWT (mentioned in <code>frontend/src/app/home/page.tsx</code> as a technology)</li>
+        </ul>
+
+        <h2>Schedulers (Planned/Implemented by autonomous agent)</h2>
+        <ul>
+            <li><b>PageScheduler:</b> (Planned)</li>
+            <li><b>ToolScheduler:</b> (Planned)</li>
+            <li><b>AutoReport:</b> (Planned)</li>
+        </ul>
+
+        <h2>Analytics</h2>
+        <ul>
+            <li><b>Logging:</b> Custom <code>logAnalyticsEvent</code> utility (<code>frontend/src/utils/analytics.ts</code>) for console logging (simulating external analytics service).</li>
+            <li><b>Events Tracked:</b> ToolOpened, ToolSubmitted, ToolResultViewed, LeadCaptured.</li>
+        </ul>
+
+        <h2>Storage (for autonomous agent generated data)</h2>
+        <ul>
+            <li><code>/data/prelogin_results/</code>: JSON files for tool results (simulated).</li>
+            <li><code>/data/prelogin_leads/</code>: JSON files for lead capture (simulated).</li>
+            <li><code>/data/analytics_events.log</code>: Log file for analytics events (simulated).</li>
+        </ul>
+
+        <h2>Deployment (Inferred - not directly modified by autonomous agent)</h2>
+        <ul>
+            <li>Vercel (mentioned in <code>frontend/src/app/home/page.tsx</code> as a technology)</li>
+        </ul>
+
+        <h2>General Notes</h2>
+        <ul>
+            <li>Strict adherence to JavaScript-only (TypeScript used for type safety).</li>
+            <li>No external AI/GPT/API dependencies for generated tools.</li>
+            <li>Emphasis on end-to-end functionality within the frontend context, simulating backend interactions where necessary (e.g., local storage for data persistence).</li>
+        </ul>
+    </div>
+</body>
+</html>

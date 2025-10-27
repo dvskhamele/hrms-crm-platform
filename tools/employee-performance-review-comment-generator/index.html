@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Performance Review Comment Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Performance Review Comment Generator</h1>
+        <p>Generate comments for employee performance reviews.</p>
+        <div class="form-container">
+            <label for="category">Select Category:</label>
+            <select id="category">
+                <option value="communication">Communication</option>
+                <option value="teamwork">Teamwork</option>
+                <option value="productivity">Productivity</option>
+                <option value="problem-solving">Problem-Solving</option>
+            </select>
+            <label for="performance-level">Performance Level:</label>
+            <select id="performance-level">
+                <option value="exceeds">Exceeds Expectations</option>
+                <option value="meets">Meets Expectations</option>
+                <option value="needs-improvement">Needs Improvement</option>
+            </select>
+            <button id="generate-btn">Generate Comments</button>
+        </div>
+        <div id="comments"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

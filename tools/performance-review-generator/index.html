@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Performance Review Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Performance Review Generator</h1>
+        <p class="intro">Generate a performance review summary by providing the employee's name and performance ratings.</p>
+        
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" placeholder="e.g., Jane Doe">
+            </div>
+
+            <div class="input-group">
+                <label for="quality-of-work">Quality of Work:</label>
+                <select id="quality-of-work">
+                    <option value="exceeds">Exceeds Expectations</option>
+                    <option value="meets">Meets Expectations</option>
+                    <option value="needs-improvement">Needs Improvement</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="communication">Communication:</label>
+                <select id="communication">
+                    <option value="exceeds">Exceeds Expectations</option>
+                    <option value="meets">Meets Expectations</option>
+                    <option value="needs-improvement">Needs Improvement</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="collaboration">Collaboration:</label>
+                    <option value="needsImprovement">Needs Improvement</option>
+            </div>
+
+            <button id="generate-btn">Generate Review</button>
+        </div>
+
+        <div class="results-container">
+            <h2>Generated Review</h2>
+            <textarea id="generated-review" rows="10" readonly></textarea>
+            <button id="copy-btn">Copy to Clipboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

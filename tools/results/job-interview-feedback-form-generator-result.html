@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Feedback Form Results | Gem HRMS</title>
+    <link rel="stylesheet" href="../job-interview-feedback-form-generator/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Job Interview Feedback Form</h1>
+        <div id="form-output">
+            <!-- Generated form will be inserted here -->
+        </div>
+        <div class="lead-capture">
+            <h2>Improve Your Interview Process</h2>
+            <p>Enter your email to receive a detailed guide on optimizing interview processes and more HR tools.</p>
+            <form id="lead-form">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Get Free Resources</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            logAnalytic('ToolResultViewed');
+
+            const formOutput = document.getElementById('form-output');
+            const generatedFormHtml = localStorage.getItem('generatedInterviewFeedbackForm');
+
+            if (generatedFormHtml) {
+                formOutput.innerHTML = generatedFormHtml;
+            } else {
+                formOutput.innerHTML = `<p>No interview feedback form found. Please use the Job Interview Feedback Form Generator tool to create one.</p>`;
+            }
+
+            const leadForm = document.getElementById('lead-form');
+            leadForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                logAnalytic('LeadCaptured');
+                const email = document.getElementById('email').value;
+                console.log(`Email captured: ${email}`);
+                alert('Thank you! You'll receive interview process optimization strategies shortly.');
+            });
+        });
+
+        function logAnalytic(eventName) {
+            console.log(`Analytics Event: ${eventName}`);
+        }
+    </script>
+</body>
+</html>

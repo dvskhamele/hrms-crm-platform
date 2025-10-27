@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Fee Calculation Result</title>
+    <meta name="description" content="View your calculated recruitment agency fee.">
+    <meta property="og:title" content="Recruitment Agency Fee Calculator Result">
+    <meta property="og:description" content="Understand the costs associated with agency recruitment.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function logAnalytics(event, details) {
+            console.log("Analytics Event:", event, details);
+            fetch('/api/log-analytics', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ event, ...details, timestamp: new Date().toISOString() })
+            }).catch(err => console.error('Analytics logging failed:', err));
+        }
+
+        function calculateFee() {
+            const params = new URLSearchParams(window.location.search);
+            const calcDetails = Object.fromEntries(params.entries());
+
+            if (!calcDetails.annualSalary || !calcDetails.agencyFee) {
+                document.getElementById('result-output').innerHTML = '<p class="text-danger">Error: Missing calculation details. Please go back and fill out the form.</p>';
+                return;
+            }
+
+            logAnalytics('ToolResultViewed', { toolName: 'RecruitmentAgencyFeeCalculator', calcDetails });
+
+            const salary = parseFloat(calcDetails.annualSalary);
+            const feePercent = parseFloat(calcDetails.agencyFee);
+            const recruitmentFee = (salary * (feePercent / 100));
+
+            const output = `
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Calculation Details</h4>
+                    <p>Candidate's Annual Salary: <strong>$${salary.toLocaleString()}</strong></p>
+                    <p>Recruitment Agency Fee: <strong>${feePercent}%</strong></p>
+                </div>
+                <hr>
+                <h3>Estimated Recruitment Fee:</h3>
+                <h2 class="text-success">$${recruitmentFee.toLocaleString()}</h2>
+            `;
+
+            document.getElementById('result-output').innerHTML = output;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateFee();
+
+            const leadForm = document.getElementById('lead-capture-form');
+            leadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                logAnalytics('LeadCaptured', { toolName: 'RecruitmentAgencyFeeCalculator', email });
+
+                fetch('/data/prelogin_leads/leads.json', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, tool: 'RecruitmentAgencyFeeCalculator', timestamp: new Date().toISOString() })
+                }).then(response => {
+                    if(response.ok) {
+                        document.getElementById('lead-capture-section').innerHTML = '<p class="text-success">Thank you! We will be in touch with more insights.</p>';
+                    } else {
+                         document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">Could not save email. Please try again.</p>';
+                    }
+                }).catch(err => {
+                    console.error('Lead capture failed:', err);
+                    document.getElementById('lead-capture-section').innerHTML = '<p class="text-danger">An error occurred. Please try again.</p>';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title text-center">Recruitment Fee Calculation</h1>
+            </div>
+            <div class="card-body">
+                <div id="result-output"></div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary" onclick="window.history.back()">Recalculate</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="lead-capture-section" class="card mt-4">
+            <div class="card-body text-center">
+                <h4 class="card-title">Unlock More Hiring Insights</h4>
+                <p>Enter your email to get exclusive access to hiring benchmarks and cost-saving strategies.</p>
+                <form id="lead-capture-form" class="form-inline justify-content-center">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

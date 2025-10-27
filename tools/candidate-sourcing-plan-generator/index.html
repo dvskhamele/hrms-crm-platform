@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Sourcing Plan Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Candidate Sourcing Plan Generator</h1>
+        <p>Generate a strategic plan for sourcing candidates based on job roles and target demographics.</p>
+        <div id="plan-inputs">
+            <label for="job-role">Job Role:</label>
+            <input type="text" id="job-role" placeholder="e.g., Senior Software Engineer">
+
+            <label for="target-demographics">Target Demographics (e.g., experience level, skills, location):</label>
+            <input type="text" id="target-demographics" placeholder="e.g., 5+ years experience, Python, Remote">
+
+            <button id="generate-btn">Generate Sourcing Plan</button>
+        </div>
+        <div id="generated-plan-container">
+            <h2>Generated Sourcing Plan:</h2>
+            <pre id="generated-plan"></pre>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

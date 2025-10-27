@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Policy Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>HR Policy Generator</h1>
+        <p>Generate common HR policies for your organization.</p>
+        <div class="form-container">
+            <label for="policy-type">Select Policy Type:</label>
+            <select id="policy-type">
+                <option value="remote-work">Remote Work Policy</option>
+                <option value="anti-harassment">Anti-Harassment Policy</option>
+                <option value="code-of-conduct">Code of Conduct</option>
+            </select>
+            <button id="generate-btn">Generate Policy</button>
+        </div>
+        <div id="policy-content"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

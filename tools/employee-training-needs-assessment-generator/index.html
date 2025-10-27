@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Training Needs Assessment Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Training Needs Assessment Generator</h1>
+        <p>Identify skill gaps and training requirements within your workforce to develop effective training programs.</p>
+
+        <div class="input-section">
+            <label for="department">Department/Role:</label>
+            <input type="text" id="department" placeholder="e.g., Sales, Marketing, Software Engineer">
+
+            <label for="key-skills">Key Skills for this Role (comma-separated):</label>
+            <input type="text" id="key-skills" placeholder="e.g., communication, leadership, Python, project management">
+
+            <button id="generate-btn">Generate Assessment Questions</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Generated Assessment Questions:</h2>
+            <ul id="questions-list">
+                <!-- Questions will be inserted here by JavaScript -->
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

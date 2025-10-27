@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code of Conduct Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Code of Conduct Generator</h1>
+        <p>Generate a clear and comprehensive Code of Conduct for your organization.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="company-mission">Company Mission/Vision (Optional):</label>
+                <textarea id="company-mission" rows="2" placeholder="e.g., To empower businesses with innovative solutions."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="core-values">Choose Core Values (Select all that apply):</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" data-value="integrity"> Integrity</label>
+                    <label><input type="checkbox" data-value="respect"> Respect</label>
+                    <label><input type="checkbox" data-value="collaboration"> Collaboration</label>
+                    <label><input type="checkbox" data-value="innovation"> Innovation</label>
+                    <label><input type="checkbox" data-value="accountability"> Accountability</label>
+                    <label><input type="checkbox" data-value="diversity"> Diversity & Inclusion</label>
+                </div>
+            </div>
+            <button id="generate-coc-btn">Generate Code of Conduct</button>
+        </div>
+
+        <div id="coc-output" class="hidden">
+            <h2>Generated Code of Conduct</h2>
+            <div id="coc-content"></div>
+            <button id="copy-coc-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

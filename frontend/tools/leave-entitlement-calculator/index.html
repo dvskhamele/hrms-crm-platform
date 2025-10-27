@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Entitlement Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Calculate employee leave entitlements, accruals, and balances with our free online tool. Manage time off effectively.">
+    <meta property="og:title" content="Leave Entitlement Calculator">
+    <meta property="og:description" content="Calculate employee leave entitlements, accruals, and balances with our free online tool. Manage time off effectively.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="YOUR_SHAREABLE_URL_HERE">
+</head>
+<body>
+    <div class="container">
+        <h1>Leave Entitlement Calculator</h1>
+        <p>Accurately track and manage employee leave balances.</p>
+
+        <div class="form-group">
+            <label for="startDate">Employee Start Date:</label>
+            <input type="date" id="startDate">
+        </div>
+
+        <div class="form-group">
+            <label for="accrualRate">Accrual Rate (hours per month):</label>
+            <input type="number" id="accrualRate" min="0" value="8">
+        </div>
+
+        <div class="form-group">
+            <label for="maxAccrual">Maximum Accrual (hours):</label>
+            <input type="number" id="maxAccrual" min="0" value="160">
+            <small>Set to 0 for no maximum.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="leaveTaken">Leave Taken (hours to date):</label>
+            <input type="number" id="leaveTaken" min="0" value="40">
+        </div>
+
+        <button id="calculateBtn">Calculate Leave Balance</button>
+
+        <div class="result-section">
+            <h2>Result:</h2>
+            <p>Total Accrued Leave: <span id="totalAccrued">0.00</span> hours</p>
+            <p>Current Leave Balance: <span id="currentBalance">0.00</span> hours</p>
+            <p>Projected Balance in 6 Months: <span id="projectedBalance">0.00</span> hours</p>
+        </div>
+
+        <div class="lead-capture-section">
+            <h2>Get more HR insights!</h2>
+            <p>Enter your email to receive exclusive HR tools and tips directly in your inbox.</p>
+            <input type="email" id="leadEmail" placeholder="your.email@example.com">
+            <button id="subscribeBtn">Subscribe</button>
+            <p id="leadMessage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

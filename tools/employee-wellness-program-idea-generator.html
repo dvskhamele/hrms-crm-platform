@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Wellness Program Idea Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group { margin-bottom: 1em; }
+        label { display: block; margin-bottom: .5em; }
+        select { width: 100%; padding: .5em; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: .5em 1em; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Wellness Program Idea Generator</h1>
+        <p>Generate creative and effective ideas for employee wellness programs tailored to your company's needs and focus areas.</p>
+        <form id="generatorForm">
+            <div class="form-group">
+                <label for="companySize">Company Size</label>
+                <select id="companySize" required>
+                    <option value="small">Small (1-50 employees)</option>
+                    <option value="medium">Medium (51-500 employees)</option>
+                    <option value="large">Large (500+ employees)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget Level</label>
+                <select id="budget" required>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="wellnessFocus">Wellness Focus</label>
+                <select id="wellnessFocus" required>
+                    <option value="physical">Physical Wellness</option>
+                    <option value="mental">Mental Wellness</option>
+                    <option value="financial">Financial Wellness</option>
+                    <option value="social">Social Wellness</option>
+                </select>
+            </div>
+            <button type="submit">Generate Ideas</button>
+        </form>
+    </div>
+    <script>
+        const ideas = {
+            small: {
+                low: {
+                    physical: [
+                        "Organize walking challenges with small prizes.",
+                        "Provide healthy snack options in the office."
+                    ],
+                    mental: [
+                        "Designate a quiet space for mindfulness or breaks.",
+                        "Share resources for stress management and mental health."
+                    ],
+                    financial: [
+                        "Host a brown-bag lunch series on basic budgeting.",
+                        "Share links to free financial literacy resources."
+                    ],
+                    social: [
+                        "Organize team potlucks or casual social gatherings.",
+                        "Create a 'buddy system' for new hires."
+                    ]
+                },
+                medium: {
+                    physical: [
+                        "Subsidize gym memberships or offer on-site fitness classes.",
+                        "Implement a 'bike to work' program with incentives."
+                    ],
+                    mental: [
+                        "Offer access to meditation apps or online therapy platforms.",
+                        "Conduct workshops on resilience and emotional intelligence."
+                    ],
+                    financial: [
+                        "Provide access to financial planning webinars or one-on-one consultations.",
+                        "Offer employee discounts on financial products or services."
+                    ],
+                    social: [
+                        "Organize company-wide volunteer days or charity events.",
+                        "Host regular team-building activities and social clubs."
+                    ]
+                },
+                high: {
+                    physical: [
+                        "On-site gym or fitness center with personal trainers.",
+                        "Comprehensive wellness challenges with significant rewards (e.g., extra PTO, travel vouchers)."
+                    ],
+                    mental: [
+                        "Provide unlimited access to mental health professionals and EAP services.",
+                        "Implement a dedicated 'recharge day' policy for mental well-being."
+                    ],
+                    financial: [
+                        "Offer robust financial planning services, including retirement and investment advice.",
+                        "Provide tuition reimbursement or student loan repayment assistance."
+                    ],
+                    social: [
+                        "Sponsor company-wide retreats or international team-building trips.",
+                        "Create employee resource groups (ERGs) with dedicated budgets."
+                    ]
+                }
+            },
+            large: {
+                low: {
+                    physical: [
+                        "Promote stair usage with signage and challenges.",
+                        "Offer discounted rates for local fitness centers."
+                    ],
+                    mental: [
+                        "Distribute mental health awareness materials and resources.",
+                        "Organize peer support groups or informal 'coffee chats'."
+                    ],
+                    financial: [
+                        "Provide access to online financial education modules.",
+                        "Host workshops on debt management and savings strategies."
+                    ],
+                    social: [
+                        "Organize departmental social events or happy hours.",
+                        "Create an internal platform for employees to connect based on hobbies."
+                    ]
+                },
+                medium: {
+                    physical: [
+                        "On-site wellness clinics or health screenings.",
+                        "Company-sponsored sports leagues or fitness classes."
+                    ],
+                    mental: [
+                        "Comprehensive Employee Assistance Programs (EAP) with counseling services.",
+                        "Training for managers on supporting employee mental well-being."
+                    ],
+                    financial: [
+                        "Offer access to certified financial planners for personalized advice.",
+                        "Provide workshops on retirement planning and investment basics."
+                    ],
+                    social: [
+                        "Support and fund various employee interest groups and clubs.",
+                        "Organize large-scale company events and celebrations."
+                    ]
+                },
+                high: {
+                    physical: [
+                        "State-of-the-art on-site fitness centers with diverse class offerings.",
+                        "Personalized wellness coaching and health management programs."
+                    ],
+                    mental: [
+                        "Integrate mental health support directly into benefits packages with extensive coverage.",
+                        "Implement mindfulness and stress reduction programs led by experts."
+                    ],
+                    financial: [
+                        "Offer comprehensive financial wellness platforms with tools for budgeting, investing, and debt management.",
+                        "Provide access to wealth management services and personalized financial coaching."
+                    ],
+                    social: [
+                        "Global employee conferences and networking events.",
+                        "Robust mentorship programs connecting employees across different levels and departments."
+                    ]
+                }
+            }
+        };
+
+        document.getElementById('generatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const companySize = document.getElementById('companySize').value;
+            const budget = document.getElementById('budget').value;
+            const wellnessFocus = document.getElementById('wellnessFocus').value;
+
+            const generatedIdeas = ideas[companySize][budget][wellnessFocus] || [];
+            
+            // Analytics event
+            if (typeof analytics !== 'undefined') {
+                analytics.track('ToolSubmitted', {
+                    tool: 'Employee Wellness Program Idea Generator',
+                    companySize: companySize,
+                    budget: budget,
+                    wellnessFocus: wellnessFocus,
+                    generatedIdeasCount: generatedIdeas.length
+                });
+            }
+
+            window.location.href = `/tools/results/employee-wellness-program-idea-generator-result.html?companySize=${encodeURIComponent(companySize)}&budget=${encodeURIComponent(budget)}&wellnessFocus=${encodeURIComponent(wellnessFocus)}&ideas=${encodeURIComponent(JSON.stringify(generatedIdeas))}`;
+        });
+
+        // Analytics event
+        if (typeof analytics !== 'undefined') {
+            analytics.track('ToolOpened', {
+                tool: 'Employee Wellness Program Idea Generator'
+            });
+        }
+    </script>
+</body>
+</html>

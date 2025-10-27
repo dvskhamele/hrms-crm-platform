@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EEO & Anti-Discrimination Policy Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>EEO & Anti-Discrimination Policy Generator</h1>
+        <p>Create a legally compliant Equal Employment Opportunity and Anti-Discrimination Policy for your workplace.</p>
+
+        <div class="generator-form">
+            <div class="input-group">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" placeholder="e.g., Innovate Inc.">
+            </div>
+            <div class="input-group">
+                <label for="policy-date">Effective Date:</label>
+                <input type="date" id="policy-date">
+            </div>
+            <div class="input-group full-width">
+                <label for="reporting-procedure">Reporting Procedure for Discrimination/Harassment:</label>
+                <textarea id="reporting-procedure" rows="3" placeholder="e.g., Report to your manager, HR, or any member of leadership."></textarea>
+            </div>
+            <div class="input-group full-width">
+                <label for="investigation-process">Investigation Process:</label>
+                <textarea id="investigation-process" rows="3" placeholder="e.g., All complaints will be investigated promptly, impartially, and confidentially."></textarea>
+            </div>
+            <button id="generate-policy-btn">Generate Policy</button>
+        </div>
+
+        <div id="policy-output" class="hidden">
+            <h2>Generated EEO & Anti-Discrimination Policy</h2>
+            <div id="policy-content"></div>
+            <button id="copy-policy-btn">Copy Document</button>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
