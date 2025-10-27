@@ -14,8 +14,20 @@ export function middleware(request: NextRequest) {
     path.startsWith('/rooms/') ||
     path.startsWith('/api/bench-list')
   )) {
-    // Return appropriate mock data for RSC requests to prevent 404 errors
-    let responseData = {
+    // Define a flexible response type to handle different API responses
+    let responseData: {
+      requests?: any[];
+      guests?: any[];
+      staff?: any[];
+      rooms?: any[];
+      applications?: any[];
+      positions?: any[];
+      users?: any[];
+      data?: any[];
+      benchResources?: any[];
+      error: string | null;
+      message: string;
+    } = {
       // Return empty arrays or default values for common API responses
       requests: [],
       guests: [],
@@ -39,6 +51,7 @@ export function middleware(request: NextRequest) {
           { id: '4', name: 'Emily Davis', skill: 'React Native', experience: 3, status: 'Available', department: 'Mobile', lastUpdated: '2025-10-23' },
           { id: '5', name: 'Michael Wilson', skill: 'DevOps, AWS', experience: 6, status: 'On Project', department: 'Technology', lastUpdated: '2025-10-22' },
         ],
+        error: null,
         message: 'Demo data - Bench API not available in prototype mode'
       };
     }
