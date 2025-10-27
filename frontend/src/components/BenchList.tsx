@@ -1,6 +1,6 @@
 // components/BenchList.tsx
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 // Define the type for a bench resource
 interface BenchResource {

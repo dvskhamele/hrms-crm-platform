@@ -5,7 +5,7 @@ import React from 'react';
 import BenchList from '../../components/BenchList';
 import BenchListUploadForm from '../../components/BenchListUploadForm';
 import BenchListCSVUpload from '../../components/BenchListCSVUpload';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import Link from 'next/link';
 
 const BenchListUploadPage: React.FC = () => {

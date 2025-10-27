@@ -7,7 +7,7 @@ export default function BenchRedirect() {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect to the existing bench-list page
+    // Redirect from /bench to the existing /bench-list page
     router.push('/bench-list');
   }, [router]);
 

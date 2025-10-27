@@ -3,7 +3,7 @@
 import React from 'react';
 import BenchList from '../../components/BenchList'; // This will be the component I'll create
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 export default function BenchListPage() {
   const { user } = useAuth();
